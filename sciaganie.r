@@ -1,7 +1,8 @@
+
+# Pobieranie danych o wynikach matur, na razie tylko zdefiniowana funkcja
 library(ZPD)
 library(ggplot2)
 
-# Pobieranie danych o wynikach matur, na razie tylko zdefiniowana funkcja
 download_wyniki <- function(typ_matury, rok){
   src = polacz()
   wyniki <- pobierz_wyniki_egzaminu(src, "matura", typ_matury, rok, T)
@@ -30,7 +31,11 @@ pl_2014 <- pl_2014 %>% collect() # pobranie wyników z bazy danych na komputer
 pytania <- pl_2014[,grep("^k_[0-9]*", names(pl_2014))]
 sum_wynik <- rowSums(pytania, na.rm=T)
 procent_wynik <- 100 * sum_wynik/max(sum_wynik)
-ggplot(data.frame(sum_wynik), aes(x=sum_wynik)) + geom_histogram(colour="white", binwidth=1)
+ggplot(data.frame(sum_wynik), aes(x=sum_wynik)) +
+  geom_histogram(colour="white", binwidth=1) +
+  xlab("suma punktów") +
+  ylab("liczba uczniów") +
+  ggtitle("Wyniki matury podstawowej z j. polskiego w 2014 roku")
 
 # inne
 src = polacz()
