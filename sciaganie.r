@@ -1,4 +1,4 @@
-# Pobiera danych o wynikach matur i zapisuje do utworzonego katalogu "wyniki" w postaci plików .csv.
+# Pobiera danych o wynikach matur () i zapisuje do utworzonego katalogu "wyniki" w postaci plików .csv.
 # Również sciąga i zapisuje testy
 # Jeśli pobrane wyniki już tam są, pobiera ponownie.
 # Przed odpaleniem skryptu lepiej się upewnić, czy working directory jest właściwe.
@@ -10,18 +10,19 @@ dir.create("wyniki", showWarnings = FALSE)
 setwd("wyniki")
 
 src <- polacz()
+# uczniowieTesty pobierają się za długo
 testy <- pobierz_testy(src)
 testy <- testy %>% collect()
 write.csv(testy, "testy.csv")
 
-#rodzaje matur i lata:
-rodzaj <-c("matura", "matura poprawkowa")
-czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu %in% rodzaj])
+#części matur i lata:
+czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
 czesc <- czesc[!is.na(czesc)]
 
-lata <- unique(testy$rok[testy$rodzaj_egzaminu %in% rodzaj])
+lata <- unique(testy$rok[testy$rodzaj_egzaminu == "matura"])
 lata <- lata[!is.na(lata)]
 
+# zestaw parametrow do funkcji download_wyniki
 powtCzesc <- rep(czesc, length(lata))
 powtLata <- sort(rep(lata, length(czesc)))
 
@@ -36,8 +37,7 @@ download_wyniki <- function(typ_matury, rok){
   rm(wyniki, file_name)
 }
 
-mapply(download_wyniki, czesci, lata)
-
-# uczniowieTesty pobierają się za długo
+# sciaga wszystkie matury (nie wiem, co zrobi, jeśli w którymś roku nie było danego typu matury)
+mapply(download_wyniki, powtCzesc, powtLata)
 
 setwd("../")
