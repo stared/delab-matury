@@ -70,8 +70,9 @@ wykresN <- ggHistMatury2(wynikN, 'NAdysleksja')
 
 grid.arrange(wykresK, wykresM, wykresN, ncol=3)
 
-ggHistMatury3<-function(wynik, tytul, filtr, zamienNA=NA){
-  wynikZmod <- wynik
+ggHistMatury3<-function(data, tytul, filtr, zamienNA=NA){
+  filtr <- filtr
+  wynikZmod <- data
   if (is.na(zamienNA)) {
     wynikZmod <- wynikZmod[!is.na(wynikZmod[,filtr]),]
   }
@@ -82,13 +83,63 @@ ggHistMatury3<-function(wynik, tytul, filtr, zamienNA=NA){
   sum_wynik <- rowSums(pytania, na.rm=T)
   wynikZmod$procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
   krok <- 100 * 1/max(sum_wynik,  na.rm=T)
-  p <- ggplot(data.frame(wynikZmod), aes(x=procent_wynik, fill=get(filtr), y = ..density..*100)) +
-    scale_fill_manual(values = c("red","blue", "green"), name = filtr)+
+  p <- ggplot(wynikZmod, aes(x=procent_wynik, fill=wynikZmod[,filtr], y = ..density.. * 100), environment = environment()) +
+    scale_fill_manual(values = c("red", "blue", "green", "black"), name = filtr) +
     geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
     xlab("% punktów") +
     ylab("% uczniów") +
+    geom_vline(xintercept=30, color='red', linetype="longdash") +
     ggtitle(tytul) 
   return(p)
 }
 
 ggHistMatury3(wynik, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="plec")
+
+ggHistMatury3(wynik, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="dysleksja")
+
+# laureaci mają 100%
+#ggHistMatury3(wynik, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="laureat")
+
+wynikPoprawki <- wynik
+wynikPoprawki$poprawkowa <- !is.na(wynikPoprawki$pop_podejscie)
+table(wynikPoprawki$poprawkowa) # poprawiających do niepoprawiajacych ~ 1:10
+# poprawiający tworzą wyraźnie odrębną populację i większość z nich nie zdaje
+ggHistMatury3(wynikPoprawki, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="poprawkowa")
+
+# bez poprawaijących rozkład jest bardziej "gaussowy" i  znika pik przed progiem 30%
+wynikBezPoprawki <- wynik[is.na(wynik$pop_podejscie),]
+ggHistMatury2(wynikBezPoprawki, paste("Wyniki matury", typ_matury, "w", rok, "roku"))
+ggHistMatury2(wynik, paste("Wyniki matury", typ_matury, "w", rok, "roku"))
+ggHistMatury3(wynikBezPoprawki, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="plec")
+
+# wśród poprawiających dziewczyny radzą sobie trochę słabiej
+wynikZPoprawki <- wynik[!is.na(wynik$pop_podejscie),]
+ggHistMatury3(wynikZPoprawki, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="plec")
+
+# roczniki
+# wycinam dziwne przypadki z przed 1900 roku i po 2014 roku oraz osoby z NA zamiast rocznika
+wynikRocznik <- wynik
+wynikRocznik <- wynikRocznik[!wynikRocznik$rocznik>2014 & !wynikRocznik$rocznik<1900 & !is.na(wynikRocznik$rocznik),]
+# wycinam też powtarzających maturę
+wynikRocznik <- wynikRocznik[is.na(wynikRocznik$pop_podejscie),]
+
+p <- ggplot(wynikRocznik, aes(x=rocznik, y=..density.. * 100), environment = environment()) +
+  geom_histogram(binwidth=1) +
+  xlab("rocznik") +
+  ylab("% uczniów") +
+  ggtitle("Roczniki zdające maturę z matematyki podstawową w 2014 roku") 
+p
+
+# grupuje roczniki:
+# po pierwsze "we właściwym wieku", tzn max rozkładu roczników
+najliczniejszy <- as.numeric(names(which.max(table(wynikRocznik$rocznik))))
+wynikRocznik$grupaRocznikow[wynikRocznik$rocznik == najliczniejszy] <- najliczniejszy
+wynikRocznik$grupaRocznikow[wynikRocznik$rocznik > najliczniejszy] <- paste(">", najliczniejszy)
+wynikRocznik$grupaRocznikow[wynikRocznik$rocznik < najliczniejszy & wynikRocznik$rocznik >= (najliczniejszy - 5)] <- paste(najliczniejszy - 1, '-', najliczniejszy - 5)
+wynikRocznik$grupaRocznikow[wynikRocznik$rocznik < najliczniejszy - 5] <-  paste("<", najliczniejszy -5)
+
+ggHistMatury3(wynikRocznik, tytul=paste("Wyniki matury", typ_matury, "w", rok, "roku"), filtr="grupaRocznikow")
+
+
+
+
