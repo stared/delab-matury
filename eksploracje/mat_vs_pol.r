@@ -1,9 +1,8 @@
-library(mirt)
 library(dplyr)
 library(ggplot2)
 
 mat_podst <- read.csv("../dane/wyniki/matematyka_podstawowa_2014.csv") 
-pol_podst <- read.csv("../dane/wyniki/j._polski_podstawowa_2014.csv") 
+pol_podst <- read.csv("../dane/wyniki/j._polski_podstawowa_2014.csv")
 
 mat_podst$suma <- mat_podst %>% select(starts_with("k_")) %>% rowSums(na.rm=T)
 mat_podst <- mat_podst %>% select(-starts_with("k_"))
