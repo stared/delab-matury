@@ -57,4 +57,7 @@ for (i in 1:nrow(matury)) {
 }
 
 
+write.csv(przedmioty, "../dane/przetworzone/sumy_laureaty.csv")
+
+
 
