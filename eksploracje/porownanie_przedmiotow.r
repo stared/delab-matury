@@ -1,5 +1,4 @@
 library(dplyr)
-library(ggplot2)
 
 matury <- read.csv("../dane/wyniki/testy.csv") %>%
   filter(rodzaj_egzaminu=="matura", czy_egzamin==TRUE, rok==2014) %>%
@@ -56,7 +55,7 @@ for (i in 1:nrow(matury)) {
     select(starts_with("k_")) %>% rowSums(na.rm=T)
 }
 
-
+dir.create("../dane/przetworzone/", recursive=TRUE)
 write.csv(przedmioty, "../dane/przetworzone/sumy_laureaty.csv")
 
 
