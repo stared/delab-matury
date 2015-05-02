@@ -14,7 +14,13 @@ shinyServer(function(input, output, session) {
   
   dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
   przedmioty <- grep("podstawowa", colnames(dane), value = TRUE) %>%
-    sub("_podstawowa", "", .)
+    sub("_podstawowa", "", .) %>%
+    gsub("_", ". ", .)
+  
+  output$przedmiotySelektor <- renderUI({
+    selectInput('przedmiot', 'Przedmiot', przedmioty,
+                selected="j. polski")
+  })
   
   # histogram bez podziału na grupy
   ggHistMatury<-function(nazwa) {
@@ -26,12 +32,13 @@ shinyServer(function(input, output, session) {
       geom_histogram(colour="white", binwidth=krok) +
       xlab("% punktów") +
       ylab("% uczniów") +
-      ggtitle(nazwa) 
+      ggtitle(gsub("_", " ", nazwa)) 
     return(p)
   }
   
   output$ggHistMatury <- renderPlot({
-    nazwa <- paste(input$przedmiot, input$poziom, sep="_")
+    nazwa <- paste(input$przedmiot, input$poziom) %>%
+      gsub("\\.* ", "_", .)
     ggHistMatury(nazwa)
   })
   

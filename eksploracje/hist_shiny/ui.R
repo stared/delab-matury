@@ -26,8 +26,7 @@ shinyUI(pageWithSidebar(
   # tytuł
   headerPanel("Wyniki matur - histogramy"),
   sidebarPanel(
-    selectInput('przedmiot', 'Przedmiot', przedmioty,
-                selected="j_polski"),
+    uiOutput("przedmiotySelektor"),
     selectInput('poziom', 'Poziom', c("podstawowa", "rozszerzona"),
                 selected="podstawowa")
   ),
