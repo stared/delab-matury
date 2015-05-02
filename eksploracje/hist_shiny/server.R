@@ -13,8 +13,8 @@ shinyServer(function(input, output, session) {
   #  2) Its output type is a plot
   
   dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
-  przedmioty <- c(grep("podstawowa", colnames(dane), value = TRUE),
-                  grep("rozszerzona", colnames(dane), value = TRUE))
+  przedmioty <- grep("podstawowa", colnames(dane), value = TRUE) %>%
+    sub("_podstawowa", "", .)
   
   # histogram bez podziału na grupy
   ggHistMatury<-function(nazwa) {
@@ -31,12 +31,8 @@ shinyServer(function(input, output, session) {
   }
   
   output$ggHistMatury <- renderPlot({
-    #x    <- faithful[, 2]  # Old Faithful Geyser data
-    #bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    #hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    ggHistMatury(input$nazwa)
+    nazwa <- paste(input$przedmiot, input$poziom, sep="_")
+    ggHistMatury(nazwa)
   })
   
 })
