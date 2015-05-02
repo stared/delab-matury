@@ -1,8 +1,9 @@
 library(shiny)
 library(ggplot2)
+library(dplyr)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
   # Expression that generates a histogram. The expression is
   # wrapped in a call to renderPlot to indicate that:
@@ -11,11 +12,13 @@ shinyServer(function(input, output) {
   #     when inputs change
   #  2) Its output type is a plot
   
-  data <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+  dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+  przedmioty <- c(grep("podstawowa", colnames(dane), value = TRUE),
+                  grep("rozszerzona", colnames(dane), value = TRUE))
   
   # histogram bez podziału na grupy
   ggHistMatury<-function(nazwa) {
-    sum_wynik <- data[nazwa]
+    sum_wynik <- dane[nazwa]
     procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
     colnames(procent_wynik) <- c("procent_wynik")
     krok <- 100 * 1/max(sum_wynik,  na.rm=T)
@@ -27,13 +30,13 @@ shinyServer(function(input, output) {
     return(p)
   }
   
-  output$distPlot <- renderPlot({
+  output$ggHistMatury <- renderPlot({
     #x    <- faithful[, 2]  # Old Faithful Geyser data
     #bins <- seq(min(x), max(x), length.out = input$bins + 1)
     
     # draw the histogram with the specified number of bins
     #hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    ggHistMatury("j_polski_podstawowa")
+    ggHistMatury(input$nazwa)
   })
   
 })
