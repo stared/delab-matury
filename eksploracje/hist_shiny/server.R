@@ -2,8 +2,6 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 
-dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
-
 # histogram bez podziału na grupy
 ggHistWszyscy<-function(nazwa) {
   sum_wynik <- dane[,nazwa]
@@ -19,7 +17,7 @@ ggHistWszyscy<-function(nazwa) {
 }
 
 # histogram z podziałem na grupy
-ggHistPodzial<-function(nazwa, filtr, zamienNA=NA, kolory=c("red", "blue")){
+ggHistPodzial<-function(nazwa, filtr, tytul_legendy=filtr, zamienNA=NA, kolory=c("red", "blue")){
   dane_zmod <- dane
   if (is.na(zamienNA)) {
     # usuwa wiersze z NA w kolumnie filtr
@@ -40,7 +38,7 @@ ggHistPodzial<-function(nazwa, filtr, zamienNA=NA, kolory=c("red", "blue")){
     geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
     xlab("% punktów") +
     ylab("% uczniów") +
-    guides(fill=guide_legend(title=filtr)) +
+    guides(fill=guide_legend(title=tytul_legendy)) +
     ggtitle(gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .))   
   return(p)
 }
@@ -48,16 +46,26 @@ ggHistPodzial<-function(nazwa, filtr, zamienNA=NA, kolory=c("red", "blue")){
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
   
+  # pokazuje progress przy obliczeniach
+  withProgress(message = 'Wczytuję wyniki,',
+               detail = 'Może chwilę potrwać...', value = 0, {
+                 dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+               })
+  
+  #dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+  
   output$ggHistMatury <- renderPlot({
     nazwa <- paste(input$przedmiot, input$poziom) %>%
       gsub("\\.* ", "_", .)
     if (input$podzial == "--"){
-      cat("--", file = stderr())
+     # cat("--", file = stderr())
       wykres <- ggHistWszyscy(nazwa)
     }
     if (input$podzial == "płeć"){
-      cat("--", file = stderr())
-      wykres <- ggHistPodzial(nazwa, 'plec')
+      wykres <- ggHistPodzial(nazwa, 'plec', tytul_legendy="płeć")
+    }
+    if (input$podzial == "dysleksja"){
+      wykres <- ggHistPodzial(nazwa, 'dysleksja')
     }
     wykres
   })

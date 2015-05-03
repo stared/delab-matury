@@ -12,7 +12,7 @@ shinyUI(pageWithSidebar(
     selectInput('poziom', 'Poziom', c("podstawowa", "rozszerzona"),
                 selected="podstawowa"),
     
-    selectInput('podzial', 'Podział', c("--", "płeć"),
+    selectInput('podzial', 'Podział', c("--", "płeć", "dysleksja"),
                 selected="--")
   ),
 
