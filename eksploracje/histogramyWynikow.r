@@ -142,7 +142,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
                  "poprawkowa", "poprawkowa",
                        "wiek", "wiek", "wiek", "wiek")
   grupa <- c("żeńska", "męska",
-             "brak dyslekcji", "dysleksja",
+             "brak dysleksji", "dysleksja",
              "pierwsze podejście", "poprawkowa",
              grupyWiekowe[1], grupyWiekowe[2], grupyWiekowe[3], grupyWiekowe[4])
   liczba <- c(
@@ -164,7 +164,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   
   # moze da sie prosciej...
   grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
-    geom_bar(position=position_dodge(width=0.8), stat='identity') +
+    geom_bar(position=position_dodge(width=0.8), alpha=0.5, stat='identity') +
     xlab("") +
     ylab("liczba uczniów") +
     coord_flip() +
@@ -172,7 +172,10 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   
   # zebranie wykresów razem
   multiplots <- arrangeGrob(wszyscyHist, grupHist, plecHist, dysHist, poprHist, wiekHist,
-                            ncol=2, nrow=3, main=tytul)
+                            ncol=2, nrow=3, main=tytul,
+                            sub = textGrob("Piotr Migdał, Marta Czarnocka-Cieciura, https://github.com/stared/delab-matury",
+                                           x = 0, hjust = -0.1, vjust=0.1,
+                                           gp = gpar(fontsize = 9)))
   #multiplots <- do.call(arrangeGrob, list(wszyscyHist, plecHist, dysHist, poprHist, wiekHist, ncol = 1, nrow = 5))
   
   # utworzenie katalogu wyjściowego i zapisanie wykresów
@@ -196,7 +199,7 @@ czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
 czesc <- czesc[!is.na(czesc)]
 
 laczenie <- lapply(czesc, function(x){
-  histogramyF(x, 2014, sciezkaOut="owoce/histogramy")
+  histogramyF(x, 2014, sciezkaOut="../owoce/histogramy")
 })
 
 #multiplots <- do.call(arrangeGrob, c(as.list(histogramy2014), ncol=5, nrow=20))
