@@ -17,6 +17,10 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   sciezka <- paste(bazowaSciezka, file_name, sep = '')
   print(paste("wczytuję dane z pliku ", sciezka, ", może chwilę potrawć", sep = ''))
   wynik <- read.csv(sciezka, stringsAsFactors=F)
+  
+  wynik$plec <- factor(wynik$plec, levels=c("k", "m"), labels=c("żęńska", "męska"))
+  wynik$dysleksja <- factor(wynik$dysleksja, levels=c(FALSE, TRUE), labels=c("nie", "tak"))
+  
   nazwyKolumn <- names(wynik)
   tytul <- paste("Wyniki matury", typ_matury, "w", rok, "roku")
 
@@ -75,9 +79,11 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   # osoby poprawiające łączę w jedną grupę
   wynikPoprawki <- wynik
   wynikPoprawki$poprawkowa <- !is.na(wynikPoprawki$pop_podejscie)
+  wynikPoprawki$poprawkowa <- factor(wynikPoprawki$poprawkowa, levels=c(FALSE, TRUE), labels=c("nie", "tak"))
+  
   # table(wynikPoprawki$poprawkowa) # z matematyki podst. poprawiających do niepoprawiajacych ~ 1:10
   # z matematyki podst. poprawiający tworzą wyraźnie odrębną populację i większość z nich nie zdaje
-  poprHist <- ggHistMatury3(wynikPoprawki, "Zdający po raz pierwszy i poprawiający", filtr="poprawkowa")
+  poprHist <- ggHistMatury3(wynikPoprawki, "Po raz pierwszy i poprawiający", filtr="poprawkowa")
   
   # dla matematyki podst. bez poprawaijących rozkład jest bardziej "gaussowy" i  znika pik przed progiem 30%
   # wynikBezPoprawki <- wynik[is.na(wynik$pop_podejscie),]
@@ -119,7 +125,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
                                                             paste(rok - najliczniejszy + 6, "i więcej")))
   
   
-  wiekHist <- ggHistMatury3(wynikRocznik, "Zdający wg wieku\n(na podstawie rocznika, bez powtarzających)", filtr="wiek", kolory = c("green", "blue", "red", "black"))
+  wiekHist <- ggHistMatury3(wynikRocznik, "Wg rocznika (bez powtarzających)", filtr="wiek", kolory = c("green", "blue", "red", "black"))
   
   # zebranie wykresów razem
   multiplots <- arrangeGrob(wszyscyHist, plecHist, dysHist, poprHist, wiekHist, ncol=2, nrow=3, main=tytul)
@@ -139,7 +145,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
 }
 
 ## tak robimy pojedyczny histogram
-# histogramyF("fizyka_podstawowa", 2014)
+histogramyF("fizyka podstawowa", 2014)
 
 testy <- read.csv(paste(bazowaSciezka, "testy.csv", sep = ''),stringsAsFactors=F)
 czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
