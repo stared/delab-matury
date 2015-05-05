@@ -23,7 +23,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   wynik$dysleksja <- factor(wynik$dysleksja, levels=c(FALSE, TRUE), labels=c("nie", "tak"))
   
   nazwyKolumn <- names(wynik)
-  tytul <- paste("Wyniki matury", typ_matury, "w", rok, "roku")
+  tytul <- paste("wyniki matury", typ_matury, "w", rok, "roku")
 
   # histogram bez podziału na grupy
   ggHistMatury2<-function(wynik, info){
@@ -41,7 +41,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
     return(p)
   }
   
-  wszyscyHist <- ggHistMatury2(wynik, "Wszyscy zdający")
+  wszyscyHist <- ggHistMatury2(wynik, "wszyscy zdający")
   
   # kilka histogramów na jednym wykresie (dla różnych wartości zmiennej filtr)
   # wszystkie wyskalowane do 100% (utrata informacji o liczebności poszczególnych grup)
@@ -63,16 +63,16 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
       geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
       xlab("% punktów") +
       ylab("% uczniów") +
-      geom_vline(xintercept=30, color='red', linetype="longdash") +
+      geom_vline(xintercept=30, color='black', linetype="longdash") +
       ggtitle(info)
       #labs(title = (paste(tytul, '\n' ,info ))) +
       #theme(plot.title = element_text(hjust = 0.5))      
     return(p)
   }
   
-  plecHist <- ggHistMatury3(wynik, "Z podziałem na płeć", filtr="płeć")
+  plecHist <- ggHistMatury3(wynik, "z podziałem na płeć", filtr="płeć")
   
-  dysHist <- ggHistMatury3(wynik, "Dyslektycy i niedyslektycy", filtr="dysleksja")
+  dysHist <- ggHistMatury3(wynik, "dyslektycy i niedyslektycy", filtr="dysleksja")
   
   # laureaci mają 100%, nieciekawe.
   #ggHistMatury3(wynik, filtr="laureat")
@@ -84,7 +84,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   
   # table(wynikPoprawki$poprawkowa) # z matematyki podst. poprawiających do niepoprawiajacych ~ 1:10
   # z matematyki podst. poprawiający tworzą wyraźnie odrębną populację i większość z nich nie zdaje
-  poprHist <- ggHistMatury3(wynikPoprawki, "Po raz pierwszy i poprawiający", filtr="poprawkowa")
+  poprHist <- ggHistMatury3(wynikPoprawki, "po raz pierwszy i poprawiający", filtr="poprawkowa")
   
   # dla matematyki podst. bez poprawaijących rozkład jest bardziej "gaussowy" i  znika pik przed progiem 30%
   # wynikBezPoprawki <- wynik[is.na(wynik$pop_podejscie),]
@@ -126,7 +126,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
                                                             paste(rok - najliczniejszy + 6, "i więcej")))
   
   
-  wiekHist <- ggHistMatury3(wynikRocznik, "Wg rocznika (bez powtarzających)", filtr="wiek", kolory = c("green", "blue", "red", "black"))
+  wiekHist <- ggHistMatury3(wynikRocznik, "wg rocznika (bez powtarzających)", filtr="wiek", kolory = c("green", "blue", "red", "black"))
   
   # zebranie wykresów razem
   multiplots <- arrangeGrob(wszyscyHist, plecHist, dysHist, poprHist, wiekHist, ncol=2, nrow=3, main=tytul)
