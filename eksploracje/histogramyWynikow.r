@@ -18,7 +18,8 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   print(paste("wczytuję dane z pliku ", sciezka, ", może chwilę potrawć", sep = ''))
   wynik <- read.csv(sciezka, stringsAsFactors=F)
   
-  wynik$plec <- factor(wynik$plec, levels=c("k", "m"), labels=c("żęńska", "męska"))
+  wynik$plec <- factor(wynik$plec, levels=c("k", "m"), labels=c("żeńska", "męska"))
+  names(wynik)[names(wynik) == 'plec'] <- 'płeć'
   wynik$dysleksja <- factor(wynik$dysleksja, levels=c(FALSE, TRUE), labels=c("nie", "tak"))
   
   nazwyKolumn <- names(wynik)
@@ -69,7 +70,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
     return(p)
   }
   
-  plecHist <- ggHistMatury3(wynik, "Z podziałem na płeć", filtr="plec")
+  plecHist <- ggHistMatury3(wynik, "Z podziałem na płeć", filtr="płeć")
   
   dysHist <- ggHistMatury3(wynik, "Dyslektycy i niedyslektycy", filtr="dysleksja")
   
