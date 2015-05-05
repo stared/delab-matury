@@ -1,34 +1,19 @@
 library(shiny)
 
-# shinyUI(fluidPage(
-#   
-#   # Application title
-#   titlePanel("Wyniki matur - histogramy"),
-#   
-#   # Sidebar with a slider input for the number of bins
-#   sidebarLayout(
-#     sidebarPanel(
-#       sliderInput("bins",
-#                   "Number of bins:",
-#                   min = 1,
-#                   max = 50,
-#                   value = 30)
-#     ),
-#     
-#     # Show a plot of the generated distribution
-#     mainPanel(
-#       plotOutput("distPlot")
-#     )
-#   )
-# ))
-
 shinyUI(pageWithSidebar(
   # tytuł
   headerPanel("Wyniki matur - histogramy"),
   sidebarPanel(
-    uiOutput("przedmiotySelektor"),
+    selectInput('przedmiot', 'Przedmiot',
+                c("biologia", "chemia", "fizyka", "geografia", "historia", 
+                  "informatyka", "j. angielski", "j. polski", "matematyka", "WOS"),
+                selected="j. polski"),
+    
     selectInput('poziom', 'Poziom', c("podstawowa", "rozszerzona"),
-                selected="podstawowa")
+                selected="podstawowa"),
+    
+    selectInput('podzial', 'Podział', c("--", "płeć", "dysleksja"),
+                selected="--")
   ),
 
   mainPanel(
