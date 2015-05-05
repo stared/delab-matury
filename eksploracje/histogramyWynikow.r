@@ -24,7 +24,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   
   nazwyKolumn <- names(wynik)
   tytul <- paste("wyniki matury", typ_matury, "w", rok, "roku")
-
+  
   # histogram bez podziału na grupy
   ggHistMatury2<-function(wynik, info){
     pytania <- wynik[,grep("^k_[0-9]*", nazwyKolumn)]
@@ -35,6 +35,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
       geom_histogram(colour="white", binwidth=krok) +
       xlab("% punktów") +
       ylab("% uczniów") +
+      scale_x_continuous(breaks = seq(0, 100, by = 10)) +
       ggtitle(info)
       #labs(title = (paste(tytul, '\n' ,info ))) +
       #theme(plot.title = element_text(hjust = 0.5))    
@@ -63,7 +64,8 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
       geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
       xlab("% punktów") +
       ylab("% uczniów") +
-      geom_vline(xintercept=30, color='black', linetype="longdash") +
+      scale_x_continuous(breaks = seq(0, 100, by = 10)) +
+      # geom_vline(xintercept=30, color='black', linetype="longdash") +
       ggtitle(info)
       #labs(title = (paste(tytul, '\n' ,info ))) +
       #theme(plot.title = element_text(hjust = 0.5))      
@@ -120,16 +122,57 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   wynikRocznik$wiek[wynikRocznik$rocznik < najliczniejszy - 5] <-  paste(rok - najliczniejszy + 6, "i więcej")
   
   # posortowanie rocznikow
-  wynikRocznik$wiek <- factor(wynikRocznik$wiek, levels = c(paste(rok - najliczniejszy - 1, "i mniej"),
-                                                            paste(rok - najliczniejszy),
-                                                            paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5),
-                                                            paste(rok - najliczniejszy + 6, "i więcej")))
+  
+  grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
+                    paste(rok - najliczniejszy),
+                    paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5),
+                    paste(rok - najliczniejszy + 6, "i więcej"))
+  
+  wynikRocznik$wiek <- factor(wynikRocznik$wiek, levels = grupyWiekowe)
   
   
   wiekHist <- ggHistMatury3(wynikRocznik, "wg rocznika (bez powtarzających)", filtr="wiek", kolory = c("green", "blue", "red", "black"))
   
+  # grupy hist
+  # wlozyc pozniej do funkcji
+  # zrobione szybko i naiwnie, ale powinno dzialac
+  
+  kategoria <- c("płeć", "płeć",
+                 "dysleksja", "dysleksja",
+                 "poprawkowa", "poprawkowa",
+                       "wiek", "wiek", "wiek", "wiek")
+  grupa <- c("żeńska", "męska",
+             "brak dyslekcji", "dysleksja",
+             "pierwsze podejście", "poprawkowa",
+             grupyWiekowe[1], grupyWiekowe[2], grupyWiekowe[3], grupyWiekowe[4])
+  liczba <- c(
+    length(which(wynik$płeć == "żeńska")),
+    length(which(wynik$płeć == "męska")),
+    length(which(wynik$dysleksja == "nie")),
+    length(which(wynik$dysleksja == "tak")),
+    length(which(wynikPoprawki$poprawkowa == "nie")),
+    length(which(wynikPoprawki$poprawkowa == "tak")),
+    length(which(wynikRocznik$wiek == grupyWiekowe[1])),
+    length(which(wynikRocznik$wiek == grupyWiekowe[2])),
+    length(which(wynikRocznik$wiek == grupyWiekowe[3])),
+    length(which(wynikRocznik$wiek == grupyWiekowe[4]))
+  )
+  
+  liczebnosc_grup <- data.frame(kategoria, grupa, liczba)
+  liczebnosc_grup$grupa = factor(liczebnosc_grup$grupa, levels=rev(grupa))
+  liczebnosc_grup$kategoria = factor(liczebnosc_grup$kategoria, levels=c("płeć", "dysleksja", "poprawkowa", "wiek"))
+  
+  # moze da sie prosciej...
+  grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
+    geom_bar(position=position_dodge(width=0.8), stat='identity') +
+    xlab("") +
+    ylab("liczba uczniów") +
+    coord_flip() +
+    ggtitle("kto zdaje?")
+  
   # zebranie wykresów razem
-  multiplots <- arrangeGrob(wszyscyHist, plecHist, dysHist, poprHist, wiekHist, ncol=2, nrow=3, main=tytul)
+  multiplots <- arrangeGrob(wszyscyHist, grupHist, plecHist, dysHist, poprHist, wiekHist,
+                            ncol=2, nrow=3, main=tytul)
   #multiplots <- do.call(arrangeGrob, list(wszyscyHist, plecHist, dysHist, poprHist, wiekHist, ncol = 1, nrow = 5))
   
   # utworzenie katalogu wyjściowego i zapisanie wykresów
