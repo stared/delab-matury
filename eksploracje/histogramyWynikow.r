@@ -158,15 +158,17 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
     length(which(wynikRocznik$wiek == grupyWiekowe[4]))
   )
   
+  liczba <- liczba/1000
+  
   liczebnosc_grup <- data.frame(kategoria, grupa, liczba)
   liczebnosc_grup$grupa = factor(liczebnosc_grup$grupa, levels=rev(grupa))
   liczebnosc_grup$kategoria = factor(liczebnosc_grup$kategoria, levels=c("płeć", "dysleksja", "poprawkowa", "wiek"))
   
   # moze da sie prosciej...
   grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
-    geom_bar(position=position_dodge(width=0.8), alpha=0.5, stat='identity') +
+    geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +
     xlab("") +
-    ylab("liczba uczniów") +
+    ylab("liczba uczniów (w tysiącach)") +
     coord_flip() +
     ggtitle("kto zdaje?")
   
@@ -186,7 +188,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
     dir.create(sciezkaOut, recursive=TRUE)
     plik_wyjsciowy <- paste(paste(gsub(" ", "_", typ_matury), rok, sep="_"), "png", sep=".")
     sciezkaOutFile <- paste(sciezkaOut, plik_wyjsciowy, sep='')
-    ggsave(multiplots, file=sciezkaOutFile, width=10, height=8)
+    ggsave(multiplots, file=sciezkaOutFile, width=10, height=8, dpi=150)
   }
   #return(c(wszyscyHist, plecHist, dysHist, poprHist, wiekHist))
 }
@@ -199,7 +201,7 @@ czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
 czesc <- czesc[!is.na(czesc)]
 
 laczenie <- lapply(czesc, function(x){
-  histogramyF(x, 2014, sciezkaOut="../owoce/histogramy")
+  histogramyF(x, 2014, sciezkaOut="../owoce/histogramy/")
 })
 
 #multiplots <- do.call(arrangeGrob, c(as.list(histogramy2014), ncol=5, nrow=20))
