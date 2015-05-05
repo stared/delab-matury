@@ -7,11 +7,12 @@ library(gridExtra)
 # np. przez skrypt sciaganieWynikow.r
 # skrypt powinien być uruchamiany z folderu, w którym jest repozytorium, a nie sam skrypt.
 
-histogramyF <- function (typ_matury, rok) {
+bazowaSciezka <- "../dane/wyniki/"
+
+histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   
   # uwaga: czy na poczatku odfiltrować uczniów mających dziwne wartości zmiennych rocznik (NA | >2014 | <1900) i plec (NA)? Odfiltrować wiersze z samymi NA?
   # pobranie pliku
-  bazowaSciezka <- "dane/wyniki/"
   file_name <- paste(paste(gsub(" ", "_", typ_matury), rok, sep="_"), "csv", sep=".")
   sciezka <- paste(bazowaSciezka, file_name, sep = '')
   print(paste("wczytuję dane z pliku ", sciezka, ", może chwilę potrawć", sep = ''))
@@ -125,21 +126,27 @@ histogramyF <- function (typ_matury, rok) {
   #multiplots <- do.call(arrangeGrob, list(wszyscyHist, plecHist, dysHist, poprHist, wiekHist, ncol = 1, nrow = 5))
   
   # utworzenie katalogu wyjściowego i zapisanie wykresów
-  sciezkaOut <- "owoce/histogramy"
-  dir.create(sciezkaOut, recursive=TRUE)
-  plik_wyjsciowy <- paste(paste(gsub(" ", "_", typ_matury), rok, sep="_"), "png", sep=".")
-  sciezkaOutFile <- paste(sciezkaOut, plik_wyjsciowy, sep='')
-  ggsave(multiplots, file=sciezkaOutFile, width=10, height=8)
-
+  
+  if (is.na(sciezkaOut)) {
+    multiplots
+  } else {
+    dir.create(sciezkaOut, recursive=TRUE)
+    plik_wyjsciowy <- paste(paste(gsub(" ", "_", typ_matury), rok, sep="_"), "png", sep=".")
+    sciezkaOutFile <- paste(sciezkaOut, plik_wyjsciowy, sep='')
+    ggsave(multiplots, file=sciezkaOutFile, width=10, height=8)
+  }
   #return(c(wszyscyHist, plecHist, dysHist, poprHist, wiekHist))
 }
+
+## tak robimy pojedyczny histogram
+# histogramyF("fizyka_podstawowa", 2014)
 
 testy <- read.csv(paste(bazowaSciezka, "testy.csv", sep = ''),stringsAsFactors=F)
 czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
 czesc <- czesc[!is.na(czesc)]
 
 laczenie <- lapply(czesc, function(x){
-  histogramyF(x, 2014)
+  histogramyF(x, 2014, sciezkaOut="owoce/histogramy")
 })
 
 #multiplots <- do.call(arrangeGrob, c(as.list(histogramy2014), ncol=5, nrow=20))
