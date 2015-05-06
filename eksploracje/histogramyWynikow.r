@@ -116,17 +116,17 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   # grupuje roczniki:
   # po pierwsze "we właściwym wieku", tzn max rozkładu roczników
   najliczniejszy <- as.numeric(names(which.max(table(wynikRocznik$rocznik))))
-  wynikRocznik$wiek[wynikRocznik$rocznik == najliczniejszy] <- rok - najliczniejszy
   wynikRocznik$wiek[wynikRocznik$rocznik > najliczniejszy] <- paste(rok - najliczniejszy - 1, "i mniej")
-  wynikRocznik$wiek[wynikRocznik$rocznik < najliczniejszy & wynikRocznik$rocznik >= (najliczniejszy - 5)] <- paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5)
-  wynikRocznik$wiek[wynikRocznik$rocznik < najliczniejszy - 5] <-  paste(rok - najliczniejszy + 6, "i więcej")
+  wynikRocznik$wiek[wynikRocznik$rocznik == najliczniejszy] <- rok - najliczniejszy
+  wynikRocznik$wiek[wynikRocznik$rocznik == (najliczniejszy - 1)] <- rok - najliczniejszy + 1
+  wynikRocznik$wiek[wynikRocznik$rocznik < najliczniejszy - 1] <-  paste(rok - najliczniejszy + 2, "i więcej")
   
   # posortowanie rocznikow
   
   grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
                     paste(rok - najliczniejszy),
-                    paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5),
-                    paste(rok - najliczniejszy + 6, "i więcej"))
+                    paste(rok - najliczniejszy + 1),
+                    paste(rok - najliczniejszy + 2, "i więcej"))
   
   wynikRocznik$wiek <- factor(wynikRocznik$wiek, levels = grupyWiekowe)
   
