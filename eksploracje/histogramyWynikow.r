@@ -34,7 +34,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
     p <- ggplot(data.frame(procent_wynik), aes(x=procent_wynik, y = ..density.. * 100)) +
       geom_histogram(colour="white", binwidth=krok) +
       xlab("% punktów") +
-      ylab("% uczniów") +
+      ylab("% zdających") +
       scale_x_continuous(breaks = seq(0, 100, by = 10)) +
       ggtitle(info)
       #labs(title = (paste(tytul, '\n' ,info ))) +
@@ -63,7 +63,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
       scale_fill_manual(values=kolory, name=filtr) +
       geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
       xlab("% punktów") +
-      ylab("% uczniów") +
+      ylab("% zdających (w ramach grupy)") +
       scale_x_continuous(breaks = seq(0, 100, by = 10)) +
       # geom_vline(xintercept=30, color='black', linetype="longdash") +
       ggtitle(info)
@@ -168,7 +168,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
   grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
     geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +
     xlab("") +
-    ylab("liczba uczniów (w tysiącach)") +
+    ylab("liczba zdających (w tysiącach)") +
     coord_flip() +
     ggtitle("kto zdaje?")
   
@@ -194,7 +194,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
 }
 
 ## tak robimy pojedyczny histogram
-histogramyF("fizyka podstawowa", 2014)
+histogramyF("matematyka rozszerzona", 2013)
 
 testy <- read.csv(paste(bazowaSciezka, "testy.csv", sep = ''),stringsAsFactors=F)
 czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
