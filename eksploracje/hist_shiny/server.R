@@ -2,13 +2,12 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 
-# TODO: dane wczytywane w progress bar nie są widoczne! Jak to polaczyc?
-# dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+# Todo:
+# legenda/wykres: ile uczniów zdaje z podziałem na kategorie
+# równa szerokość wykresów
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-  
-#   dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
   
   # pokazuje progress przy obliczeniach
   withProgress(message = 'Wczytuję wyniki,',
