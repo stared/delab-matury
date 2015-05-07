@@ -2,6 +2,10 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 
+# TODO: dane wczytywane w progress bar nie są widoczne! Jak to polaczyc?
+# sa bledy
+dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+
 # histogram bez podziału na grupy
 ggHistWszyscy<-function(nazwa) {
   sum_wynik <- dane[,nazwa]
@@ -17,8 +21,8 @@ ggHistWszyscy<-function(nazwa) {
 }
 
 # histogram z podziałem na grupy
-ggHistPodzial<-function(nazwa, filtr, tytul_legendy=filtr, zamienNA=NA, kolory=c("red", "blue")){
-  dane_zmod <- dane
+ggHistPodzial<-function(nazwa, filtr, data=dane, tytul_legendy=filtr, zamienNA=NA, kolory=c("red", "blue")){
+  dane_zmod <- data
   if (is.na(zamienNA)) {
     # usuwa wiersze z NA w kolumnie filtr
     dane_zmod <- dane_zmod[!is.na(dane_zmod[,filtr]),]
@@ -45,20 +49,18 @@ ggHistPodzial<-function(nazwa, filtr, tytul_legendy=filtr, zamienNA=NA, kolory=c
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-  
+    
   # pokazuje progress przy obliczeniach
   withProgress(message = 'Wczytuję wyniki,',
                detail = 'Może chwilę potrwać...', value = 0, {
-                 dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
-               })
-  
-  #dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+                 #dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+               })  
   
   output$ggHistMatury <- renderPlot({
+    #cat("start \n", file = stderr())
     nazwa <- paste(input$przedmiot, input$poziom) %>%
       gsub("\\.* ", "_", .)
     if (input$podzial == "--"){
-     # cat("--", file = stderr())
       wykres <- ggHistWszyscy(nazwa)
     }
     if (input$podzial == "płeć"){
@@ -66,6 +68,24 @@ shinyServer(function(input, output, session) {
     }
     if (input$podzial == "dysleksja"){
       wykres <- ggHistPodzial(nazwa, 'dysleksja')
+    }
+    if (input$podzial == "wiek"){
+      daneRocznik <- dane
+      rok <- 2014 # do zmiany, jesli beda dane z roznych lat
+      # wycinam dziwne przypadki z przed 1900 roku i po 2014 roku oraz osoby z NA zamiast rocznika
+      daneRocznik <- daneRocznik[!daneRocznik$rocznik>2014 & !daneRocznik$rocznik<1900 & !is.na(daneRocznik$rocznik),]
+      najliczniejszy <- as.numeric(names(which.max(table(daneRocznik$rocznik))))
+      daneRocznik$wiek[daneRocznik$rocznik == najliczniejszy] <- rok - najliczniejszy
+      daneRocznik$wiek[daneRocznik$rocznik > najliczniejszy] <- paste(rok - najliczniejszy - 1, "i mniej")
+      daneRocznik$wiek[daneRocznik$rocznik < najliczniejszy & daneRocznik$rocznik >= (najliczniejszy - 5)] <- paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5)
+      daneRocznik$wiek[daneRocznik$rocznik < najliczniejszy - 5] <-  paste(rok - najliczniejszy + 6, "i więcej")
+      
+      # posortowanie rocznikow
+      daneRocznik$wiek <- factor(daneRocznik$wiek, levels = c(paste(rok - najliczniejszy - 1, "i mniej"),
+                                                              paste(rok - najliczniejszy),
+                                                              paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5),
+                                                              paste(rok - najliczniejszy + 6, "i więcej")))
+      wykres <- ggHistPodzial(nazwa, 'wiek', data=daneRocznik, kolory = c("green", "blue", "red", "black"))
     }
     wykres
   })
