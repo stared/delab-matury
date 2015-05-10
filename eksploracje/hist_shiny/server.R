@@ -1,5 +1,6 @@
 library(shiny)
 library(ggplot2)
+library(gridExtra)
 library(dplyr)
 
 # Todo:
@@ -13,6 +14,38 @@ shinyServer(function(input, output, session) {
   withProgress(message = 'Wczytuję wyniki,',
                detail = 'Może chwilę potrwać...', value = 0, {
                  dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+                 dane$plec <- factor(dane$plec, levels=c("k", "m"), labels=c("kobiety", "mężczyźni"))
+                 names(dane)[names(dane) == 'plec'] <- 'płeć'
+                 dane$dysleksja <- factor(dane$dysleksja, levels=c(FALSE, TRUE), labels=c("nie", "tak"))
+                 
+                 # przetwarzanie danych o wieku
+                 daneRocznik <- dane
+                 rok <- 2014 # do zmiany, jesli beda dane z roznych lat
+                 # wycinam dziwne przypadki z przed 1900 roku i po 2014 roku oraz osoby z NA zamiast rocznika
+                 daneRocznik <- daneRocznik[!daneRocznik$rocznik>2014 & !daneRocznik$rocznik<1900 & !is.na(daneRocznik$rocznik),]
+                 najliczniejszy <- as.numeric(names(which.max(table(daneRocznik$rocznik))))
+                 daneRocznik$wiek[daneRocznik$rocznik == najliczniejszy] <- rok - najliczniejszy
+                 daneRocznik$wiek[daneRocznik$rocznik > najliczniejszy] <- paste(rok - najliczniejszy - 1, "i mniej")
+                 daneRocznik$wiek[daneRocznik$rocznik < najliczniejszy & daneRocznik$rocznik >= (najliczniejszy - 1)] <- paste(rok - najliczniejszy + 1)
+                 daneRocznik$wiek[daneRocznik$rocznik < najliczniejszy - 1] <-  paste(rok - najliczniejszy + 2, "i więcej")
+                 
+                 # posortowanie rocznikow
+                 grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
+                                   paste(rok - najliczniejszy),
+                                   paste(rok - najliczniejszy + 1),
+                                   paste(rok - najliczniejszy + 2, "i więcej"))
+                 daneRocznik$wiek <- factor(daneRocznik$wiek, levels = grupyWiekowe)
+                 
+                 # liczebnosci poszczegolnych grup
+                 kategoria <- c("płeć", "płeć",
+                                "dysleksja", "dysleksja",
+                                #"poprawkowa", "poprawkowa",
+                                "wiek", "wiek", "wiek", "wiek")
+                 grupa <- c("kobiety", "mężczyźni",
+                            "brak dysleksji", "dysleksja",
+                            #"pierwsze podejście", "poprawkowa",
+                            grupyWiekowe[1], grupyWiekowe[2], grupyWiekowe[3], grupyWiekowe[4])
+                               
                })  
   
   # histogram bez podziału na grupy
@@ -60,34 +93,51 @@ shinyServer(function(input, output, session) {
     #cat("start \n", file = stderr())
     nazwa <- paste(input$przedmiot, input$poziom) %>%
       gsub("\\.* ", "_", .)
+    
     if (input$podzial == "--"){
       wykres <- ggHistWszyscy(nazwa)
     }
     if (input$podzial == "płeć"){
-      wykres <- ggHistPodzial(nazwa, 'plec', tytul_legendy="płeć")
+      wykres <- ggHistPodzial(nazwa, "płeć")
     }
     if (input$podzial == "dysleksja"){
       wykres <- ggHistPodzial(nazwa, 'dysleksja')
     }
     if (input$podzial == "wiek"){
-      daneRocznik <- dane
-      rok <- 2014 # do zmiany, jesli beda dane z roznych lat
-      # wycinam dziwne przypadki z przed 1900 roku i po 2014 roku oraz osoby z NA zamiast rocznika
-      daneRocznik <- daneRocznik[!daneRocznik$rocznik>2014 & !daneRocznik$rocznik<1900 & !is.na(daneRocznik$rocznik),]
-      najliczniejszy <- as.numeric(names(which.max(table(daneRocznik$rocznik))))
-      daneRocznik$wiek[daneRocznik$rocznik == najliczniejszy] <- rok - najliczniejszy
-      daneRocznik$wiek[daneRocznik$rocznik > najliczniejszy] <- paste(rok - najliczniejszy - 1, "i mniej")
-      daneRocznik$wiek[daneRocznik$rocznik < najliczniejszy & daneRocznik$rocznik >= (najliczniejszy - 5)] <- paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5)
-      daneRocznik$wiek[daneRocznik$rocznik < najliczniejszy - 5] <-  paste(rok - najliczniejszy + 6, "i więcej")
-      
-      # posortowanie rocznikow
-      daneRocznik$wiek <- factor(daneRocznik$wiek, levels = c(paste(rok - najliczniejszy - 1, "i mniej"),
-                                                              paste(rok - najliczniejszy),
-                                                              paste(rok - najliczniejszy + 1, '-', rok - najliczniejszy + 5),
-                                                              paste(rok - najliczniejszy + 6, "i więcej")))
       wykres <- ggHistPodzial(nazwa, 'wiek', data=daneRocznik, kolory = c("green", "blue", "red", "black"))
     }
-    wykres
+    
+    # liczebnosc grup
+    liczba <- c(
+      length(which(dane$płeć == "kobiety" & !is.na(dane[,nazwa]))),
+      length(which(dane$płeć == "mężczyźni" & !is.na(dane[,nazwa]))),
+      length(which(dane$dysleksja == "nie" & !is.na(dane[,nazwa]))),
+      length(which(dane$dysleksja == "tak" & !is.na(dane[,nazwa]))),
+      #length(which(wynikPoprawki$poprawkowa == "nie")),
+      #length(which(wynikPoprawki$poprawkowa == "tak")),
+      length(which(daneRocznik$wiek == grupyWiekowe[1] & !is.na(dane[,nazwa]))),
+      length(which(daneRocznik$wiek == grupyWiekowe[2] & !is.na(dane[,nazwa]))),
+      length(which(daneRocznik$wiek == grupyWiekowe[3] & !is.na(dane[,nazwa]))),
+      length(which(daneRocznik$wiek == grupyWiekowe[4] & !is.na(dane[,nazwa])))
+    )
+    
+    liczba <- liczba/1000
+    
+    liczebnosc_grup <- data.frame(kategoria, grupa, liczba)
+    liczebnosc_grup$grupa = factor(liczebnosc_grup$grupa, levels=rev(grupa))
+    liczebnosc_grup$kategoria = factor(liczebnosc_grup$kategoria, levels=c("płeć", "dysleksja", "poprawkowa", "wiek"))
+    
+    grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
+      geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +
+      xlab("") +
+      ylab("liczba zdających (w tysiącach)") +
+      coord_flip() +
+      ggtitle("kto zdaje?")
+    
+    multi <- arrangeGrob(wykres, grupHist, sub = textGrob("Piotr Migdał, Marta Czarnocka-Cieciura, https://github.com/stared/delab-matury",
+                                                        x = 0, hjust = -0.1, vjust=0.1,
+                                                        gp = gpar(fontsize = 9)))
+    multi
   })
   
 })
