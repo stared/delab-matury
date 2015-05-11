@@ -39,11 +39,9 @@ shinyServer(function(input, output, session) {
                  # liczebnosci poszczegolnych grup
                  kategoria <- c("płeć", "płeć",
                                 "dysleksja", "dysleksja",
-                                #"poprawkowa", "poprawkowa",
                                 "wiek", "wiek", "wiek", "wiek")
                  grupa <- c("kobiety", "mężczyźni",
                             "brak dysleksji", "dysleksja",
-                            #"pierwsze podejście", "poprawkowa",
                             grupyWiekowe[1], grupyWiekowe[2], grupyWiekowe[3], grupyWiekowe[4])
                                
                })  
@@ -55,24 +53,16 @@ shinyServer(function(input, output, session) {
     names(procent_wynik) <- c("procent_wynik")
     krok <- 100 * 1/max(sum_wynik,  na.rm=T)
     p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..density.. * 100)) +
-      geom_histogram(colour="white", binwidth=krok) +
+      geom_histogram(color="white", binwidth=krok) +
       xlab("% punktów") +
       ylab("% uczniów") +
       ggtitle(gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)) 
     return(p)
   }
   
-  # histogram z podziałem na grupy
-  ggHistPodzial<-function(nazwa, filtr, data=dane, tytul_legendy=filtr, zamienNA=NA, kolory=c("red", "blue")){
+#   # histogram z podziałem na grupy
+  ggHistPodzial<-function(nazwa, filtr, data=dane, tytul_legendy=filtr, kolory=c("red", "blue")){
     dane_zmod <- data
-    if (is.na(zamienNA)) {
-      # usuwa wiersze z NA w kolumnie filtr
-      dane_zmod <- dane_zmod[!is.na(dane_zmod[,filtr]),]
-    }
-    else{
-      # zamienia NA w kolumnie filtr na 'zmianNA'
-      dane_zmod[is.na(dane_zmod[,filtr]), filtr] <- zmienNA 
-    }
     sum_wynik <- dane_zmod[nazwa]  
     procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
     filtr_dane <- dane_zmod[,filtr]
@@ -107,18 +97,16 @@ shinyServer(function(input, output, session) {
       wykres <- ggHistPodzial(nazwa, 'wiek', data=daneRocznik, kolory = c("green", "blue", "red", "black"))
     }
     
-    # liczebnosc grup
+    #liczebnosc grup
     liczba <- c(
       length(which(dane$płeć == "kobiety" & !is.na(dane[,nazwa]))),
       length(which(dane$płeć == "mężczyźni" & !is.na(dane[,nazwa]))),
       length(which(dane$dysleksja == "nie" & !is.na(dane[,nazwa]))),
       length(which(dane$dysleksja == "tak" & !is.na(dane[,nazwa]))),
-      #length(which(wynikPoprawki$poprawkowa == "nie")),
-      #length(which(wynikPoprawki$poprawkowa == "tak")),
-      length(which(daneRocznik$wiek == grupyWiekowe[1] & !is.na(dane[,nazwa]))),
-      length(which(daneRocznik$wiek == grupyWiekowe[2] & !is.na(dane[,nazwa]))),
-      length(which(daneRocznik$wiek == grupyWiekowe[3] & !is.na(dane[,nazwa]))),
-      length(which(daneRocznik$wiek == grupyWiekowe[4] & !is.na(dane[,nazwa])))
+      length(which(daneRocznik$wiek == grupyWiekowe[1] & !is.na(daneRocznik[,nazwa]))),
+      length(which(daneRocznik$wiek == grupyWiekowe[2] & !is.na(daneRocznik[,nazwa]))),
+      length(which(daneRocznik$wiek == grupyWiekowe[3] & !is.na(daneRocznik[,nazwa]))),
+      length(which(daneRocznik$wiek == grupyWiekowe[4] & !is.na(daneRocznik[,nazwa])))
     )
     
     liczba <- liczba/1000
@@ -138,6 +126,7 @@ shinyServer(function(input, output, session) {
                                                         x = 0, hjust = -0.1, vjust=0.1,
                                                         gp = gpar(fontsize = 9)))
     multi
+    #wykres
   })
   
 })

@@ -17,6 +17,7 @@ shinyUI(pageWithSidebar(
   ),
 
   mainPanel(
-    plotOutput("ggHistMatury")
+    # wyższe wykresy
+    plotOutput("ggHistMatury", height=600)
   )
 ))
