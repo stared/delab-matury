@@ -21,7 +21,9 @@ matury$nazwa %>%
   matury$przedmiot
 
 # indeksy, informacje ogolne
-przedmioty <- read.csv("../dane/wyniki/j._polski_podstawowa_2014.csv") 
+przedmioty <- read.csv("../dane/wyniki/j._polski_podstawowa_2014.csv")
+# trzeba wyrzucac poprawkowe
+przedmioty[1000:1010,"pop_podejscie"]
 rownames(przedmioty) <- przedmioty$id_obserwacji
 przedmioty <- select(przedmioty, id_szkoly, plec, rocznik, dysleksja)
 
@@ -48,6 +50,7 @@ for (i in 1:nrow(matury)) {
   print(row$sciezka)
   
   matura <- read.csv(row$sciezka)
+  # trzeba wyrzucac poprawkowe
   rownames(matura) <- matura$id_obserwacji
   
   przedmioty[rownames(matura), paste0(row$przedmiot, "_laureat")] <- matura$laureat
