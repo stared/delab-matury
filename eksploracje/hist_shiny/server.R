@@ -13,7 +13,7 @@ shinyServer(function(input, output, session) {
   # pokazuje progress przy obliczeniach
   withProgress(message = 'Wczytuję wyniki,',
                detail = 'Może chwilę potrwać...', value = 0, {
-                 dane <- read.csv("../../dane/przetworzone/sumy_laureaty.csv")
+                 dane <- read.csv("sumy_laureaty.csv")
                  dane$plec <- factor(dane$plec, levels=c("k", "m"), labels=c("kobiety", "mężczyźni"))
                  names(dane)[names(dane) == 'plec'] <- 'płeć'
                  dane$dysleksja <- factor(dane$dysleksja, levels=c(FALSE, TRUE), labels=c("nie", "tak"))
@@ -122,9 +122,9 @@ shinyServer(function(input, output, session) {
       coord_flip() +
       ggtitle("kto zdaje?")
     
-    multi <- arrangeGrob(wykres, grupHist, sub = textGrob("Piotr Migdał, Marta Czarnocka-Cieciura, https://github.com/stared/delab-matury",
-                                                        x = 0, hjust = -0.1, vjust=0.1,
-                                                        gp = gpar(fontsize = 9)))
+    multi <- arrangeGrob(wykres, grupHist)#, sub = textGrob("Piotr Migdał, Marta Czarnocka-Cieciura, https://github.com/stared/delab-matury",
+    #                                                    x = 0, hjust = -0.1, vjust=0.1,
+    #                                                    gp = gpar(fontsize = 9)))
     multi
     #wykres
   })
