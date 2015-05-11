@@ -194,7 +194,7 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
 }
 
 ## tak robimy pojedyczny histogram
-histogramyF("fizyka podstawowa", 2014)
+histogramyF("fizyka rozszerzona", 2014)
 
 testy <- read.csv(paste(bazowaSciezka, "testy.csv", sep = ''),stringsAsFactors=F)
 czesc <- unique(testy$czesc_egzaminu[testy$rodzaj_egzaminu == "matura"])
