@@ -72,9 +72,11 @@ histogramyF <- function (typ_matury, rok, sciezkaOut=NA) {
     return(p)
   }
   
-  plecHist <- ggHistMatury3(wynik, "z podziałem na płeć", filtr="płeć")
+  plecHist <- ggHistMatury3(wynik,
+                            "z podziałem na płeć", filtr="płeć")  # zrobić (bez poprawiających)
   
-  dysHist <- ggHistMatury3(wynik, "dyslektycy i niedyslektycy", filtr="dysleksja")
+  dysHist <- ggHistMatury3(wynik,
+                           "dyslektycy i niedyslektycy", filtr="dysleksja")  # zrobić (bez poprawiających)
   
   # laureaci mają 100%, nieciekawe.
   #ggHistMatury3(wynik, filtr="laureat")
