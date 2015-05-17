@@ -5,6 +5,8 @@ artykuly/
 ZPD/
 hakaton/
 .Rhistory
-eksploracje/histogramy/hist_shiny/wyniki.csv
+shiny/*/*.csv
+shiny/*/*.dcf
+shiny/histogramy/shinyapps/
 
 

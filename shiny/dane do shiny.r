@@ -80,7 +80,7 @@ grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
                   paste(rok - najliczniejszy + 2, "i więcej"))
 przedmioty$wiek <- factor(przedmioty$wiek, levels = grupyWiekowe)
 
-write.csv(przedmioty, "hist_shiny/wyniki.csv")
+write.csv(przedmioty, "histogramy/wyniki.csv")
 
 
 

@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
   
                  grupa <- c("kobiety", "mężczyźni",
                             "brak dysleksji", "dysleksja",
-                            grupyWiekowe)
+                            levels(grupyWiekowe))
                                
                }) 
   
