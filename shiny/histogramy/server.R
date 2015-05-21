@@ -26,14 +26,25 @@ shinyServer(function(input, output, session) {
                  
                  # liczebnosci poszczegolnych grup
                  grupyWiekowe <-unique(dane$wiek[!is.na(dane$wiek)])
-
+                 colnames(dane)[colnames(dane)=="rodzaj_gminy"] <- "rodzaj gminy"
+                 colnames(dane)[colnames(dane)=="typ_szkoly"] <- "typ szkoły"
+                 colnames(dane)[colnames(dane)=="wielkosc_miejscowosci"] <- "wielkość miejscowości"
                  kategoria <- c("płeć", "płeć",
                                 "dysleksja", "dysleksja",
-                                rep("wiek", length(grupyWiekowe)))
+                                rep("wiek", length(grupyWiekowe)),
+                                rep("typ szkoły", 2),
+                                rep("publiczna", 2),
+                                rep("rodzaj gminy", 3),
+                                rep("wielkość miejscowości", 3))
   
                  grupa <- c("kobiety", "mężczyźni",
                             "brak dysleksji", "dysleksja",
-                            levels(grupyWiekowe))
+                            "18 i mniej", "19", "20", "21 i więcej",
+                            "liceum ogólnokształcące", "liceum profilowane lub technikum",
+                            "publiczna", "prywatna",
+                            "wiejska", "miejsko-wiejska", "miejska",
+                            "poniżej 5 tys.", "5 tys. - 50 tys.", "ponad 50 tys."
+                            )
                                
                }) 
   
@@ -47,7 +58,7 @@ shinyServer(function(input, output, session) {
     p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..density.. * 100)) +
       geom_histogram(color="white", binwidth=krok) +
       xlab("% punktów") +
-      ylab("% uczniów") +
+      ylab("% zdających") +
       ggtitle(gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)) 
     return(p)
   }
@@ -55,7 +66,7 @@ shinyServer(function(input, output, session) {
 #   # histogram z podziałem na grupy
   ggHistPodzial<-function(nazwa, filtr, tytul_legendy=filtr, kolory=c("red", "blue")){
     dane_zmod <- dane
-    sum_wynik <- dane_zmod[nazwa]  
+    sum_wynik <- dane_zmod[,nazwa]  
     procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
     filtr_dane <- dane_zmod[,filtr]
     dane_wybrane <- data.frame(procent_wynik, filtr_dane)
@@ -66,7 +77,7 @@ shinyServer(function(input, output, session) {
       scale_fill_manual(values=kolory, name=filtr_dane) +
       geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
       xlab("% punktów") +
-      ylab("% uczniów") +
+      ylab("% zdających w ramach grupy") +
       guides(fill=guide_legend(title=tytul_legendy)) +
       ggtitle(gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .))   
     return(p)
@@ -80,33 +91,49 @@ shinyServer(function(input, output, session) {
     if (input$podzial == "--"){
       wykres <- ggHistWszyscy(nazwa)
     }
-    if (input$podzial == "płeć"){
-      wykres <- ggHistPodzial(nazwa, "płeć")
-    }
-    if (input$podzial == "dysleksja"){
-      wykres <- ggHistPodzial(nazwa, 'dysleksja')
-    }
+#     if (input$podzial == "płeć"){
+#       wykres <- ggHistPodzial(nazwa, "płeć")
+#     }
+#     if (input$podzial == "dysleksja"){
+#       wykres <- ggHistPodzial(nazwa, 'dysleksja')
+#     }
     if (input$podzial == "wiek"){
       wykres <- ggHistPodzial(nazwa, 'wiek', kolory = c("green", "blue", "red", "black"))
     }
+    if (input$podzial == "rodzaj gminy"){
+      wykres <- ggHistPodzial(nazwa, 'rodzaj gminy', kolory = c("green", "blue", "red"))
+    }
+    if (input$podzial == "wielkość miejscowości"){
+      wykres <- ggHistPodzial(nazwa, 'wielkość miejscowości', kolory = c("green", "blue", "red"))
+    } 
+    if (input$podzial %in% c( "płeć", "dysleksja", "typ szkoły", "publiczna")) {
+      wykres <- ggHistPodzial(nazwa, input$podzial)
+    }
+      
     
     #liczebnosc grup
-    liczba <- c(
-      length(which(dane$płeć == "kobiety" & !is.na(dane[,nazwa]))),
-      length(which(dane$płeć == "mężczyźni" & !is.na(dane[,nazwa]))),
-      length(which(dane$dysleksja == "nie" & !is.na(dane[,nazwa]))),
-      length(which(dane$dysleksja == "tak" & !is.na(dane[,nazwa]))),
-      length(which(dane$wiek == grupyWiekowe[1] & !is.na(dane[,nazwa]))),
-      length(which(dane$wiek == grupyWiekowe[2] & !is.na(dane[,nazwa]))),
-      length(which(dane$wiek == grupyWiekowe[3] & !is.na(dane[,nazwa]))),
-      length(which(dane$wiek == grupyWiekowe[4] & !is.na(dane[,nazwa])))
-    )
+#     liczba <- c(
+#       length(which(dane$płeć == "kobiety" & !is.na(dane[,nazwa]))),
+#       length(which(dane$płeć == "mężczyźni" & !is.na(dane[,nazwa]))),
+#       length(which(dane$dysleksja == "nie" & !is.na(dane[,nazwa]))),
+#       length(which(dane$dysleksja == "tak" & !is.na(dane[,nazwa]))),
+#       length(which(dane$wiek == grupyWiekowe[1] & !is.na(dane[,nazwa]))),
+#       length(which(dane$wiek == grupyWiekowe[2] & !is.na(dane[,nazwa]))),
+#       length(which(dane$wiek == grupyWiekowe[3] & !is.na(dane[,nazwa]))),
+#       length(which(dane$wiek == grupyWiekowe[4] & !is.na(dane[,nazwa]))),      
+#     )
+    
+    liczba <- sapply(1:length(grupa), function(i){
+      k <- kategoria[i]
+      g <- grupa[i]
+      return(length(which(dane[, k] == g & !is.na(dane[,nazwa]))))
+    })
     
     liczba <- liczba/1000
     
     liczebnosc_grup <- data.frame(kategoria, grupa, liczba)
     liczebnosc_grup$grupa = factor(liczebnosc_grup$grupa, levels=rev(grupa))
-    liczebnosc_grup$kategoria = factor(liczebnosc_grup$kategoria, levels=c("płeć", "dysleksja", "poprawkowa", "wiek"))
+    liczebnosc_grup$kategoria = factor(liczebnosc_grup$kategoria, levels=unique(kategoria)) #c("płeć", "dysleksja", "poprawkowa", "wiek"))
     
     grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
       geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +

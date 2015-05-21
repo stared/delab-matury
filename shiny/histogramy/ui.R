@@ -13,7 +13,7 @@ shinyUI(fluidPage(
     selectInput('poziom', 'Poziom', c("podstawowa", "rozszerzona"),
                 selected="podstawowa"),
     
-    selectInput('podzial', 'Podział', c("--", "płeć", "dysleksja", "wiek"),
+    selectInput('podzial', 'Podział', c("--", "płeć", "dysleksja", "wiek", "typ szkoły", "publiczna", "rodzaj gminy", "wielkość miejscowości"),
                 selected="--"),
     
     HTML("Piotr Migdał i Marta Czarnocka-Cieciura, \n
