@@ -69,8 +69,6 @@ przedmioty$wiek <- factor(przedmioty$wiek, levels = grupyWiekowe)
 
 dane <- merge(przedmioty, szkoly, by="id_szkoly")
 
-# TODO:
-# uporządkować dane o szkolach
 levels(dane$rodzaj_gminy)[levels(dane$rodzaj_gminy) == "dzielnica m.st. Warszawy"] <- "miejska"
 
 dane$typ_szkoly[!(dane$typ_szkoly %in% c('LO', 'LP', 'T'))] <- NA
