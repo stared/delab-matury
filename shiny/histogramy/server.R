@@ -10,13 +10,11 @@ library(dplyr)
 # drobne: poprawki w tytułach wykresów
 
 shinyServer(function(input, output, session) {
-  
   # pokazuje progress przy obliczeniach
   withProgress(message = 'Wczytuję wyniki,',
                detail = 'Może chwilę potrwać...', value = 0, {
                  #Sys.sleep(600)
                  dane <- read.csv("wyniki.csv")
-
                  # posortowanie rocznikow
 #                  grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
 #                                    paste(rok - najliczniejszy),
@@ -68,7 +66,7 @@ shinyServer(function(input, output, session) {
     }
     else{
       dane_zmod <- dane[dane[ ,filtr]==wartosc,]
-      tytul <- paste(tytul, "\n", filtr, ":", wartosc)
+      tytul <- paste(tytul, "\n", filtr, ": ", wartosc, sep="")
     }
     sum_wynik <- dane_zmod[,nazwa]
     procent_wynik <- data.frame(100 * sum_wynik/max(sum_wynik, na.rm=T))
@@ -91,7 +89,7 @@ shinyServer(function(input, output, session) {
     }
     else{
       dane_zmod <- dane[dane[ ,filtr]==wartosc, ]
-      tytul <- paste(tytul, "\n", filtr, ":", wartosc, "z podziałem na", podzial)
+      tytul <- paste(tytul, "\n", filtr, ": ", wartosc, " z podziałem na ", podzial, sep="")
     }
     sum_wynik <- dane_zmod[,nazwa]  
     procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
@@ -111,7 +109,14 @@ shinyServer(function(input, output, session) {
   }   
 
   grupyWykres <- function(nazwa, filtr="--", wartosc=filtr_pusty){
+    gg_color_hue <- function(n) {
+      hues = seq(15, 375, length=n+1)
+      hcl(h=hues, l=65, c=100)[1:n]
+    }
+    kolory <- gg_color_hue(length(unique(kategoria)))
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
+#       cat("-- grupy", file = stderr())
+#       cat("\n", file = stderr())
       kategoria_zmod <- kategoria
       grupa_zmod <- grupa
       dane_zmod <- dane
@@ -121,9 +126,9 @@ shinyServer(function(input, output, session) {
       kategoria_zmod <- kategoria[kategoria!=filtr]
       grupa_zmod <- grupa[kategoria!=filtr]
       dane_zmod <- dane[dane[,filtr]!=wartosc,]
-      tytul <- paste("kto zdaje?", "\n", filtr, ":", wartosc)
+      tytul <- paste("kto zdaje?", "\n", filtr, ": ", wartosc, sep="")
+      kolory<-kolory[unique(kategoria)!=filtr]
     }
-    #cat(grupa_zmod, file = stderr())
     #liczebnosc grup
     liczba <- sapply(1:length(grupa_zmod), function(i){
       k <- kategoria_zmod[i]
@@ -134,11 +139,14 @@ shinyServer(function(input, output, session) {
     liczba <- liczba/1000
     
     liczebnosc_grup <- data.frame(kategoria_zmod, grupa_zmod, liczba)
-    liczebnosc_grup$grupa = factor(liczebnosc_grup$grupa, levels=rev(grupa_zmod))
-    liczebnosc_grup$kategoria = factor(liczebnosc_grup$kategoria, levels=unique(kategoria_zmod)) #c("płeć", "dysleksja", "poprawkowa", "wiek"))
+    liczebnosc_grup$grupa_zmod = factor(liczebnosc_grup$grupa, levels=rev(grupa_zmod))
+    liczebnosc_grup$kategoria_zmod = factor(liczebnosc_grup$kategoria, levels=unique(kategoria_zmod)) #c("płeć", "dysleksja", "poprawkowa", "wiek"))
     
-    grupHist <- ggplot(liczebnosc_grup, aes(x=grupa, y=liczba, fill=kategoria)) +
+#     cat(str(liczebnosc_grup), file = stderr())
+#     cat("\n", file = stderr())
+    grupHist <- ggplot(liczebnosc_grup, aes(x=grupa_zmod, y=liczba, fill=kategoria_zmod)) +
       geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +
+      scale_fill_manual(values=kolory) +
       xlab("") +
       ylab("liczba zdających (w tysiącach)") +
       coord_flip() +
@@ -177,6 +185,10 @@ shinyServer(function(input, output, session) {
     
     
     if (podzial == "--"){
+      cat(nazwa, file = stderr())
+      cat(filtr, file = stderr())
+      cat(wartosc, file = stderr())
+      cat("\n", file = stderr())
       wykres <- ggHistWszyscy(nazwa, filtr, wartosc)
     }
     if (podzial == "wiek"){
@@ -192,17 +204,14 @@ shinyServer(function(input, output, session) {
       wykres <- ggHistPodzial(nazwa, input$podzial, filtr, wartosc)
     }
     
-#     cat(nazwa, file = stderr())
-#     cat(filtr, file = stderr())
-#     cat(wartosc, file = stderr())
-#     cat("\n", file = stderr())
-    grupHist <- grupyWykres(nazwa, filtr=filtr, wartosc=wartosc)
+    grupHist <- grupyWykres(nazwa, filtr, wartosc)
     
     multi <- arrangeGrob(wykres, grupHist)#, sub = textGrob("Piotr Migdał, Marta Czarnocka-Cieciura, https://github.com/stared/delab-matury",
     #                                                    x = 0, hjust = -0.1, vjust=0.1,
     #                                                    gp = gpar(fontsize = 9)))
-    multi
-#    wykres
+    print(multi)
+    #wykres
+    #grupHist
 
   })
   
