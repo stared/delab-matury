@@ -1,15 +1,17 @@
 library(dplyr)
 
-matury <- read.csv("../dane/wyniki/testy.csv") %>%
-  filter(rodzaj_egzaminu=="matura", czy_egzamin==TRUE, rok==2014) %>%
+zapisz<- function(rok){
+  matury <- read.csv("../dane/wyniki/testy.csv") %>%
+  filter(rodzaj_egzaminu=="matura", czy_egzamin==TRUE, rok==rok) %>%
   select(czesc_egzaminu) %>%
   unique
 
-szkoly <- read.csv("../dane/szkoly2014.csv") %>%
+szkoly <- read.csv(paste0("../dane/szkoly", rok, ".csv", sep="")) %>%
   select(c(id_szkoly, rodzaj_gminy, typ_szkoly, publiczna, wielkosc_miejscowosci))
 
 matury$czesc_egzaminu %>%
-  paste0("../dane/wyniki/", ., " 2014.csv") %>%
+  #paste0("../dane/wyniki/", ., " 2014.csv") %>%
+  paste0("../dane/wyniki/", ., " ", rok, ".csv", sep="") %>%
   gsub(" ", "_", .) ->
   matury$sciezka
 
@@ -24,7 +26,7 @@ matury$nazwa %>%
   matury$przedmiot
 
 # indeksy, informacje ogolne
-przedmioty <- read.csv("../dane/wyniki/j._polski_podstawowa_2014.csv")
+przedmioty <- read.csv(paste0("../dane/wyniki/j._polski_podstawowa_", rok, ".csv", sep=""))
 # trzeba wyrzucac poprawkowe
 przedmioty[1000:1010,"pop_podejscie"]
 rownames(przedmioty) <- przedmioty$id_obserwacji
@@ -52,9 +54,8 @@ names(przedmioty)[names(przedmioty) == 'plec'] <- 'płeć'
 przedmioty$dysleksja <- factor(przedmioty$dysleksja, levels=c(FALSE, TRUE), labels=c("brak dysleksji", "dysleksja"))
 
 # przetwarzanie danych o wieku
-rok <- 2014 # do zmiany, jesli beda dane z roznych lat
-# wycinam dziwne przypadki z przed 1900 roku i po 2014 roku oraz osoby z NA zamiast rocznika
-przedmioty <- przedmioty[!przedmioty$rocznik>2014 & !przedmioty$rocznik<1900 & !is.na(przedmioty$rocznik),]
+# wycinam dziwne przypadki z przed 1900 roku i po `rok` oraz osoby z NA zamiast rocznika
+przedmioty <- przedmioty[!przedmioty$rocznik>rok & !przedmioty$rocznik<1900 & !is.na(przedmioty$rocznik),]
 najliczniejszy <- as.numeric(names(which.max(table(przedmioty$rocznik))))
 przedmioty$wiek[przedmioty$rocznik == najliczniejszy] <- rok - najliczniejszy
 przedmioty$wiek[przedmioty$rocznik > najliczniejszy] <- paste(rok - najliczniejszy - 1, "i mniej")
@@ -84,7 +85,9 @@ dane$wielkosc_miejscowosci[wm<5000] <- "poniżej 5 tys."
 dane$wielkosc_miejscowosci[wm>=5000 & wm<50000] <- "5 tys. - 50 tys."
 dane$wielkosc_miejscowosci[wm>50000] <- "ponad 50 tys."
 
-write.csv(dane, "histogramy/wyniki.csv")
+write.csv(dane, paste0("histogramy/wyniki", rok, ".csv", sep=""))
+}
 
-
+lata<-2010:2014
+sapply(lata, zapisz)
 

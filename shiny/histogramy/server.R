@@ -7,7 +7,6 @@ library(dplyr)
 # równa szerokość wykresów
 # wykres liczebności grup: dla podziału tylko z wybranej kategorii?
 # dane z wcześniejszych lat
-# drobne: poprawki w tytułach wykresów
 
 shinyServer(function(input, output, session) {
   # pokazuje progress przy obliczeniach
@@ -153,6 +152,34 @@ shinyServer(function(input, output, session) {
       ggtitle(tytul)
     return(grupHist)
   }
+
+observe({ 
+  if (is.null(input$filtr)){
+    filtr <- "--"
+  }
+  else{
+    filtr <- input$filtr
+  }
+  if (filtr!="--"){
+#     output$wartoscSelektor <- renderUI({
+#       selectInput("wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]), selected=wartosc)
+#     })
+    updateSelectInput(session, "wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]))
+  }
+  
+#   var.opts<-namel(colnames(obj))
+#   var.opts.original.slicers <- namel(colnames(TestData))           
+#   measures <- c('m1','m2','m3','m4','m5')
+#   
+#   var.opts.slicers <- var.opts[!(var.opts %in% c(measures,'x'))]
+#   var.opts.original.slicers <- var.opts.original.slicers[!(var.opts.original.slicers %in% c(measures,'x'))]
+#   var.opts.measures <- var.opts[var.opts %in% measures]
+#   
+#   updateSelectInput(session, "source_columns", choices = var.opts.original.slicers, selected=var.opts.slicers)
+#   updateSelectInput(session, "xaxis", choices = var.opts.slicers,selected="x")
+  
+})
+
   
   output$ggHistMatury <- renderPlot({
     #cat("start \n", file = stderr())
@@ -176,19 +203,19 @@ shinyServer(function(input, output, session) {
     else{
       filtr <- input$filtr
     }
-    
-    if (filtr!="--"){
-      output$wartoscSelektor <- renderUI({
-        selectInput("wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]), selected=wartosc)
-      })
-    }
-    
+#     
+#     if (filtr!="--"){
+#       output$wartoscSelektor <- renderUI({
+#         selectInput("wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]), selected=wartosc)
+#       })
+#     }
+#     
     
     if (podzial == "--"){
-      cat(nazwa, file = stderr())
-      cat(filtr, file = stderr())
-      cat(wartosc, file = stderr())
-      cat("\n", file = stderr())
+#       cat(nazwa, file = stderr())
+#       cat(filtr, file = stderr())
+#       cat(wartosc, file = stderr())
+#       cat("\n", file = stderr())
       wykres <- ggHistWszyscy(nazwa, filtr, wartosc)
     }
     if (podzial == "wiek"){
