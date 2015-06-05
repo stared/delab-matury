@@ -1,6 +1,8 @@
 library(maptools)
 library(rgdal)
 library(ggplot2)
+library(dplyr)
+
 
 ## kontury powiatów
 powiaty <- readOGR(dsn="../dane/PRG_jednostki_administracyjne_v8/powiaty.shp", layer="powiaty")
@@ -40,4 +42,22 @@ szkoly <- read.csv("../dane/szkoly2014.csv")
 wyniki <- read.csv("../dane/przetworzone/sumy_laureaty.csv")
 
 dane <- merge(wyniki, szkoly, by = "id_szkoly")
+
+# średnie wyniki dla województw
+matury <- colnames(dane)[c(grep(".*podstawowa",colnames(dane)), grep(".*rozszerzona",colnames(dane)))]
+sapply(matury, function(nazwa){
+  print(nazwa)
+  tapply(dane[,colnames(dane)==nazwa], dane$wojewodztwo_szkoly, mean, na.rm=T)
+  }) %>% data.frame(.) -> srWoj
+
+# rysowanie mapy ze średnimi z wybranego przedmiotu w województwach:
+
+rysuj_woj <- function(matura){
+  srednie <- data.frame(wyniki=srWoj[colnames(srWoj)==matura], id=rownames(srWoj))
+  colnames(srednie) <- c("wyniki", "id")
+  srednie_woj<-merge(woj_df, srednie, by="id", sort = FALSE)
+  map<- qplot(long, lat, data=srednie_woj, group=group , fill=wyniki, geom="polygon")
+  return(map)
+}
+
 
