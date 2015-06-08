@@ -4,6 +4,8 @@ library(ggplot2)
 library(dplyr)
 library(scales)
 
+# TODO: w legendzie: bd.
+
 
 ## kontury powiatów
 powiaty <- readOGR(dsn="../dane/PRG_jednostki_administracyjne_v8/powiaty.shp", layer="powiaty")
@@ -18,60 +20,121 @@ powiaty_df$group = gsub("powiat ", "", powiaty_df$group)
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="bielski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="bielski" & powiaty_df$lat>4e+5] <- gsub("bielski",
+#                                                                          "bielski podlaskie",
+#                                                                          powiaty_df$group[powiaty_df$id=="bielski" & powiaty_df$lat>4e+5])
+# powiaty_df$group[powiaty_df$id=="bielski" & powiaty_df$lat<4e+5] <- gsub("bielski",
+#                                                                          "bielski śląskie",
+#                                                                          powiaty_df$group[powiaty_df$id=="bielski" & powiaty_df$lat<4e+5])
 powiaty_df$id[powiaty_df$id=="bielski" & powiaty_df$lat>4e+5] <- "bielski podlaskie"
 powiaty_df$id[powiaty_df$id=="bielski" & powiaty_df$lat<4e+5] <- "bielski śląskie"
+
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="brzeski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="brzeski" & powiaty_df$long>5e+5] <- gsub("brzeski",
+#                                                                          "brzeski małopolskie",
+#                                                                          powiaty_df$group[powiaty_df$id=="brzeski" & powiaty_df$long>5e+5])
+# powiaty_df$group[powiaty_df$id=="brzeski" & powiaty_df$long<5e+5] <- gsub("brzeski",
+#                                                                          "brzeski opolskie",
+#                                                                          powiaty_df$group[powiaty_df$id=="brzeski" & powiaty_df$long<5e+5])
 powiaty_df$id[powiaty_df$id=="brzeski" & powiaty_df$long>5e+5] <- "brzeski małopolskie"
 powiaty_df$id[powiaty_df$id=="brzeski" & powiaty_df$long<5e+5] <- "brzeski opolskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="grodziski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="grodziski" & powiaty_df$long>5e+5] <- gsub("grodziski",
+#                                                                           "grodziski mazowieckie",
+#                                                                           powiaty_df$group[powiaty_df$id=="grodziski" & powiaty_df$long>5e+5])
+# powiaty_df$group[powiaty_df$id=="grodziski" & powiaty_df$long<5e+5] <- gsub("grodziski",
+#                                                                           "grodziski wielkopolskie",
+#                                                                           powiaty_df$group[powiaty_df$id=="grodziski" & powiaty_df$long<5e+5])
 powiaty_df$id[powiaty_df$id=="grodziski" & powiaty_df$long>5e+5] <- "grodziski mazowieckie"
 powiaty_df$id[powiaty_df$id=="grodziski" & powiaty_df$long<5e+5] <- "grodziski wielkopolskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="krośnieński"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="krośnieński" & powiaty_df$long>5e+5] <- gsub("krośnieński",
+#                                                                             "krośnieński podkarpackie",
+#                                                                             powiaty_df$group[powiaty_df$id=="krośnieński" & powiaty_df$long>5e+5])
+# powiaty_df$group[powiaty_df$id=="krośnieński" & powiaty_df$long<5e+5] <- gsub("krośnieński",
+#                                                                             "krośnieński lubuskie",
+#                                                                             powiaty_df$group[powiaty_df$id=="krośnieński" & powiaty_df$long<5e+5])
 powiaty_df$id[powiaty_df$id=="krośnieński" & powiaty_df$long>5e+5] <- "krośnieński podkarpackie"
 powiaty_df$id[powiaty_df$id=="krośnieński" & powiaty_df$long<5e+5] <- "krośnieński lubuskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="nowodworski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="nowodworski" & powiaty_df$lat>6e+5] <- gsub("nowodworski",
+#                                                                               "nowodworski pomorskie",
+#                                                                               powiaty_df$group[powiaty_df$id=="nowodworski" & powiaty_df$lat>6e+5])
+# powiaty_df$group[powiaty_df$id=="nowodworski" & powiaty_df$lat<6e+5] <- gsub("nowodworski",
+#                                                                               "nowodworski mazowieckie",
+#                                                                               powiaty_df$group[powiaty_df$id=="nowodworski" & powiaty_df$lat<6e+5])
 powiaty_df$id[powiaty_df$id=="nowodworski" & powiaty_df$lat>6e+5] <- "nowodworski pomorskie"
 powiaty_df$id[powiaty_df$id=="nowodworski" & powiaty_df$lat<6e+5] <- "nowodworski mazowieckie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="opolski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="opolski" & powiaty_df$long>5e+5] <- gsub("opolski",
+#                                                                              "opolski lubelskie",
+#                                                                              powiaty_df$group[powiaty_df$id=="opolski" & powiaty_df$long>5e+5])
+# powiaty_df$group[powiaty_df$id=="opolski" & powiaty_df$long<5e+5] <- gsub("opolski",
+#                                                                              "opolski opolskie",
+#                                                                              powiaty_df$group[powiaty_df$id=="opolski" & powiaty_df$long<5e+5])
 powiaty_df$id[powiaty_df$id=="opolski" & powiaty_df$long>5e+5] <- "opolski lubelskie"
 powiaty_df$id[powiaty_df$id=="opolski" & powiaty_df$long<5e+5] <- "opolski opolskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="ostrowski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="ostrowski" & powiaty_df$long>5e+5] <- gsub("ostrowski",
+#                                                                           "ostrowski mazowieckie",
+#                                                                           powiaty_df$group[powiaty_df$id=="ostrowski" & powiaty_df$long>5e+5])
+# powiaty_df$group[powiaty_df$id=="ostrowski" & powiaty_df$long<5e+5] <- gsub("ostrowski",
+#                                                                           "ostrowski wielkopolskie",
+#                                                                           powiaty_df$group[powiaty_df$id=="ostrowski" & powiaty_df$long<5e+5])
 powiaty_df$id[powiaty_df$id=="ostrowski" & powiaty_df$long>5e+5] <- "ostrowski mazowieckie"
 powiaty_df$id[powiaty_df$id=="ostrowski" & powiaty_df$long<5e+5] <- "ostrowski wielkopolskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="średzki"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="średzki" & powiaty_df$lat>4e+5] <- gsub("średzki",
+#                                                                             "średzki wielkopolskie",
+#                                                                             powiaty_df$group[powiaty_df$id=="średzki" & powiaty_df$lat>4e+5])
+# powiaty_df$group[powiaty_df$id=="średzki" & powiaty_df$lat<4e+5] <- gsub("średzki",
+#                                                                             "średzki dolnośląskie",
+#                                                                             powiaty_df$group[powiaty_df$id=="średzki" & powiaty_df$lat<4e+5])
 powiaty_df$id[powiaty_df$id=="średzki" & powiaty_df$lat>4e+5] <- "średzki wielkopolskie"
 powiaty_df$id[powiaty_df$id=="średzki" & powiaty_df$lat<4e+5] <- "średzki dolnośląskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="świdnicki"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="świdnicki" & powiaty_df$long>5e+5] <- gsub("świdnicki",
+#                                                                            "świdnicki lubelskie",
+#                                                                          powiaty_df$group[powiaty_df$id=="świdnicki" & powiaty_df$long>5e+5])
+# powiaty_df$group[powiaty_df$id=="świdnicki" & powiaty_df$long<5e+5] <- gsub("świdnicki",
+#                                                                          "świdnicki dolnośląskie",
+#                                                                          powiaty_df$group[powiaty_df$id=="świdnicki" & powiaty_df$long<5e+5])
 powiaty_df$id[powiaty_df$id=="świdnicki" & powiaty_df$long>5e+5] <- "świdnicki lubelskie"
 powiaty_df$id[powiaty_df$id=="świdnicki" & powiaty_df$long<5e+5] <- "świdnicki dolnośląskie"
 
 # wybrane <- powiaty_df
 # wybrane$fill <- wybrane$id=="tomaszowski"
 # qplot(long, lat, data=wybrane, group=group , fill=fill, geom="polygon")
+# powiaty_df$group[powiaty_df$id=="tomaszowski" & powiaty_df$long>7e+5] <- gsub("tomaszowski",
+#                                                                               "tomaszowski lubelskie",
+#                                                                             powiaty_df$group[powiaty_df$id=="tomaszowski" & powiaty_df$long>7e+5])
+# powiaty_df$group[powiaty_df$id=="tomaszowski" & powiaty_df$long<7e+5] <- gsub("tomaszowski",
+#                                                                               "tomaszowski łódzkie",
+#                                                                             powiaty_df$group[powiaty_df$id=="tomaszowski" & powiaty_df$long<7e+5])
 powiaty_df$id[powiaty_df$id=="tomaszowski" & powiaty_df$long>7e+5] <- "tomaszowski lubelskie"
 powiaty_df$id[powiaty_df$id=="tomaszowski" & powiaty_df$long<7e+5] <- "tomaszowski łódzkie"
 
@@ -172,11 +235,13 @@ rysuj_woj("j_polski_podstawowa")
 rysuj_pow <- function(matura){
   srednie <- data.frame(wyniki=srPow[,colnames(srPow)==matura], id=rownames(srPow))
   colnames(srednie) <- c("wyniki", "id")
-  srednie_pow<-merge(powiaty_df, srednie, by="id", sort = FALSE)
+  srednie_pow<-merge(powiaty_df, srednie, by="id", sort = FALSE, all.x=TRUE)
+  order <- order(srednie_pow$order)
+  srednie_pow <- srednie_pow[order,]
   srednia <- mean(srednie$wyniki)
   print(srednia)
   # plot map
-  map <- ggplot(srednie_pow, aes(long,lat, group=group, fill=wyniki)) + 
+  map <- ggplot(srednie_pow, aes(long, lat, group=group, fill=wyniki)) + 
     geom_polygon(colour="black") + 
     labs(title=paste0("Średnie wyniki: ", gsub("_", " ", matura))) + 
     coord_equal() + 
