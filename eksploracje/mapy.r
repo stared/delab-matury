@@ -104,6 +104,11 @@ srPL <- sapply(matury, function(nazwa){
   mean(dane[,colnames(dane)==nazwa]/max*100, na.rm=T)
 })
 
+# max punktów
+maxPunkty <- sapply(matury, function(nazwa){
+  max(dane[,colnames(dane)==nazwa], na.rm=T)
+})
+
 # średnie wyniki dla województw
 sapply(matury, function(nazwa){
   print(nazwa)
@@ -111,6 +116,11 @@ sapply(matury, function(nazwa){
   #print(max)
   tapply(dane[,colnames(dane)==nazwa]/max*100, dane$wojewodztwo_szkoly, mean, na.rm=T)
   }) %>% data.frame(.) -> srWoj
+
+srWoj$id<-rownames(srWoj)
+
+# połączenie ze współrzędnymi województw
+woj <- merge(woj_df, srWoj, by="id", sort = FALSE, all.x=TRUE)
 
 # średnie wyniki dla powiatow
 dane$powiatWojewodztwo <- paste(as.character(dane$powiat_szkoly),
@@ -140,9 +150,14 @@ for (i in 1:length(nazwy_pow)){
 rownames(srPow) <- nazwy_pow2
 srPow <- srPow[rownames(srPow)!="NA",]
 
-#setdiff(unique(powiaty_df$id),rownames(srPow))
-# problem: brak maturzystów w powiecie siedleckim?
+srPow$id <- rownames(srPow)
 
+# połączenie ze współrzędnymi powiatów
+pow <- merge(powiaty_df, srPow, by="id", sort = FALSE, all.x=TRUE)
+order <- order(pow$order)
+pow <- pow[order,]
+
+# wykresy
 
 # własności graficzne wykresu
 theme_opts <- list(theme(panel.grid.minor = element_blank(),
@@ -161,9 +176,8 @@ theme_opts <- list(theme(panel.grid.minor = element_blank(),
 # rysowanie mapy ze średnimi z wybranego przedmiotu w województwach:
 rysuj_woj <- function(matura){
   tytul <- paste0("Średnie wyniki: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-  srednie <- data.frame(wyniki=srWoj[,colnames(srWoj)==matura], id=rownames(srWoj))
-  colnames(srednie) <- c("wyniki", "id")
-  srednie_woj<-merge(woj_df, srednie, by="id", sort = FALSE, all.x=TRUE)
+  srednie_woj <- woj
+  colnames(srednie_woj)[colnames(srednie_woj)==matura] <- "wyniki"
   srednia <- srPL[matura]
   print(srednia)
   map <- ggplot(srednie_woj, aes(long,lat, group=group, fill=wyniki)) + 
@@ -180,11 +194,8 @@ rysuj_woj("j_polski_podstawowa")
 # rysowanie mapy ze średnimi wynikami w powiatach
 rysuj_pow <- function(matura){
   tytul <- paste0("Średnie wyniki: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-  srednie <- data.frame(wyniki=srPow[,colnames(srPow)==matura], id=rownames(srPow))
-  colnames(srednie) <- c("wyniki", "id")
-  srednie_pow<-merge(powiaty_df, srednie, by="id", sort = FALSE, all.x=TRUE)
-  order <- order(srednie_pow$order)
-  srednie_pow <- srednie_pow[order,]
+  srednie_pow <- pow
+  colnames(srednie_pow)[colnames(srednie_pow)==matura] <- "wyniki"
   srednia <- srPL[matura]
   print(srednia)
   map <- ggplot(srednie_pow, aes(long, lat, group=group, fill=wyniki)) + 
