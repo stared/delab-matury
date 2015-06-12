@@ -8,12 +8,18 @@ library(scales)
 # w legendzie: bd.
 # % zdających
 # zapisać mapy do pliku
+# wojewodztwa: koła w środoku 
 
 
 ## kontury powiatów
 powiaty <- readOGR(dsn="../dane/PRG_jednostki_administracyjne_v8/powiaty.shp", layer="powiaty")
 
 powiaty_df <- fortify(powiaty, region = "jpt_nazwa_")
+
+# czy podzbiór wystarczy?
+podzbior <- seq(from=1, to=nrow(powiaty_df), by=2)
+powiaty_df<-powiaty_df[podzbior,]
+
 powiaty_df$id = iconv(powiaty_df$id, "windows-1250", "UTF-8")
 powiaty_df$id = gsub("powiat ", "", powiaty_df$id)
 powiaty_df$group = iconv(powiaty_df$group, "windows-1250", "UTF-8")
@@ -92,174 +98,178 @@ woj_df$group = iconv(woj_df$group, "windows-1250", "UTF-8")
 
 
 # wyniki matur z podziałem na wojewodztwa i na powiaty
-szkoly <- read.csv("../dane/szkoly2014.csv")
-wyniki <- read.csv("../dane/przetworzone/sumy_laureaty.csv")
-
-dane <- merge(wyniki, szkoly, by = "id_szkoly")
-
-matury <- colnames(dane)[c(grep(".*podstawowa",colnames(dane)), grep(".*rozszerzona",colnames(dane)))]
-
-# średnie wyniki w PL:
-srPL <- sapply(matury, function(nazwa){
-  print(nazwa)
-  max <- max(dane[,colnames(dane)==nazwa], na.rm=T)
-  #print(max)
-  mean(dane[,colnames(dane)==nazwa]/max*100, na.rm=T)
-})
-
-# udział zdających w PL:
-zdajPL <- sapply(matury, function(nazwa){
-  print(nazwa)
-  matura <- dane[,colnames(dane)==nazwa]
-  return(100*sum(!is.na(matura))/length(matura))
-})
-
-# max punktów
-maxPunkty <- sapply(matury, function(nazwa){
-  max(dane[,colnames(dane)==nazwa], na.rm=T)
-})
-
-# średnie wyniki dla województw
-sapply(matury, function(nazwa){
-  print(nazwa)
-  max <- max(dane[,colnames(dane)==nazwa], na.rm=T)
-  #print(max)
-  tapply(dane[,colnames(dane)==nazwa]/max*100, dane$wojewodztwo_szkoly, mean, na.rm=T)
-  }) %>% data.frame(.) -> srWoj
-
-srWoj$id<-rownames(srWoj)
-
-# połączenie ze współrzędnymi województw
-woj_wyniki <- merge(woj_df, srWoj, by="id", sort = FALSE, all.x=TRUE)
-
-# % zdających w wojewodztwach
-sapply(matury, function(nazwa){
-  print(nazwa)
-  tapply(dane[,colnames(dane)==nazwa], dane$wojewodztwo_szkoly,
-         function(x){return(100*sum(!is.na(x))/length(x))})
-}) %>% data.frame(.) -> zdajWoj
-
-zdajWoj$id<-rownames(zdajWoj)
-
-# połączenie ze współrzędnymi województw
-woj_zdaj <- merge(woj_df, zdajWoj, by="id", sort = FALSE, all.x=TRUE)
-
-# średnie wyniki dla powiatow
-dane$powiatWojewodztwo <- paste(as.character(dane$powiat_szkoly),
-                                as.character(dane$wojewodztwo_szkoly))
-sapply(matury, function(nazwa){
-  print(nazwa)
-  max <- max(dane[,colnames(dane)==nazwa], na.rm=T)
-  #print(max)
-  tapply(dane[,colnames(dane)==nazwa]/max*100, dane$powiatWojewodztwo, mean, na.rm=T)
-}) %>% data.frame(.) -> srPow
-
-nazwy_woj <- unique(dane$wojewodztwo_szkoly)
-nazwy_pow <- rownames(srPow)
-nazwy_pow2 <- rownames(srPow)
-for (w in nazwy_woj){
-  nazwy_pow <- gsub(paste(" ", w, sep=""), "", nazwy_pow)
+rysujMapy(rok){
+  szkoly <- read.csv(paste0("../dane/szkoly", rok, ".csv"))
+  wyniki <- read.csv("../dane/przetworzone/sumy_laureaty.csv")
+  
+  dane <- merge(wyniki, szkoly, by = "id_szkoly")
+  
+  matury <- colnames(dane)[c(grep(".*podstawowa",colnames(dane)), grep(".*rozszerzona",colnames(dane)))]
+  
+  # średnie wyniki w PL:
+  srPL <- sapply(matury, function(nazwa){
+    print(nazwa)
+    max <- max(dane[,colnames(dane)==nazwa], na.rm=T)
+    #print(max)
+    mean(dane[,colnames(dane)==nazwa]/max*100, na.rm=T)
+  })
+  
+  # udział zdających w PL:
+  zdajPL <- sapply(matury, function(nazwa){
+    print(nazwa)
+    matura <- dane[,colnames(dane)==nazwa]
+    return(100*sum(!is.na(matura))/length(matura))
+  })
+  
+  # max punktów
+  maxPunkty <- sapply(matury, function(nazwa){
+    max(dane[,colnames(dane)==nazwa], na.rm=T)
+  })
+  
+  # średnie wyniki dla województw
+  sapply(matury, function(nazwa){
+    print(nazwa)
+    max <- max(dane[,colnames(dane)==nazwa], na.rm=T)
+    #print(max)
+    tapply(dane[,colnames(dane)==nazwa]/max*100, dane$wojewodztwo_szkoly, mean, na.rm=T)
+    }) %>% data.frame(.) -> srWoj
+  
+  srWoj$id<-rownames(srWoj)
+  
+  # połączenie ze współrzędnymi województw
+  woj_wyniki <- merge(woj_df, srWoj, by="id", sort = FALSE, all.x=TRUE)
+  
+  # % zdających w wojewodztwach
+  sapply(matury, function(nazwa){
+    print(nazwa)
+    tapply(dane[,colnames(dane)==nazwa], dane$wojewodztwo_szkoly,
+           function(x){return(100*sum(!is.na(x))/length(x))})
+  }) %>% data.frame(.) -> zdajWoj
+  
+  zdajWoj$id<-rownames(zdajWoj)
+  
+  # połączenie ze współrzędnymi województw
+  woj_zdaj <- merge(woj_df, zdajWoj, by="id", sort = FALSE, all.x=TRUE)
+  
+  # średnie wyniki dla powiatow
+  dane$powiatWojewodztwo <- paste(as.character(dane$powiat_szkoly),
+                                  as.character(dane$wojewodztwo_szkoly))
+  sapply(matury, function(nazwa){
+    print(nazwa)
+    max <- max(dane[,colnames(dane)==nazwa], na.rm=T)
+    #print(max)
+    tapply(dane[,colnames(dane)==nazwa]/max*100, dane$powiatWojewodztwo, mean, na.rm=T)
+  }) %>% data.frame(.) -> srPow
+  
+  nazwy_woj <- unique(dane$wojewodztwo_szkoly)
+  nazwy_pow <- rownames(srPow)
+  nazwy_pow2 <- rownames(srPow)
+  for (w in nazwy_woj){
+    nazwy_pow <- gsub(paste(" ", w, sep=""), "", nazwy_pow)
+  }
+  pojedyncze <- names(table(nazwy_pow))[table(nazwy_pow)==1]
+  podwojne <- names(table(nazwy_pow))[table(nazwy_pow)>1]
+  for (i in 1:length(nazwy_pow)){
+    p <- nazwy_pow[i]
+    if (p %in% pojedyncze){
+      nazwy_pow2[i] <- p
+    }
+  }  
+  
+  rownames(srPow) <- nazwy_pow2
+  srPow <- srPow[rownames(srPow)!="NA",]
+  
+  srPow$id <- rownames(srPow)
+  
+  # połączenie ze współrzędnymi powiatów
+  pow_wyniki <- merge(powiaty_df, srPow, by="id", sort = FALSE, all.x=TRUE)
+  order <- order(pow_wyniki$order)
+  pow_wyniki <- pow_wyniki[order,]
+  
+  # % zdających w powiatach
+  sapply(matury, function(nazwa){
+    print(nazwa)
+    tapply(dane[,colnames(dane)==nazwa], dane$powiatWojewodztwo,
+           function(x){return(100*sum(!is.na(x))/length(x))})
+  }) %>% data.frame(.) -> zdajPow
+  
+  rownames(zdajPow) <- nazwy_pow2
+  srPow <- zdajPow[rownames(zdajPow)!="NA",]
+  
+  zdajPow$id <- rownames(zdajPow)
+  
+  # połączenie ze współrzędnymi powiatów
+  pow_zdaj <- merge(powiaty_df, zdajPow, by="id", sort = FALSE, all.x=TRUE)
+  order <- order(pow_zdaj$order)
+  pow_zdaj <- pow_zdaj[order,]
+  
+  # wykresy
+  
+  # własności graficzne wykresu
+  theme_opts <- list(theme(panel.grid.minor = element_blank(),
+                           panel.grid.major = element_blank(),
+                           panel.background = element_blank(),
+                           plot.background = element_rect(fill="#e6e8ed"),
+                           panel.border = element_blank(),
+                           axis.line = element_blank(),
+                           axis.text.x = element_blank(),
+                           axis.text.y = element_blank(),
+                           axis.ticks = element_blank(),
+                           axis.title.x = element_blank(),
+                           axis.title.y = element_blank(),
+                           plot.title = element_text(size=22)))
+  
+  # rysowanie mapy ze średnimi z wybranego przedmiotu w województwach:
+  rysuj_woj <- function(matura, co){
+    if(co=="wyniki"){
+      tytul <- paste0("Średnie wyniki w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+      dane_woj <- woj_wyniki
+      midpoint <- srPL[matura] 
+    }
+    if(co=="zdający"){
+      tytul <- paste0("Procent zdających w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+      dane_woj <- woj_zdaj
+      midpoint <- zdajPL[matura]
+    }
+    colnames(dane_woj)[colnames(dane_woj)==matura] <- "wyniki"
+    print(paste(co, matura, rok))
+    map <- ggplot(dane_woj, aes(long,lat, group=group, fill=wyniki)) + 
+      geom_polygon(colour="black") + 
+      labs(title=tytul) + 
+      coord_equal() + 
+      scale_fill_gradient2(name=paste(co,"(%)"), low=muted("red"), high=muted("blue"), midpoint=midpoint) +
+      theme_opts
+    ggsave(filename=paste0("../owoce/mapy/woj", "_", co, "_", matura, "_", rok, ".png"), plot=map)
+  }
+  
+  #rysuj_woj("biologia_podstawowa", "zdający")
+  mapply(rysuj_woj, matura=c(matury,matury),
+         co=c(rep("wyniki", length(matury)),rep("zdający", length(matury))))
+  
+  # rysowanie mapy ze średnimi wynikami w powiatach
+  rysuj_pow <- function(matura, co){
+    if(co=="wyniki"){
+      tytul <- paste0("Średnie wyniki w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+      dane_pow <- pow_wyniki
+      midpoint <- srPL[matura] 
+    }
+    if(co=="zdający"){
+      tytul <- paste0("Procent zdających w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+      dane_pow <- pow_zdaj
+      midpoint <- zdajPL[matura]
+    }
+    print(paste(co, matura, rok))
+    colnames(dane_pow)[colnames(dane_pow)==matura] <- "wyniki"
+    map <- ggplot(dane_pow, aes(long, lat, group=group, fill=wyniki)) + 
+      geom_polygon(colour="black") + 
+      labs(title=tytul) + 
+      coord_equal() + 
+      scale_fill_gradient2(name=paste(co,"(%)"), low=muted("red"), high=muted("blue"), midpoint=midpoint) +
+      theme_opts
+    ggsave(filename=paste0("../owoce/mapy/pow", "_", co, "_", matura, "_", rok, ".png"), plot=map)
+  }
+  
+  #rysuj_pow("biologia_rozszerzona", "zdający")
+  mapply(rysuj_pow, matura=c(matury,matury),
+         co=c(rep("wyniki", length(matury)),rep("zdający", length(matury))))
 }
-pojedyncze <- names(table(nazwy_pow))[table(nazwy_pow)==1]
-podwojne <- names(table(nazwy_pow))[table(nazwy_pow)>1]
-for (i in 1:length(nazwy_pow)){
-  p <- nazwy_pow[i]
-  if (p %in% pojedyncze){
-    nazwy_pow2[i] <- p
-  }
-}  
-
-rownames(srPow) <- nazwy_pow2
-srPow <- srPow[rownames(srPow)!="NA",]
-
-srPow$id <- rownames(srPow)
-
-# połączenie ze współrzędnymi powiatów
-pow_wyniki <- merge(powiaty_df, srPow, by="id", sort = FALSE, all.x=TRUE)
-order <- order(pow_wyniki$order)
-pow_wyniki <- pow_wyniki[order,]
-
-# % zdających w powiatach
-sapply(matury, function(nazwa){
-  print(nazwa)
-  tapply(dane[,colnames(dane)==nazwa], dane$powiatWojewodztwo,
-         function(x){return(100*sum(!is.na(x))/length(x))})
-}) %>% data.frame(.) -> zdajPow
-
-rownames(zdajPow) <- nazwy_pow2
-srPow <- zdajPow[rownames(zdajPow)!="NA",]
-
-zdajPow$id <- rownames(zdajPow)
-
-# połączenie ze współrzędnymi powiatów
-pow_zdaj <- merge(powiaty_df, zdajPow, by="id", sort = FALSE, all.x=TRUE)
-order <- order(pow_zdaj$order)
-pow_zdaj <- pow_zdaj[order,]
-
-# wykresy
-
-# własności graficzne wykresu
-theme_opts <- list(theme(panel.grid.minor = element_blank(),
-                         panel.grid.major = element_blank(),
-                         panel.background = element_blank(),
-                         plot.background = element_rect(fill="#e6e8ed"),
-                         panel.border = element_blank(),
-                         axis.line = element_blank(),
-                         axis.text.x = element_blank(),
-                         axis.text.y = element_blank(),
-                         axis.ticks = element_blank(),
-                         axis.title.x = element_blank(),
-                         axis.title.y = element_blank(),
-                         plot.title = element_text(size=22)))
-
-# rysowanie mapy ze średnimi z wybranego przedmiotu w województwach:
-rysuj_woj <- function(matura, co){
-  if(co=="wyniki"){
-    tytul <- paste0("Średnie wyniki: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-    dane_woj <- woj_wyniki
-    midpoint <- srPL[matura] 
-  }
-  if(co=="zdający"){
-    tytul <- paste0("Procent zdających: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-    dane_woj <- woj_zdaj
-    midpoint <- zdajPL[matura]
-  }
-  colnames(dane_woj)[colnames(dane_woj)==matura] <- "wyniki"
-  map <- ggplot(dane_woj, aes(long,lat, group=group, fill=wyniki)) + 
-    geom_polygon(colour="black") + 
-    labs(title=tytul) + 
-    coord_equal() + 
-    scale_fill_gradient2(name="wyniki (%)", low=muted("red"), high=muted("blue"), midpoint=midpoint) +
-    theme_opts
-  return(map)
-}
-
-rysuj_woj("biologia_podstawowa", "zdający")
-
-# rysowanie mapy ze średnimi wynikami w powiatach
-rysuj_pow <- function(matura, co){
-  if(co=="wyniki"){
-    tytul <- paste0("Średnie wyniki: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-    dane_pow <- pow_wyniki
-    midpoint <- srPL[matura] 
-  }
-  if(co=="zdający"){
-    tytul <- paste0("Procent zdających: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-    dane_pow <- pow_zdaj
-    midpoint <- zdajPL[matura]
-  }
-#   tytul <- paste0("Średnie wyniki: ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-#   srednie_pow <- pow
-  colnames(dane_pow)[colnames(dane_pow)==matura] <- "wyniki"
-#   srednia <- srPL[matura]
-#   print(srednia)
-  map <- ggplot(dane_pow, aes(long, lat, group=group, fill=wyniki)) + 
-    geom_polygon(colour="black") + 
-    labs(title=tytul) + 
-    coord_equal() + 
-    scale_fill_gradient2(name="wyniki (%)", low=muted("red"), high=muted("blue"), midpoint=midpoint) +
-    theme_opts
-  return(map)
-}
-
-rysuj_pow("biologia_podstawowa", "zdający")
