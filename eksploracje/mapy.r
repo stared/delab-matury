@@ -90,12 +90,16 @@ powiaty_df$id[powiaty_df$id=="tomaszowski" & powiaty_df$long<7e+5] <- "tomaszows
 # województwa
 wojewodztwa <- readOGR(dsn="../dane/PRG_jednostki_administracyjne_v8/wojew¢dztwa.shp",
                        layer="wojew¢dztwa")
-wojewodztwa <- readShapeSpatial("../dane/PRG_jednostki_administracyjne_v8/wojew¢dztwa.shp")
 
 woj_df <- fortify(wojewodztwa, region = "jpt_nazwa_")
 woj_df$id = iconv(woj_df$id, "windows-1250", "UTF-8") # polskie znaki
 woj_df$group = iconv(woj_df$group, "windows-1250", "UTF-8")
 
+centroidy <- as.data.frame(coordinates(wojewodztwa))
+names(centroidy) <- c("Longitude", "Latitude")
+nazwy_woj <- iconv(wojewodztwa@data$jpt_nazwa_, "windows-1250", "UTF-8") # polskie znaki
+
+centroidy_df <- data.frame(id = nazwy_woj, centroidy)
 
 # wyniki matur z podziałem na wojewodztwa i na powiaty
 rysujMapy(rok){
@@ -139,6 +143,9 @@ rysujMapy(rok){
   # połączenie ze współrzędnymi województw
   woj_wyniki <- merge(woj_df, srWoj, by="id", sort = FALSE, all.x=TRUE)
   
+  # połączenie ze współrzędnymi centroidów wojewodztw
+  woj_cent_wyniki <- merge(centroidy_df, srWoj, by="id")
+  
   # % zdających w wojewodztwach
   sapply(matury, function(nazwa){
     print(nazwa)
@@ -150,6 +157,9 @@ rysujMapy(rok){
   
   # połączenie ze współrzędnymi województw
   woj_zdaj <- merge(woj_df, zdajWoj, by="id", sort = FALSE, all.x=TRUE)
+  
+  # połączenie ze współrzędnymi centroidów wojewodztw
+  woj_cent_zdaj <- merge(centroidy_df, zdajWoj, by="id")
   
   # średnie wyniki dla powiatow
   dane$powiatWojewodztwo <- paste(as.character(dane$powiat_szkoly),
@@ -220,6 +230,8 @@ rysujMapy(rok){
                            plot.title = element_text(size=22)))
   
   # rysowanie mapy ze średnimi z wybranego przedmiotu w województwach:
+  
+  
   rysuj_woj <- function(matura, co){
     if(co=="wyniki"){
       tytul <- paste0("Średnie wyniki w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
@@ -233,16 +245,48 @@ rysujMapy(rok){
     }
     colnames(dane_woj)[colnames(dane_woj)==matura] <- "wyniki"
     print(paste(co, matura, rok))
-    map <- ggplot(dane_woj, aes(long,lat, group=group, fill=wyniki)) + 
-      geom_polygon(colour="black") + 
+    map <- ggplot(data = dane_woj, aes(long,lat, group=group, fill=wyniki)) + 
+      geom_text(aes(label = id, x = Longitude, y = Latitude))
+      geom_polygon(colour="black") +
       labs(title=tytul) + 
       coord_equal() + 
       scale_fill_gradient2(name=paste(co,"(%)"), low=muted("red"), high=muted("blue"), midpoint=midpoint) +
+      scale_colour_manual(name = 'Brak danych', 
+                          values =c("green", FALSE), labels = c('NA', "buu")) +
       theme_opts
-    ggsave(filename=paste0("../owoce/mapy/woj", "_", co, "_", matura, "_", rok, ".png"), plot=map)
+    #ggsave(filename=paste0("../owoce/mapy/woj", "_", co, "_", matura, "_", rok, ".png"), plot=map)
+    return(map)
   }
   
-  #rysuj_woj("biologia_podstawowa", "zdający")
+  rysuj_woj_kola <- function(matura, co){
+    if(co=="wyniki"){
+      tytul <- paste0("Średnie wyniki w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+      dane_woj <- woj_cent_wyniki
+      midpoint <- srPL[matura] 
+    }
+    if(co=="zdający"){
+      tytul <- paste0("Procent zdających w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+      dane_woj <- woj_cent_zdaj
+      midpoint <- zdajPL[matura]
+    }
+    colnames(dane_woj)[colnames(dane_woj)==matura] <- "wyniki"
+    print(paste(co, matura, rok))
+    map <-   ggplot(dane_woj, aes(map_id = id)) + #"id" is col in your df, not in the map object 
+      geom_map(colour= "gray", map = woj_df) +
+      geom_point(data=dane_woj, 
+                 aes(x=Longitude, y=Latitude, size=wyniki), 
+                 fill="orange",pch=21) +
+      expand_limits(x = woj_df$long, y =woj_df$lat) +
+      labs(title=tytul) + 
+      coord_equal() + 
+      theme_opts 
+    #ggsave(filename=paste0("../owoce/mapy/woj", "_", co, "_", matura, "_", rok, ".png"), plot=map)
+    return(map)
+  }
+  
+
+  
+  rysuj_woj("biologia_podstawowa", "zdający")
   mapply(rysuj_woj, matura=c(matury,matury),
          co=c(rep("wyniki", length(matury)),rep("zdający", length(matury))))
   
