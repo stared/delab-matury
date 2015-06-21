@@ -66,7 +66,7 @@ function CoincidenceGraph(selector) {
         .style("stroke-width", function (e) { return 2 * sizeScale(e.liczba); })
         .style("opacity", function (e) { return opacityScale(e.oe); })
         .on("mouseover", function (e) {
-          var text = siNumberApprox(e.liczba).replace("k ", " tys. ") + " zdajacych zarazem:<br>" +
+          var text = siNumberApprox(e.liczba).replace("k", " tys.") + " zdajacych zarazem:<br>" +
                      e.source.nazwa + " i " + e.target.nazwa + "<br><br>" +
                      e.oe.toFixed(1) + "x bardziej prawdopodobna kombinacja niz losowo";
           tooltip.show(text);
@@ -84,7 +84,7 @@ function CoincidenceGraph(selector) {
           return (d.nazwa.indexOf("rozszerzona") !== -1) ? colors(4) : colors(0);
         })
         .on("mouseover", function (d) {
-          tooltip.show(siNumberApprox(d.liczba).replace("k ", " tys. ") + " zdajacych:<br>" + d.nazwa);
+          tooltip.show(siNumberApprox(d.liczba).replace("k", " tys.") + " zdajacych:<br>" + d.nazwa);
         })
         .on("mouseout", function () {
           tooltip.out();
