@@ -12,6 +12,12 @@ function CoincidenceGraph(selector) {
 
   var tooltip = new Tooltip(selector);
 
+  var siNumberApprox = function (x) {
+    var prefix = d3.formatPrefix(x);
+    var scaled = prefix.scale(x);
+    return scaled.toFixed(scaled < 10 ? 1 : 0) + prefix.symbol;
+  };
+
   this.loadCSV = function (path) {
     d3.csv(path, function (error, data) {
       return data; // TODO
@@ -55,7 +61,10 @@ function CoincidenceGraph(selector) {
         .style("stroke-width", function (e) { return 2 * sizeScale(e.liczba); })
         .style("opacity", function (e) { return e.oe / maxOe; })
         .on("mouseover", function (e) {
-          tooltip.show([e.source.nazwa, e.target.nazwa, e.liczba, e.oe].join("<br>"));
+          var text = siNumberApprox(e.liczba).replace("k ", " tys. ") + " zdajacych zarazem:<br>" +
+                     e.source.nazwa + " i " + e.target.nazwa + "<br><br>" +
+                     e.oe.toFixed(1) + "x bardziej prawdopodobna kombinacja niz losowo";
+          tooltip.show(text);
         })
         .on("mouseout", function () {
           tooltip.out();
@@ -70,7 +79,7 @@ function CoincidenceGraph(selector) {
           return (d.nazwa.indexOf("rozszerzona") !== -1) ? colors(4) : colors(0);
         })
         .on("mouseover", function (d) {
-          tooltip.show([d.nazwa, d.liczba].join("<br>"));
+          tooltip.show(siNumberApprox(d.liczba).replace("k ", " tys. ") + " zdajacych:<br>" + d.nazwa);
         })
         .on("mouseout", function () {
           tooltip.out();
