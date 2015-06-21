@@ -30,6 +30,7 @@ function CoincidenceGraph(selector) {
       return b.liczba - a.liczba;
     });
 
+    // but it hides some data...
     graph.links = graph.links.filter(function (e) {
       return e.oe > 1.25; // || e.oe < 0.5;
     });
@@ -39,6 +40,10 @@ function CoincidenceGraph(selector) {
       .range([0, 75]);
 
     var maxOe = d3.max(graph.links, function (e) { return e.oe; });
+
+    var opacityScale = d3.scale.log()
+      .domain([1, maxOe])
+      .range([0, 0.75]);
 
     var colors = d3.scale.category10()
       .domain(d3.range(0, 10));
@@ -59,7 +64,7 @@ function CoincidenceGraph(selector) {
       .enter().append("line")
         .attr("class", "link")
         .style("stroke-width", function (e) { return 2 * sizeScale(e.liczba); })
-        .style("opacity", function (e) { return e.oe / maxOe; })
+        .style("opacity", function (e) { return opacityScale(e.oe); })
         .on("mouseover", function (e) {
           var text = siNumberApprox(e.liczba).replace("k ", " tys. ") + " zdajacych zarazem:<br>" +
                      e.source.nazwa + " i " + e.target.nazwa + "<br><br>" +
