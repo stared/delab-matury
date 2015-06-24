@@ -1,0 +1,83 @@
+.wojewodztwo {
+  fill: #E7B041;
+  stroke: rgba(194, 13, 25, 0.25);
+  stroke-width: 1px;
+}
+
+.city {
+  /*cursor: crosshair;*/
+  fill: rgba(68, 112, 180, 0.8);
+  stroke: rgba(0, 0, 0, 1);
+  stroke-width: 0px;
+  opacity: 0.4;
+}
+
+.city:hover {
+  /*stroke-width: 2px;*/
+  fill: #C20D19;
+}
+
+.dziedzina {
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  font-size: 13px;
+  fill: #000;
+  cursor: default;
+}
+
+.dziedzina:hover {
+  fill: #C63628;
+}
+
+.rok {
+  fill: #000;
+  font-size: 12px;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  cursor: default;
+}
+
+.rok.selected {
+  fill: #C20D19;
+}
+
+#stopka {
+  position: absolute;
+  top: 530px;
+  left: 580px;
+  padding: 12px;
+  /*width: 300px;*/
+  /*background: rgba(230, 230, 230, 0.85);*/
+  /*color: #222;*/
+  border: solid 1px #aaa;
+  border-radius: 4px;
+  z-index:5;
+  font-size: 13px;
+  cursor: default;
+}
+
+#tooltip {
+  position: absolute;
+  text-align: left;
+  padding: 8px;
+  font: 12px sans-serif;
+  background: #000;
+  color: #ddd;
+  border: solid 1px #aaa;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0.8;
+  display: none;
+  z-index: 10;
+}
+
+a:link {
+ color: #4C8C3F;
+ text-decoration: none;
+}
+a:visited {
+ color: #4C8C3F;
+ text-decoration: none;
+}
+a:hover {
+ color: #C20D19;
+ text-decoration: none;
+}

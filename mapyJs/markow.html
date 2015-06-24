@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.transition {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+  opacity: 0.5;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+</style>
+<body>
+<script src="lib/d3.v3.min.js"></script>
+<script>
+
+// partially adapted form
+// http://bl.ocks.org/mbostock/1153292
+
+// states
+var states = [{name: "start", type: "out"},
+              {name: "niezakwalifikowany", type: "fail"},
+              {name: "kandydat", type: "success"},
+              {name: "podopieczny", type: "success"},
+              {name: "stypendysta", type: "success"},
+              {name: "koniec", type: "out"}];
+
+var transitions = [[0.00,0.48,0.33,0.13,0.06,0.00],
+                   [0.00,0.06,0.04,0.01,0.00,0.89],
+                   [0.00,0.18,0.25,0.20,0.04,0.33],
+                   [0.00,0.05,0.07,0.36,0.17,0.35],
+                   [0.00,0.01,0.00,0.04,0.46,0.49],
+                   [0.00,0.00,0.00,0.00,0.00,0.00]];
+
+var i, j;
+var links = [];
+
+for (i=0; i < transitions.length; i++) {
+  for (j=0; j < transitions[i].length; j++) {
+    if (transitions[i][j] > 0) {
+      links.push({source: states[i], target: states[j], probability: transitions[i][j]});
+    }
+  }
+}
+
+states.forEach(function (d, i) {
+  d.x = 100 + 150 * i;
+  d.y = 350;
+});
+
+var width = 960,
+    height = 500;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("defs")
+   .append("marker")
+    .attr("id", "arrowhead")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+var path = svg.append("g").selectAll("path")
+    .data(links)
+    .enter().append("path")
+      .attr("class", "transition")
+      .attr("marker-end", function(d) { return "url(#arrowhead)"; })
+      .attr("d", linkArc)
+      .style("stroke-width", function (d) { return 15 * d.probability; });
+
+var circle = svg.append("g").selectAll("circle")
+    .data(states)
+    .enter().append("circle")
+      .attr("r", 20)  // or density?
+      .attr("transform", transform);
+
+var text = svg.append("g").selectAll("text")
+    .data(states)
+  .enter().append("text")
+    .attr("x", 22)
+    .attr("y", ".31em")
+    .text(function(d) { return d.name; })
+    .attr("transform", transform);
+
+function linkArc(d) {
+  var dx = d.target.x - d.source.x,
+      dy = d.target.y - d.source.y,
+      dr = Math.sqrt(dx * dx + dy * dy) / 2;
+      dr = dr || 25;  // self-arrows
+  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+}
+
+function transform(d) {
+  return "translate(" + d.x + "," + d.y + ")";
+}
+
+</script>

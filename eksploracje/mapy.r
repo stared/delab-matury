@@ -155,11 +155,17 @@ rysujMapy(rok){
   
   zdajWoj$id<-rownames(zdajWoj)
   
-  # połączenie ze współrzędnymi województw
-  woj_zdaj <- merge(woj_df, zdajWoj, by="id", sort = FALSE, all.x=TRUE)
+  # liczba maturzystów w województwach:
+  tapply(dane$j_polski_podstawowa, dane$wojewodztwo_szkoly,
+           function(x){return(length(x))}) %>% data.frame(.) -> maturzWoj
+  colnames(maturzWoj)<-"maturzysci"
+  maturzWoj$id<-rownames(maturzWoj)
+  
   
   # połączenie ze współrzędnymi centroidów wojewodztw
   woj_cent_zdaj <- merge(centroidy_df, zdajWoj, by="id")
+  woj_cent_zdaj <- merge(woj_cent_zdaj, maturzWoj, by="id")
+  
   
   # średnie wyniki dla powiatow
   dane$powiatWojewodztwo <- paste(as.character(dane$powiat_szkoly),
@@ -258,24 +264,19 @@ rysujMapy(rok){
     return(map)
   }
   
-  rysuj_woj_kola <- function(matura, co){
-    if(co=="wyniki"){
-      tytul <- paste0("Średnie wyniki w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-      dane_woj <- woj_cent_wyniki
-      midpoint <- srPL[matura] 
-    }
-    if(co=="zdający"){
-      tytul <- paste0("Procent zdających w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
-      dane_woj <- woj_cent_zdaj
-      midpoint <- zdajPL[matura]
-    }
-    colnames(dane_woj)[colnames(dane_woj)==matura] <- "wyniki"
-    print(paste(co, matura, rok))
-    map <-   ggplot(dane_woj, aes(map_id = id)) + #"id" is col in your df, not in the map object 
-      geom_map(colour= "gray", map = woj_df) +
+  rysuj_woj_kola <- function(matura){
+    tytul <- paste0("Procent zdających w ", rok, ": ", gsub("^j_", "j. ", matura) %>% gsub("_", " ", .))
+    dane_woj <- woj_cent_zdaj[,c("id", matura, "maturzysci", "Longitude", "Latitude")]
+    colnames(dane_woj)[colnames(dane_woj)==matura] <- "zdajacy"
+    midpoint <- zdajPL[matura]
+    print(paste(matura, rok))
+    map <- ggplot(dane_woj, aes(map_id = id)) + 
+      geom_map(colour= "black", map = woj_df, fill="#FAE7B5") +
       geom_point(data=dane_woj, 
-                 aes(x=Longitude, y=Latitude, size=wyniki), 
-                 fill="orange",pch=21) +
+                 aes(x=Longitude, y=Latitude, size=maturzysci, fill=zdajacy), pch=21) +
+      scale_size_area(max_size=12) +
+      labs(size="maturzyści", colour="zdający (%)") +
+      scale_fill_gradient2(low=muted("red"), high=muted("blue"), midpoint=midpoint) +
       expand_limits(x = woj_df$long, y =woj_df$lat) +
       labs(title=tytul) + 
       coord_equal() + 
@@ -284,6 +285,7 @@ rysujMapy(rok){
     return(map)
   }
   
+  rysuj_woj_kola("biologia_podstawowa")
 
   
   rysuj_woj("biologia_podstawowa", "zdający")
