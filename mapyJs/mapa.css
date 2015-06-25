@@ -4,7 +4,7 @@
   stroke-width: 1px;
 }
 
-.city {
+.kolo {
   /*cursor: crosshair;*/
   fill: rgba(68, 112, 180, 0.8);
   stroke: rgba(0, 0, 0, 1);
@@ -12,7 +12,7 @@
   opacity: 0.4;
 }
 
-.city:hover {
+.kolo:hover {
   /*stroke-width: 2px;*/
   fill: #C20D19;
 }
@@ -25,6 +25,17 @@
 }
 
 .dziedzina:hover {
+  fill: #C63628;
+}
+
+.matura {
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  font-size: 13px;
+  fill: #000;
+  cursor: default;
+}
+
+.matura:hover {
   fill: #C63628;
 }
 
