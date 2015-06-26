@@ -9,6 +9,7 @@ library(scales)
 
 wojewodztwa <- readOGR(dsn="../dane/PRG_jednostki_administracyjne_v8/wojew¢dztwa.shp",
                        layer="wojew¢dztwa")
+wojewodztwa <- spTransform(wojewodztwa, CRS("+proj=longlat +datum=WGS84"))
 
 woj_df <- fortify(wojewodztwa, region = "jpt_nazwa_")
 woj_df$id = iconv(woj_df$id, "windows-1250", "UTF-8") # polskie znaki
@@ -108,4 +109,30 @@ zapisz <- function(rok) {
 
 dane_komplet <- lapply(2010:2014, zapisz)
 dane_komplet2 <- rbind(dane_komplet[[1]], dane_komplet[[2]], dane_komplet[[3]], dane_komplet[[4]], dane_komplet[[5]])
+
+
+sr_nazwy <- grep("^sr_", colnames(dane_komplet2), value=T)
+matury <- sub("^sr_", "", sr_nazwy)
+maturzysci <- tapply(dane_komplet2$maturzysci, dane_komplet2$wojewodztwa, sum)
+wszyscy <-  data.frame(maturzysci=maturzysci)
+wszyscy$wojewodztwa <- rownames(maturzysci) 
+wszyscy$Longitude <- sapply(wszyscy$wojewodztwa, function(woj){
+  return(dane_komplet2$Longitude[dane_komplet2$wojewodztwa==woj][1])
+  })
+wszyscy$Latitude <- sapply(wszyscy$wojewodztwa, function(woj){
+  return(dane_komplet2$Latitude[dane_komplet2$wojewodztwa==woj][1])
+})
+for (m in matury){
+  wszyscy[, paste0("licz_", m)] <- tapply(dane_komplet2[, paste0("licz_", m)],
+                                         dane_komplet2$wojewodztwa, sum)
+  suma_wynik <- tapply(dane_komplet2[, paste0("licz_", m)] * dane_komplet2[, paste0("sr_", m)],
+                       dane_komplet2$wojewodztwa, sum)
+  wszyscy[, paste0("sr_", m)] <- suma_wynik/wszyscy[, paste0("licz_", m)]
+}
+wszyscy$rok <- rep("WSZYSTKIE", 16)
+
+
+
+dane_komplet2 <- rbind(dane_komplet2, wszyscy)
+
 write.csv(dane_komplet2, "../mapyJs/wojewodztwa.csv")
