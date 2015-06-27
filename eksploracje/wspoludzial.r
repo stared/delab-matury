@@ -2,8 +2,6 @@ library(ggplot2)
 library(dplyr)
 library(igraph)
 
-# DANE DO POPRAWKI
-#
 wyniki <- read.csv("../dane/przetworzone/sumy_laureaty.csv")
 
 kolumny = grep("podstawowa|rozszerzona", colnames(wyniki))
@@ -12,6 +10,8 @@ koincydencje <- wyniki %>% select(matches("podstawowa|rozszerzona")) %>%
   select(-matches("polski_p|matematyka_p|angielski_p"))  %>%
   is.na %>% `!` %>%
   as.matrix %>% crossprod
+
+write.csv(koincydencje, "../dane/przetworzone/koincydencje.csv")
 
 g <- graph.adjacency(koincydencje, weighted=TRUE, mode="undirected", diag = FALSE)
 
