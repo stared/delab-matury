@@ -17,17 +17,6 @@
   fill: #C20D19;
 }
 
-.dziedzina {
-  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
-  font-size: 13px;
-  fill: #000;
-  cursor: default;
-}
-
-.dziedzina:hover {
-  fill: #C63628;
-}
-
 .matura {
   font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
   font-size: 13px;

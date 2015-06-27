@@ -153,42 +153,42 @@ function odswiez_rok (matury_data_rok) {
   wyswietl_wszystkie_kola(kola);
 
   // dziedziny do zamienienia w matury
-  var dziedziny = svg.selectAll('.dziedzina')
+  var matury = svg.selectAll('.matura')
     .data(znajdz_nazwy_matur(matury_data_rok));
     
-  var dziedziny_g = dziedziny.enter()
+  var matury_g = matury.enter()
     .append("g")
-      .attr("class", "dziedzina")
+      .attr("class", "matura")
       .attr("transform", function (d, i) {
         return "translate(700," + (170 + 20 * i) + ")";
        });
 
-  dziedziny_g.append("rect")
+  matury_g.append("rect")
     .attr("x", -30)
     .attr("y", -15)
     .attr("width", 180)
     .attr("height", 20)
     .attr("fill", "white");
 
-  dziedziny_g.append("text")
-    .attr("class", "dziedzina_tekst")
+  matury_g.append("text")
+    .attr("class", "matura_tekst")
     .attr("x", 15);
 
 
-  dziedziny_g.append("text")
-    .attr("class", "dziedzina_licznik")
+  matury_g.append("text")
+    .attr("class", "matura_licznik")
     .attr("text-anchor", "end");
 
-  dziedziny
+  matury
     .on("mouseover", function (d) { wyswietl_kola_przedmioty(kola, matury_data_rok, d); })
     .on("mouseout", function (d) { wyswietl_wszystkie_kola(kola); });
 
-  dziedziny.exit()
+  matury.exit()
     .remove();
 
-  wyswietl_matury_wszystkie (dziedziny);
+  wyswietl_matury_wszystkie (matury);
 
-  dziedziny.transition().duration(CZAS_PRZEJSCIA)
+  matury.transition().duration(CZAS_PRZEJSCIA)
     .attr("transform", function (d, i) {
       return "translate(700," + (170 + 20 * i) + ")";
     });
@@ -197,7 +197,7 @@ function odswiez_rok (matury_data_rok) {
 
 function wyswietl_matury_wszystkie (matury) {
 
-  matury.select(".dziedzina_tekst")
+  matury.select(".matura_tekst")
     .style("opacity", 1)
     .text(function (d) { return wyswietl_nazwe_matury(d); });
 
