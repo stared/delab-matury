@@ -23,11 +23,9 @@ var srodkowy_kolor = "#FFFFFF"; //"white";
 
 
 // TODO
-// kolor kół = średni wynik
 // wyswietlanie nazw matur w formacie: "przedmiot: podstawowa | rozszerzona"
 // wyróżnienie wybranej matury (kolor czcionki? przesunięcie?)
 // zachowanie matury po najechaniu na rok
-// informacje wyświetlane po najechaniu kursorem na koło / na wojewodztwo?
 
 
 function znajdz_nazwy_matur(matury_dane){
@@ -43,11 +41,13 @@ function znajdz_nazwy_matur(matury_dane){
 	return nazwy_matur;
 };
 
+
 function wyswietl_nazwe_matury (nazwa) {
 	var przetworzona = nazwa.replace(/^j_/, "j. ")
 		.replace(/_/, " ");
 	return przetworzona;
 };
+
 
 function dane_o_maturze (matury_dane, matura) {
 
@@ -66,6 +66,7 @@ function dane_o_maturze (matury_dane, matura) {
 	
 };
 
+
 function dane_maturzysci (matury_dane) {
 	var wynik = [];
 	matury_dane.forEach(function(wiersz){
@@ -81,13 +82,17 @@ function dane_maturzysci (matury_dane) {
 	return wynik;
 };
 
+
 function kolory_skala (min_value, medium_value, max_value){
-	console.log([Number(min_value), Number(medium_value), Number(max_value)])
+
 	var kolor = d3.scale.linear()  
     .domain([Number(min_value), Number(medium_value), Number(max_value)])
     .range([dolny_kolor, srodkowy_kolor, gorny_kolor]);
+    
   return(kolor);
+
 };
+  
   
 function srednia_krajowa (dane) {
 	var sumy = [];
@@ -152,6 +157,7 @@ function zacznij_wizualizajce (poland_data, matury_data) {
 
 }
 
+
 function odswiez_rok (matury_data_rok) {
 
   var kola = svg.selectAll('.kolo')
@@ -170,7 +176,7 @@ function odswiez_rok (matury_data_rok) {
       var pos = projection([d.Longitude, d.Latitude]);
       tooltipShow(
         ["woj.", d.wojewodztwo,
-         "<br>zdających:", d.zdajacy].join(" "),
+         "<br>zdających:", Number(d.zdajacy).toLocaleString()].join(" "),
         d.x + d.r,
         d.y
       );
@@ -229,6 +235,7 @@ function odswiez_rok (matury_data_rok) {
 
 }
 
+
 function wyswietl_matury (matury) {
 
   matury.select(".matura_tekst")
@@ -245,7 +252,17 @@ function wyswietl_wszystkie_kola (kola) {
       .style("opacity", 0.5)
       .style("fill", "#EFB701")
       .attr("r", function (d) { return Math.sqrt(d.zdajacy)/10; });
-
+      
+  kola
+  .on("mouseover", function (d) {
+    var pos = projection([d.Longitude, d.Latitude]);
+    tooltipShow(
+      ["woj.", d.wojewodztwo,
+       "<br>zdających:", Number(d.zdajacy).toLocaleString()].join(" "),
+      d.x + d.r,
+      d.y
+    );
+  })
 }
 
 
@@ -265,7 +282,18 @@ function wyswietl_kola_przedmioty (kola, matury_data_rok, przedmiot) {
         .style("opacity", 1)
         .style("stroke", "#000000")
         .style("fill", function(d) {return kolory(wojewodztwa_przedmiot[d.wojewodztwo].srednia)})
-        .attr("r", function (d) {return Math.sqrt(wojewodztwa_przedmiot[d.wojewodztwo].zdajacy)/10; });
+        .attr("r", function (d) {return Math.sqrt(wojewodztwa_przedmiot[d.wojewodztwo].zdajacy)/10; })
+
+	kola.on("mouseover", function (d) {
+		    	var pos = projection([d.Longitude, d.Latitude]);
+		    	tooltipShow(
+		      	["woj.", d.wojewodztwo,
+		      	 "<br>zdających:", Number(wojewodztwa_przedmiot[d.wojewodztwo].zdajacy).toLocaleString(),
+		      	 "<br>średni wynik:", Number(wojewodztwa_przedmiot[d.wojewodztwo].srednia).toPrecision(3), "%"].join(" "),
+		      	d.x + d.r,
+		      	d.y
+		    	);
+		  	});
         
 }
 
@@ -277,6 +305,7 @@ function tooltipShow (html, x, y) {
     .style("top", y + "px")
     .html(html);
 }
+
 
 function tooltipOut () {
   tooltip
