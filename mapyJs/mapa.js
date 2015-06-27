@@ -122,7 +122,7 @@ function wyswietl_nazwe_matury (nazwa) {
 function dane_o_maturze (matury_dane, przedmiot) {
 	var wynik = {};
 	matury_dane.forEach(function(wiersz){
-		wynik[wiersz.wojewodztwo] = {
+		wynik[wiersz.wojewodztwa] = {
 			Longitude: wiersz.Longitude,
 			Latitude: wiersz.Latitude,
 			srednia: wiersz["sr_" + przedmiot],
@@ -206,8 +206,6 @@ function zacznij_wizualizajce (poland_data, people_data, matury_data) {
 }
 
 function odswiez_rok (people_data_rok, matury_data_rok) {
-  console.log(dane_maturzysci(matury_data_rok));
-  console.log(ludzie_do_miast(people_data_rok));
 
   var kola = svg.selectAll('.kolo')
     .data(dane_maturzysci(matury_data_rok));//, function(d) {return d.wojewodztwo; });
@@ -218,7 +216,7 @@ function odswiez_rok (people_data_rok, matury_data_rok) {
       .attr("class", "kolo")
       .attr("cx", function (d) { return projection([d.Longitude, d.Latitude])[0]; })
       .attr("cy", function (d) { return projection([d.Longitude, d.Latitude])[1]; })
-      .attr("r", function (d) {console.log("r = " + Math.sqrt(d.zdajacy)/10); Math.sqrt(d.zdajacy)/10;})
+      .attr("r", function (d) { Math.sqrt(d.zdajacy)/10;})
       .append("title");
 
   kola
@@ -226,7 +224,6 @@ function odswiez_rok (people_data_rok, matury_data_rok) {
       //wyswietl_dziedziny_w_miescie(dziedziny, people_data_rok, d);
       var pos = projection([d.Longitude, d.Latitude]);
       var r = 3 * Math.sqrt(d.zdajacy);
-      console.log("r = " + r);
       tooltipShow(
         [d.zdajacy, "w", d.wojewodztwo].join(" "),
         pos[0] + 8 - r,
@@ -274,7 +271,7 @@ function odswiez_rok (people_data_rok, matury_data_rok) {
     .attr("text-anchor", "end");
 
   dziedziny
-    .on("mouseover", function (d) { wyswietl_miasta_w_dziedzinie(kola, people_data_rok, d); })
+    .on("mouseover", function (d) { wyswietl_kola_przedmioty(kola, matury_data_rok, d); })
     .on("mouseout", function (d) { wyswietl_wszystkie_kola(kola); });
 
   dziedziny.exit()
@@ -344,19 +341,28 @@ function wyswietl_wszystkie_kola (kola) {
 
 }
 
+function wyswietl_kola_przedmioty (kola, matury_data_rok, przedmiot) {
 
-function wyswietl_miasta_w_dziedzinie (kola, people_data_rok, d) {
-
-  var czesc_ludzi = people_data_rok.filter(function (c) { return c.dziedzina == d.dziedzina; });
-
-  var miasta_w_dziedzinie = ludzie_do_miast_zliczenia(czesc_ludzi);
-
-  kola.transition()
-    .duration(CZAS_PRZEJSCIA)
-      .style("opacity", 1)
-      .attr("r", function (d) { return 3 * Math.sqrt(miasta_w_dziedzinie[d.woj] || 0); });
-
+	var wojewodztwa_przedmiot = dane_o_maturze (matury_data_rok, przedmiot);
+	kola.transition()
+      .duration(CZAS_PRZEJSCIA)
+        .style("opacity", 1)
+        .attr("r", function (d) {return Math.sqrt(wojewodztwa_przedmiot[d.wojewodztwo].zdajacy)/10; });
 }
+
+
+//function wyswietl_miasta_w_dziedzinie (kola, people_data_rok, d) {
+//
+//  var czesc_ludzi = people_data_rok.filter(function (c) { return c.dziedzina == d.dziedzina; });
+
+//  var miasta_w_dziedzinie = ludzie_do_miast_zliczenia(czesc_ludzi);
+
+//  kola.transition()
+//    .duration(CZAS_PRZEJSCIA)
+//      .style("opacity", 1)
+//      .attr("r", function (d) { return 3 * Math.sqrt(miasta_w_dziedzinie[d.woj] || 0); });
+
+//}
 
 function tooltipShow (html, x, y) {
   tooltip
