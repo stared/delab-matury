@@ -1,14 +1,14 @@
 .wojewodztwo {
-  fill: #E7B041;
-  stroke: rgba(194, 13, 25, 0.25);
+  fill: #DEDEDE;
+  stroke: #707070;
   stroke-width: 1px;
 }
 
 .kolo {
   /*cursor: crosshair;*/
-  fill: rgba(68, 112, 180, 0.8);
-  stroke: rgba(0, 0, 0, 1);
-  stroke-width: 0px;
+  fill: #EFB701;
+  stroke: #AF8600;
+  stroke-width: 1px;
   opacity: 0.4;
 }
 
@@ -33,6 +33,10 @@
   font-size: 12px;
   font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
   cursor: default;
+}
+
+.rok:hover {
+  fill: #C63628;
 }
 
 .rok.selected {
