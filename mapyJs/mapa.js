@@ -21,6 +21,8 @@ var dolny_kolor =  "#FF0000"; //"red";
 var gorny_kolor = "#0000FF"; //"blue";
 var srodkowy_kolor = "#FFFFFF"; //"white";
 
+var wybrana = {matura:"wszyscy maturzyści" , rok:"2014"};
+
 
 // TODO
 // wyswietlanie nazw matur w formacie: "przedmiot: podstawowa | rozszerzona"
@@ -146,6 +148,7 @@ function zacznij_wizualizajce (poland_data, matury_data) {
           .append("text")
             .attr("class", "rok")
             .on("click", function (d) {
+            	wybrana.rok = d;
               lata
                 .attr("y", function (c) {
                   return c == d ? 65 : 50; 
@@ -161,7 +164,7 @@ function zacznij_wizualizajce (poland_data, matury_data) {
             })
             .text(function (d) { return d; });
 
-  odswiez_rok(matury_data.filter(function (d) { return d.rok === "2014"; }));
+  odswiez_rok(matury_data.filter(function (d) { return d.rok === wybrana.rok; }));
 
 }
 
@@ -197,7 +200,10 @@ function odswiez_rok (matury_data_rok) {
       .attr("r", 0)
       .remove();
 
-  wyswietl_wszystkie_kola(kola);
+	if (wybrana.matura === "wszyscy maturzyści")
+		wyswietl_wszystkie_kola(kola);
+	else
+		wyswietl_kola_przedmioty(kola, matury_data_rok, wybrana.matura); 
 
   var matury = svg.selectAll('.matura')
     .data(znajdz_nazwy_matur(matury_data_rok));
@@ -218,14 +224,18 @@ function odswiez_rok (matury_data_rok) {
 
   matury_g.append("text")
     .attr("class", "matura_tekst")
-    .attr("x", 15);
+    .attr("x", function(d) {
+    	console.log("d=" + d);
+    	return d === wybrana.matura ? 0 : 15;
+    });
 
 
   matury
     .on("click", function (d) { 
+    	wybrana.matura = d;
     	matury.selectAll(".matura_tekst")
     		.attr("x", function (c) {
-    	  	return c == d ? 0 : 15; 
+    	  	return c === d ? 0 : 15; 
       	});
 			if (d=="wszyscy maturzyści")
 				wyswietl_wszystkie_kola(kola);
@@ -236,8 +246,8 @@ function odswiez_rok (matury_data_rok) {
 
   matury.exit()
     .remove();
-
-  wyswietl_matury (matury);
+	
+  wyswietl_matury(matury);
 
   matury.transition().duration(CZAS_PRZEJSCIA)
     .attr("transform", function (d, i) {
