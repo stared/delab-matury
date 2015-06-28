@@ -24,20 +24,28 @@ var srodkowy_kolor = "#FFFFFF"; //"white";
 
 // TODO
 // wyswietlanie nazw matur w formacie: "przedmiot: podstawowa | rozszerzona"
-// wyróżnienie wybranej matury (kolor czcionki? przesunięcie?)
 // zachowanie matury po najechaniu na rok
+// legenda
+// pie chart - liczba zdajacych
 
 
 function znajdz_nazwy_matur(matury_dane){
-	var nazwy_matur = ["wszyscy maturzyści"];
+
 	var nazwy_kolumn = Object.keys(matury_dane[0]);
 	var re = /licz_(.*)/
+	
+	var nazwy_matur = [];
 	nazwy_kolumn.forEach(function(nazwa){
 		var dopasowanie = re.exec(nazwa);
 		if (dopasowanie != null) {
 			nazwy_matur.push(dopasowanie[1]);
 		};
 	});
+	
+	nazwy_matur = nazwy_matur.sort(function(a,b){
+		return a.toLowerCase().localeCompare(b.toLowerCase());
+	});
+	nazwy_matur.unshift("wszyscy maturzyści");
 	return nazwy_matur;
 };
 
@@ -157,7 +165,6 @@ function zacznij_wizualizajce (poland_data, matury_data) {
 
 }
 
-
 function odswiez_rok (matury_data_rok) {
 
   var kola = svg.selectAll('.kolo')
@@ -199,7 +206,7 @@ function odswiez_rok (matury_data_rok) {
     .append("g")
       .attr("class", "matura")
       .attr("transform", function (d, i) {
-        return "translate(700," + (170 + 20 * i) + ")";
+        return "translate(700," + (100 + 20 * i) + ")";
        });
 
   matury_g.append("rect")
@@ -216,6 +223,10 @@ function odswiez_rok (matury_data_rok) {
 
   matury
     .on("click", function (d) { 
+    	matury.selectAll(".matura_tekst")
+    		.attr("x", function (c) {
+    	  	return c == d ? 0 : 15; 
+      	});
 			if (d=="wszyscy maturzyści")
 				wyswietl_wszystkie_kola(kola);
 			else
@@ -230,11 +241,10 @@ function odswiez_rok (matury_data_rok) {
 
   matury.transition().duration(CZAS_PRZEJSCIA)
     .attr("transform", function (d, i) {
-      return "translate(700," + (170 + 20 * i) + ")";
+      return "translate(700," + (100 + 20 * i) + ")";
     });
 
 }
-
 
 function wyswietl_matury (matury) {
 
@@ -305,7 +315,6 @@ function tooltipShow (html, x, y) {
     .style("top", y + "px")
     .html(html);
 }
-
 
 function tooltipOut () {
   tooltip
