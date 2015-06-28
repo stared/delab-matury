@@ -7,14 +7,9 @@
 .kolo {
   /*cursor: crosshair;*/
   fill: #EFB701;
-  stroke: #AF8600;
+  stroke: #000000;
   stroke-width: 1px;
   opacity: 0.4;
-}
-
-.kolo:hover {
-  /*stroke-width: 2px;*/
-  fill: #C20D19;
 }
 
 .matura {
@@ -30,7 +25,7 @@
 
 .rok {
   fill: #000;
-  font-size: 12px;
+  font-size: 13px;
   font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
   cursor: default;
 }
