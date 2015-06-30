@@ -23,6 +23,10 @@
   fill: #C63628;
 }
 
+.selected {
+  fill: #C20D19;
+}
+
 .rok {
   fill: #000;
   font-size: 13px;
@@ -40,8 +44,8 @@
 
 #stopka {
   position: absolute;
-  top: 530px;
-  left: 580px;
+  top: 550px;
+  left: 20px;
   padding: 12px;
   /*width: 300px;*/
   /*background: rgba(230, 230, 230, 0.85);*/
@@ -66,6 +70,18 @@
   opacity: 0.8;
   display: none;
   z-index: 10;
+}
+
+#legenda {
+  font-size: 13px;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
 }
 
 a:link {

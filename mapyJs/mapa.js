@@ -1,10 +1,10 @@
-var width = 960,
+var width = 1100,
     height = 1160;
 
 var projection = d3.geo.mercator()
     .center([20, 52])
     .scale(3000)
-    .translate([400, 350]);
+    .translate([430, 340]);
 
 var path = d3.geo.path()
     .projection(projection);
@@ -17,19 +17,19 @@ var tooltip = d3.select("#tooltip");
 
 var CZAS_PRZEJSCIA = 400;
 
-var dolny_kolor =  "#FF0000"; //"red";
-var gorny_kolor = "#0000FF"; //"blue";
-var srodkowy_kolor = "#FFFFFF"; //"white";
+var dolny_kolor =  "red";
+		gorny_kolor = "blue";
+		srodkowy_kolor = "white";
 
 var wybrana = {matura:"wszyscy maturzyści" , rok:"2014"};
 
 
 // TODO
 // wyswietlanie nazw matur w formacie: "przedmiot: podstawowa | rozszerzona"
-// zachowanie matury po najechaniu na rok
-// legenda
+// legenda: opis: biały = średnia krajow = [wartosc]
+// legenda: liczba zdajacych
 // pie chart - liczba zdajacych
-
+// bug: we wczytywaniu danych
 
 function znajdz_nazwy_matur(matury_dane){
 
@@ -156,21 +156,22 @@ function zacznij_wizualizajce (poland_data, matury_data) {
              })
             .on("click", function (d) {
             	wybrana.rok = d;
-            	odswiez_rok(matury_data.filter(function (c) {return c.rok === d; }), kola);
+            	odswiez_rok(matury_data, kola);
               lata
                 .attr("y", function (c) {
-                  return c == d ? 65 : 50; 
+                  return c == d ? 55 : 40; 
                 })
                 .classed("selected", function (c) {
                   return c == d;
                 })
             })
-            .attr("x", function (d, i) { return 30 + 45 * i; })
+            .attr("x", function (d, i) { return 170 + 45 * i; })
             .attr("y", function (d) {
-              return d === "2014" ? 65 : 50; 
+              return d === "2014" ? 55 : 40; 
             })
             .text(function (d) { return d; });
-            
+  
+  // wartość startowa          
   var matury_data_rok = matury_data.filter(function (d) { return d.rok === wybrana.rok; });
             
   var kola = svg.selectAll('.kolo')
@@ -181,7 +182,7 @@ function zacznij_wizualizajce (poland_data, matury_data) {
       .attr("class", "kolo")
       .attr("cx", function (d) { return d.x; })
       .attr("cy", function (d) { return d.y; })
-      .attr("r", function (d) { return d.r; })
+      .attr("r", 0) 
       .append("title");
       
       
@@ -225,8 +226,8 @@ function zacznij_wizualizajce (poland_data, matury_data) {
     .attr("x", function(d) {
     	return d === wybrana.matura ? 0 : 15;
     })
-    .attr("fill", function (d) {
-          return d === wybrana.matura ? "#C20D19" : "#000";
+    .classed("selected", function (c) {
+      return c === wybrana.matura;
     });
 
 
@@ -237,10 +238,10 @@ function zacznij_wizualizajce (poland_data, matury_data) {
     		.attr("x", function (c) {
     	  	return c === d ? 0 : 15; 
       	})
-        .attr("fill", function (c) {
-          return c === d ? "#C20D19" : "#000";
+      	.classed("selected", function (c) {
+          return c == d;
         });
-			odswiez_rok (matury_data_rok, kola); 
+			odswiez_rok (matury_data, kola); 
     });
 
 
@@ -254,11 +255,13 @@ function zacznij_wizualizajce (poland_data, matury_data) {
       return "translate(700," + (100 + 20 * i) + ")";
     });
 
-  odswiez_rok(matury_data_rok, kola);
+  odswiez_rok(matury_data, kola);
 
 }
 
-function odswiez_rok (matury_data_rok, kola) {
+function odswiez_rok (matury_data, kola) {
+
+	var matury_data_rok = matury_data.filter(function (c) {return c.rok === wybrana.rok; })
 
 	if (wybrana.matura === "wszyscy maturzyści")
 		wyswietl_wszystkie_kola(kola, matury_data_rok);
@@ -295,7 +298,11 @@ function wyswietl_wszystkie_kola (kola, matury_data_rok) {
       d.x + d.r,
       d.y
     );
-  })
+  });
+  
+  // usuwa legendę dla kolorów
+  d3.select("svg #legenda").remove();
+  
 }
 
 
@@ -307,8 +314,11 @@ function wyswietl_kola_przedmioty (kola, matury_data_rok) {
 		return woj.srednia
 	});
 
+	var minW = Number(d3.min(srednie)),
+			meanW = Number(srednia_krajowa(wojewodztwa_przedmiot)),
+			maxW = Number(d3.max(srednie));
 	 
-	var kolory = kolory_skala(d3.min(srednie), srednia_krajowa(wojewodztwa_przedmiot), d3.max(srednie));
+	var kolory = kolory_skala(minW, meanW, maxW);
 	
 	kola
     .data(wojewodztwa_przedmiot);
@@ -329,7 +339,8 @@ function wyswietl_kola_przedmioty (kola, matury_data_rok) {
 		      	d.y
 		    	);
 		  	});
-        
+		  	
+	rysuj_legende(dolny_kolor, srodkowy_kolor, gorny_kolor, minW, meanW, maxW);
 }
 
 
