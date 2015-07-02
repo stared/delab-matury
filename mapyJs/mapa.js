@@ -140,7 +140,7 @@ function zacznij_wizualizajce (poland_data, matury_data) {
 
   var lata = [];
   for (var rok = 2010; rok <= 2014; rok++) lata.push(String(rok)); 
-  lata.push("WSZYSTKIE"); 
+  lata.push("ŚREDNIA WIELOLETNIA"); 
   // na razie na sztywno
   
 
@@ -190,7 +190,7 @@ function zacznij_wizualizajce (poland_data, matury_data) {
 		.on("mouseover", function (d) {
 		  tooltipShow(
 		    ["woj.", d.wojewodztwo,
-		     "<br>zdających:", Number(d.zdajacy).toLocaleString()].join(" "),
+		     "<br>zdających:", Math.round(Number(d.zdajacy)).toLocaleString()].join(" "),
 		     d.x + d.r,
 		     d.y
 		  );
@@ -294,7 +294,7 @@ function wyswietl_wszystkie_kola (kola, matury_data_rok) {
   .on("mouseover", function (d) {
     tooltipShow(
       ["woj.", d.wojewodztwo,
-       "<br>zdających:", Number(d.zdajacy).toLocaleString()].join(" "),
+       "<br>zdających:", Math.round(Number(d.zdajacy)).toLocaleString()].join(" "),
       d.x + d.r,
       d.y
     );
@@ -333,7 +333,7 @@ function wyswietl_kola_przedmioty (kola, matury_data_rok) {
 	kola.on("mouseover", function (d) {
 		    	tooltipShow(
 		      	["woj.", d.wojewodztwo,
-		      	 "<br>zdających:", Number(d.zdajacy).toLocaleString(),
+		      	 "<br>zdających:", Math.round(Number(d.zdajacy)).toLocaleString(),
 		      	 "<br>średni wynik:", Number(d.srednia).toPrecision(3), "%"].join(" "),
 		      	d.x + d.r,
 		      	d.y
