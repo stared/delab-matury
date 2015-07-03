@@ -114,8 +114,6 @@ shinyServer(function(input, output, session) {
     }
     kolory <- gg_color_hue(length(unique(kategoria)))
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
-#       cat("-- grupy", file = stderr())
-#       cat("\n", file = stderr())
       kategoria_zmod <- kategoria
       grupa_zmod <- grupa
       dane_zmod <- dane
@@ -124,7 +122,7 @@ shinyServer(function(input, output, session) {
     else{
       kategoria_zmod <- kategoria[kategoria!=filtr]
       grupa_zmod <- grupa[kategoria!=filtr]
-      dane_zmod <- dane[dane[,filtr]!=wartosc,]
+      dane_zmod <- dane[dane[,filtr]==wartosc,]
       tytul <- paste("kto zdaje?", "\n", filtr, ": ", wartosc, sep="")
       kolory<-kolory[unique(kategoria)!=filtr]
     }
@@ -148,6 +146,7 @@ shinyServer(function(input, output, session) {
       scale_fill_manual(values=kolory) +
       xlab("") +
       ylab("liczba zdających (w tysiącach)") +
+      guides(fill=guide_legend(title="kategorie")) +
       coord_flip() +
       ggtitle(tytul)
     return(grupHist)
@@ -160,10 +159,10 @@ observe({
   else{
     filtr <- input$filtr
   }
-  if (filtr!="--"){
-#     output$wartoscSelektor <- renderUI({
-#       selectInput("wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]), selected=wartosc)
-#     })
+  if (filtr=="--"){
+    updateSelectInput(session, "wartosc", "Wartość filtra", choices="wybierz filtr!")
+  }
+  else {
     updateSelectInput(session, "wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]))
   }
   
