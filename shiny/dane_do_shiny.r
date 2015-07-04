@@ -6,8 +6,11 @@ zapisz<- function(rok){
   select(czesc_egzaminu) %>%
   unique
 
-szkoly <- read.csv(paste0("../dane/szkoly", rok, ".csv", sep="")) %>%
-  select(c(id_szkoly, rodzaj_gminy, typ_szkoly, publiczna, wielkosc_miejscowosci))
+# nie wiem czemu, ale w plikach szkoly...csv sa dane dla wszystkich lat.
+szkoly <- read.csv(paste0("../dane/przetworzone/szkoly", rok, ".csv", sep=""))
+szkoly <- szkoly[szkoly$rok == rok,
+                 c("id_szkoly", "rodzaj_gminy", "typ_szkoly", "publiczna", "wielkosc_miejscowosci")]
+
 
 matury$czesc_egzaminu %>%
   #paste0("../dane/wyniki/", ., " 2014.csv") %>%
@@ -27,8 +30,8 @@ matury$nazwa %>%
 
 # indeksy, informacje ogolne
 przedmioty <- read.csv(paste0("../dane/wyniki/j._polski_podstawowa_", rok, ".csv", sep=""))
-# trzeba wyrzucac poprawkowe
-przedmioty[1000:1010,"pop_podejscie"]
+# wyrzucam poprawkowe: czyli pop_podejscie != Na
+przedmioty <- przedmioty[is.na(przedmioty$pop_podejscie),]
 rownames(przedmioty) <- przedmioty$id_obserwacji
 przedmioty <- select(przedmioty, id_szkoly, plec, rocznik, dysleksja)
 
@@ -39,15 +42,14 @@ for (i in 1:nrow(matury)) {
   print(row$sciezka)
   
   matura <- read.csv(row$sciezka)
-  # trzeba wyrzucac poprawkowe
+  # wyrzucam poprawkowe
+  matura <- matura[is.na(matura$pop_podejscie),]
   rownames(matura) <- matura$id_obserwacji
   
-  #przedmioty[rownames(matura), paste0(row$przedmiot, "_laureat")] <- matura$laureat
+  #dodaje ucznia, jesli go do tej pory nie bylo, jesli byl: tylko kolumne.
   przedmioty[rownames(matura), row$nazwa] <- matura %>%
     select(starts_with("k_")) %>% rowSums(na.rm=T)
 }
-
-#dir.create("../dane/przetworzone/", recursive=TRUE)
 
 przedmioty$plec <- factor(przedmioty$plec, levels=c("k", "m"), labels=c("kobiety", "mężczyźni"))
 names(przedmioty)[names(przedmioty) == 'plec'] <- 'płeć'
@@ -74,7 +76,9 @@ levels(dane$rodzaj_gminy)[levels(dane$rodzaj_gminy) == "dzielnica m.st. Warszawy
 
 dane$typ_szkoly[!(dane$typ_szkoly %in% c('LO', 'LP', 'T'))] <- NA
 levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LO"] <- "liceum ogólnokształcące"
-levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LP" | levels(dane$typ_szkoly) == "T"] <- "liceum profilowane lub technikum"
+#levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LP" | levels(dane$typ_szkoly) == "T"] <- "liceum profilowane lub technikum"
+levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LP"] <- "liceum profilowane"
+levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "T"] <- "technikum"
 
 
 dane$publiczna[dane$publiczna] <- "publiczna"
@@ -90,4 +94,3 @@ write.csv(dane, paste0("histogramy/wyniki", rok, ".csv", sep=""))
 
 lata<-2010:2014
 sapply(lata, zapisz)
-

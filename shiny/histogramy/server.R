@@ -13,7 +13,7 @@ shinyServer(function(input, output, session) {
   withProgress(message = 'Wczytuję wyniki,',
                detail = 'Może chwilę potrwać...', value = 0, {
                  #Sys.sleep(600)
-                 dane <- read.csv("wyniki.csv")
+                 dane <- read.csv("wyniki2014.csv")
                  # posortowanie rocznikow
 #                  grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
 #                                    paste(rok - najliczniejszy),
@@ -30,7 +30,7 @@ shinyServer(function(input, output, session) {
                  kategoria <- c("płeć", "płeć",
                                 "dysleksja", "dysleksja",
                                 rep("wiek", length(grupyWiekowe)),
-                                rep("typ szkoły", 2),
+                                rep("typ szkoły", 3),
                                 rep("szkoła publiczna?", 2),
                                 rep("rodzaj gminy", 3),
                                 rep("wielkość miejscowości", 3))
@@ -38,7 +38,7 @@ shinyServer(function(input, output, session) {
                  grupa <- c("kobiety", "mężczyźni",
                             "brak dysleksji", "dysleksja",
                             "18 i mniej", "19", "20", "21 i więcej",
-                            "liceum ogólnokształcące", "liceum profilowane lub technikum",
+                            "liceum ogólnokształcące", "liceum profilowane", "technikum",
                             "publiczna", "prywatna",
                             "wiejska", "miejsko-wiejska", "miejska",
                             "poniżej 5 tys.", "5 tys. - 50 tys.", "ponad 50 tys."
@@ -220,13 +220,13 @@ observe({
     if (podzial == "wiek"){
       wykres <- ggHistPodzial(nazwa, 'wiek', filtr, wartosc, kolory = c("green", "blue", "red", "black"))
     }
-    if (podzial == "rodzaj gminy"){
-      wykres <- ggHistPodzial(nazwa, 'rodzaj gminy', filtr, wartosc, kolory = c("green", "blue", "red"))
+    if (podzial %in% c("rodzaj gminy", "wielkość miejscowości", "typ szkoły")){
+      wykres <- ggHistPodzial(nazwa, podzial, filtr, wartosc, kolory = c("green", "blue", "red"))
     }
-    if (podzial == "wielkość miejscowości"){
-      wykres <- ggHistPodzial(nazwa, 'wielkość miejscowości', filtr, wartosc, kolory = c("green", "blue", "red"))
-    } 
-    if (podzial %in% c( "płeć", "dysleksja", "typ szkoły", "szkoła publiczna?")) {
+#     if (podzial == "wielkość miejscowości", "typ szkoły"){
+#       wykres <- ggHistPodzial(nazwa, 'wielkość miejscowości', filtr, wartosc, kolory = c("green", "blue", "red"))
+#     } 
+    if (podzial %in% c( "płeć", "dysleksja", "szkoła publiczna?")) {
       wykres <- ggHistPodzial(nazwa, input$podzial, filtr, wartosc)
     }
     

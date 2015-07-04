@@ -27,6 +27,7 @@ zapisz <- function(rok) {
   #rok <- 2010
   print(rok)
   szkoly <- read.csv(paste0("../dane/przetworzone/szkoly", rok, ".csv"))
+  szkoly <- szkoly[szkoly$rok==rok,]
   wyniki <- read.csv(paste0("../dane/przetworzone/wyniki_przetworzone_", rok, ".csv"))
   
   dane <- merge(wyniki, szkoly, by = "id_szkoly")
@@ -127,7 +128,7 @@ for (m in matury){
   wszyscy[, paste0("licz_", m)] <- tapply(dane_komplet2[, paste0("licz_", m)],
                                          dane_komplet2$wojewodztwa, sum)
   suma_wynik <- tapply(dane_komplet2[, paste0("licz_", m)] * dane_komplet2[, paste0("sr_", m)],
-                       dane_komplet2$wojewodztwa, sum)
+                       dane_komplet2$wojewodztwa, sum, na.rm=T)
   wszyscy[, paste0("sr_", m)] <- suma_wynik/wszyscy[, paste0("licz_", m)]
   wszyscy[, paste0("licz_", m)] <- wszyscy[, paste0("licz_", m)]/length(lata)
 }

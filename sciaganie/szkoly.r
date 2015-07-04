@@ -8,5 +8,5 @@ szkoly <- pobierz_szkoly(src)
 lata <- 2010:2014
 sapply(lata, function(rok){
   szkoly_rok <- szkoly %>% filter(rok == rok) %>% collect()
-  write.csv(szkoly_rok, paste0("../dane/przetworzon/szkoly", rok, ".csv", sep=""), row.names=FALSE)
+  write.csv(szkoly_rok, paste0("../dane/przetworzone/szkoly", rok, ".csv", sep=""), row.names=FALSE)
 })

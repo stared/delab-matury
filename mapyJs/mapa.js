@@ -20,6 +20,8 @@ var CZAS_PRZEJSCIA = 400;
 var dolny_kolor =  "red";
 		gorny_kolor = "blue";
 		srodkowy_kolor = "white";
+		
+var mianownik = 4.6;
 
 var wybrana = {matura:"wszyscy maturzyści" , rok:"2014"};
 
@@ -29,7 +31,7 @@ var wybrana = {matura:"wszyscy maturzyści" , rok:"2014"};
 // legenda: opis: biały = średnia krajow = [wartosc]
 // legenda: liczba zdajacych
 // pie chart - liczba zdajacych
-// bug: we wczytywaniu danych
+
 
 function znajdz_nazwy_matur(matury_dane){
 
@@ -69,7 +71,7 @@ function dane_o_maturze (matury_dane, nazwa_matury) {
 			wojewodztwo: wiersz.wojewodztwa,
 			x: projection([wiersz.Longitude, wiersz.Latitude])[0],
 			y: projection([wiersz.Longitude, wiersz.Latitude])[1],
-			r: Math.sqrt(wiersz["licz_" + nazwa_matury])/10,
+			r: Math.sqrt(wiersz["licz_" + nazwa_matury])/mianownik,
 			srednia: wiersz["sr_" + nazwa_matury],
 			zdajacy: wiersz["licz_" + nazwa_matury]
 		}
@@ -88,7 +90,7 @@ function dane_maturzysci (matury_dane) {
 			wojewodztwo: wiersz.wojewodztwa,
 			x: projection([wiersz.Longitude, wiersz.Latitude])[0],
 			y: projection([wiersz.Longitude, wiersz.Latitude])[1],
-			r: Math.sqrt(wiersz["maturzysci"])/10,
+			r: Math.sqrt(wiersz["maturzysci"])/mianownik,
 			zdajacy: wiersz["maturzysci"]
 			}
 		);
@@ -311,8 +313,11 @@ function wyswietl_kola_przedmioty (kola, matury_data_rok) {
 	var wojewodztwa_przedmiot = dane_o_maturze (matury_data_rok, wybrana.matura);
 	
 	var srednie = wojewodztwa_przedmiot.map (function(woj){
-		return woj.srednia
+		if (!isNaN(woj.srednia)){
+			return woj.srednia
+		};
 	});
+	console.log(srednie);
 
 	var minW = Number(d3.min(srednie)),
 			meanW = Number(srednia_krajowa(wojewodztwa_przedmiot)),
