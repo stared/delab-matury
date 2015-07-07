@@ -28,7 +28,6 @@ var wybrana = {matura:"wszyscy maturzyści" , rok:"2014"};
 
 // TODO
 // wyswietlanie nazw matur w formacie: "przedmiot: podstawowa | rozszerzona"
-// legenda: opis: biały = średnia krajow = [wartosc]
 // legenda: liczba zdajacych
 // pie chart - liczba zdajacych
 
@@ -317,7 +316,6 @@ function wyswietl_kola_przedmioty (kola, matury_data_rok) {
 			return woj.srednia
 		};
 	});
-	console.log(srednie);
 
 	var minW = Number(d3.min(srednie)),
 			meanW = Number(srednia_krajowa(wojewodztwa_przedmiot)),

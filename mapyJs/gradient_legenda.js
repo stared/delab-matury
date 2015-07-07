@@ -5,7 +5,7 @@ function rysuj_legende(dolny_kolor, kolor_srodkowy, gorny_kolor,min_wartosc, mea
     wysokosc_kontenra = 300,
     x1 = 20,
     szerokosc_paska = 30,
-    y1 = 100,
+    y1 = 250,
     wysokosc_paska = 200,
     liczba_odcieni = 35,
     liczba_kresek = 5;
@@ -90,5 +90,35 @@ function rysuj_legende(dolny_kolor, kolor_srodkowy, gorny_kolor,min_wartosc, mea
       .attr('stop-opacity',function(d) {
         return d.opacity;
       });
+      
+  var linia_pozioma_gorna = legenda.append("line")
+		 .attr("x1", x1)
+		 .attr("y1", srodek + y1)
+		 .attr("x2", x1-5)
+		 .attr("y2", srodek + y1)
+		 .attr("stroke", "black")
+		 .attr("stroke-width", "0.5px");
+		 
+	var linia_pionowa = legenda.append("line")
+		 .attr("x1", x1-5)
+		 .attr("y1", srodek + y1)
+		 .attr("x2", x1-5)
+		 .attr("y2", wysokosc_paska + y1 + 15)
+		 .attr("stroke", "black")
+		 .attr("stroke-width", "0.5px");
+		 
+	var linia_pozioma_dolna = legenda.append("line")
+		 .attr("x1", x1-5)
+		 .attr("y1", wysokosc_paska + y1 + 15)
+		 .attr("x2", x1)
+		 .attr("y2", wysokosc_paska + y1 + 15)
+		 .attr("stroke", "black")
+		 .attr("stroke-width", "0.5px");
+		 
+	var tekst = legenda.append("text")
+	   .attr("x", x1)
+		 .attr("y", wysokosc_paska + y1 + 15 + 3)
+     .text("Średnia krajowa = " + Number(mean_wartosc).toPrecision(3) + "%")
+      
       
 };
