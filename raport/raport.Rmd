@@ -1,0 +1,198 @@
+---
+title: "Raport z projektu: Analiza i interaktywna wizualizacja danych maturalnych"
+output: 
+  pdf_document:
+    fig_caption: yes
+header-includes:
+   - \usepackage{caption}
+---
+
+\def\figurename{Ryc.}
+
+```{r echo=FALSE}
+# komentarze
+# wstęp!
+# odnośniki do ilustracji (zmienne, nie na twardo?)
+```
+
+Mapa średnich wyników w województwach
+-------------------------------------
+
+Jest to interaktywna wizualizacja pozwalająca na porównanie liczby maturzystów i średnich wyników matur w poszczególnych województwach. Użytkownik ma możliwość wyboru opcji z dwóch pasków menu. Górny pasek pozwala na wybór roku, z którego pochodzą dane (z zakresu 2010-2014) lub średniej wieloletniej. Trzeba jednak pamiętać, że ta ostatnia wartość jest dość zgrubną miarą pozwalającą na porównywanie wyników między województwami, ponieważ w każdym roku zdający pisali nieco inny egzamin, który mógł nieco różnił się trudnością. Boczny pasek odpowiada za rodzaj wyświetlanych danych. Wybór opcji „wszyscy maturzyści” powoduje wyświetlanie na mapie kół, których powierzchnia jest proporcjonalna do liczby wszystkich maturzystów zdających w poszczególnych województwach (Ryc. 1). Natomiast wybranie nazwy egzaminu powoduje pojawienie się kolorowych kół, których pole odpowiada liczbie zdających ten egzamin, natomiast kolor symbolizuje średni wynik w województwie (Ryc. 2). Jak widać z zamieszczonej legendy, biały kolor oznacza średnią krajową z danego egzaminu, niebieski – województwa mające wynik powyżej średniej, natomiast niebieski – poniżej. Najechanie myszką na któreś z przedstawionych na mapie kół skutkuje wyświetleniem dodatkowych informacji: nazwy województwa, liczby osób zdających, a przy wyborze konkretnego egzaminu, również średniego wyniku w procentach w tym województwie. Wizualizacja została napisana w języku JavaScript, przy użyciu biblioteki D3js.
+
+![Liczba maturzystów w poszczególnych województwach w 2014 roku](mapy_maturzysci.png)
+
+![Średnie wyniki matury podstawowej z angielskiego w poszczególnych województwach w 2014 roku.](mapy_ang.png)
+
+*Warto zauważyć*
+
+Różnice w średnich wynikach matur pomiędzy województwami dla większości przedmiotów nie przekraczają 5-10 punktów procentowych. Nie ma wyraźnego podziału pomiędzy Polskę wschodnią i zachodnią, ponadto dla różnych przedmiotów rozkład wyników wyraźnie się różni. Natomiast różnych poziomów matur wydają się ze sobą korelować: w województwie, w którym wyniki z poziomu podstawowego są wysokie, zwykle również poziom rozszerzony jest powyżej średniej i podobnie, jeśli wyniki są słabe, to zwykle dotyczy to obu poziomów. Istnieją od tego wyjątki: np w 2014 roku w województwie dolnośląskim wyniki matur podstawowych z angielskiego i polskiego były wyraźnie wyższe, niż średnia krajowa, podczas gdy matura rozszerzona z tych samych przedmiotów poszła maturzystom z tego województwa gorzej, niż średnio w całej Polsce. Można zauważyć, że w niektórych województwach, np. zachodniopomorskim, małopolskim i śląskim, wyniki większości matur są powyżej średniej krajowej, a w innych, np. dolnośląskim, warmińsko-mazurskim i łódzkim – poniżej. Różnice między latami wydają się być mniejsze, niż pomiędzy przedmiotami, ale również od tego jest sporo wyjątków. Przykładowo w województwie kujawsko-pomorskim i świętokrzyskim wyniki matury z matematyki podstawowej znacznie fluktuowały w kolejnych latach w porównaniu z pozostałymi województwami.
+
+Histogramy wyników matur
+------------------------
+
+Interaktywna wizualizacja przedstawiająca rozkład wyników matur wśród maturzystów należących do różnych grup. Głównym elementem wizualizacji jest histogram, w którym wysokość każdego ze słupków reprezentuje odsetek maturzystów, którzy uzyskali dokładnie tyle samo punktów, czyli szerokość każdego słupka wynosi 1 punkt. Jednak dla ułatwienia porównań pomiędzy różnymi przedmiotami (które mogą mieć różna maksymalną liczbę punktów), na osi poziomej przedstawiono wyniki w procentach.
+
+Po lewej stronie histogramu znajduje się menu, z którego użytkownik może wybrać różne opcje. Są to przede wszystkim przedmiot i poziom egzaminu (podstawowy lub rozszerzony), z którego wyniki mają zostać zaprezentowane na histogramie. 
+
+Kolejna opcja, „podział”, umożliwia porównanie wyników matury pomiędzy różnymi grupami maturzystów, zróżnicowanych ze względu na płeć, wiek, zdiagnozowaną dysleksję lub jej brak, typ szkoły, do której uczęszczali (liceum ogólnokształcące, liceum profilowane lub technikum), czy szkoła jest publiczna czy prywatna, rodzaj gminy (miejska, miejsko-wiejska lub wiejska), oraz wielkość miejscowości, w której znajduje się szkoła. Po wybraniu jednej z tych kategorii histogram wyników matury zostaje rozbity na kilka kolorowych histogramów, z których każdy przedstawia wyniki innej grupy maturzystów, np. po wybraniu wieku jako zmiennej „podział” można zobaczyć 4 nałożone na siebie histogramy: dla osób w wieku 18 i mniej lat, 19 lat, 20 lat oraz 21 i więcej lat. Warto zwrócić uwagę, że wysokość histogramów jest unormowana osobno dla każdej z grup, czyli na osi pionowej przedstawiono odsetek zdających wśród osób z danej grupy, które otrzymały dany wynik. Takie rozwiązanie ułatwia porównanie wyników między grupami. Jednak równocześnie gubi ono informację o liczebności poszczególnych grup, która może mieć kluczowe znaczenie, jeśli chodzi o wpływ wyników uzyskanych przez daną grupę na rozkład wyników w całej populacji. Stąd też liczebności wszystkich grup, na które dzielą maturzystów wymienione wyżej kategorie, zostały przedstawione na dodatkowym wykresie słupkowym.
+
+Omówiona wcześniej opcja „podział” nie umożliwia zbadania interakcji zachodzących pomiędzy poszczególnymi kategoriami. Na przykład dwudziestoletni maturzyści mogą być zarówno absolwentami 4 letniego technikum, uczącymi się w normalnym trybie, jak również osobami kończącymi 3 letnie liceum, które miały roczna przerwę na którymś etapie szkolnej nauki. Aby móc badać takie interakcje np. między kategoriami „wiek” i „typ szkoły” na lewym pasku menu można wybrać dodatkową zmienną nazwaną „filtr”. Umożliwia ona wskazanie kategorii, z której chcemy wybrać interesującą nas grupę uczniów z paska „wartość filtra”. Przykładowo ustawienie zmiennej „filtr” = „wiek” i „wartość filtra” = 20 pozwala na przedstawienie na histogramie wyników matur pisanych wyłącznie przez dwudziestolatków. Wybranie równocześnie zmiennej „podział” = „typ szkoły” umożliwia porównanie rozkładu wyników tej grupy wiekowej między absolwentami liceów i techników.
+
+Do tej wizualizacji użyto danych dotyczących maturzystów zdających maturę po raz pierwszy, ponieważ liczba pisząca ten egzamin kolejny raz jest stosunkowo niewielka i często brakuje o nich części informacji. Ponieważ do tworzenia tych histogramów potrzeba bardzo szczegółowych danych, ich zbiór jest na tyle duży, że wyraźnie spowalnia wizualizację. Aby ograniczyć czas wczytywania, użyto wyłącznie najświeższych danych, pochodzących z 2014 roku.
+
+```{r include=FALSE}
+# histogramy - funkcje
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+
+dane <- read.csv("../shiny/histogramy/wyniki2014.csv")
+grupyWiekowe <-unique(dane$wiek[!is.na(dane$wiek)])
+colnames(dane)[colnames(dane)=="rodzaj_gminy"] <- "rodzaj gminy"
+colnames(dane)[colnames(dane)=="typ_szkoly"] <- "typ szkoły"
+colnames(dane)[colnames(dane)=="publiczna"] <- "szkoła publiczna?"
+colnames(dane)[colnames(dane)=="wielkosc_miejscowosci"] <- "wielkość miejscowości"
+kategoria <- c("płeć", "płeć",
+              "dysleksja", "dysleksja",
+              rep("wiek", length(grupyWiekowe)),
+              rep("typ szkoły", 2),
+              rep("szkoła publiczna?", 2),
+              rep("rodzaj gminy", 3),
+              rep("wielkość miejscowości", 3))
+
+grupa <- c("kobiety", "mężczyźni",
+          "brak dysleksji", "dysleksja",
+          "18 i mniej", "19", "20", "21 i więcej",
+          "liceum ogólnokształcące lub profilowane", "technikum",
+          "publiczna", "prywatna",
+          "wiejska", "miejsko-wiejska", "miejska",
+          "poniżej 5 tys.", "5 tys. - 50 tys.", "ponad 50 tys."
+          )
+
+filtr_pusty <- ""
+
+
+  ggHistWszyscy<-function(nazwa, filtr="--", wartosc=filtr_pusty) {
+    tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
+    if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
+      dane_zmod <- dane
+    }
+    else{
+      dane_zmod <- dane[dane[ ,filtr]==wartosc,]
+      tytul <- paste(tytul, "\n", filtr, ": ", wartosc, sep="")
+    }
+    sum_wynik <- dane_zmod[,nazwa]
+    procent_wynik <- data.frame(100 * sum_wynik/max(sum_wynik, na.rm=T))
+    names(procent_wynik) <- c("procent_wynik")
+    krok <- 100 * 1/max(sum_wynik,  na.rm=T)
+    p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..density.. * 100)) +
+      geom_histogram(color="white", binwidth=krok) +
+      xlab("% punktów") +
+      ylab("% zdających") +
+      ggtitle(tytul) 
+    return(p)
+  }
+
+#   # histogram z podziałem na grupy
+  ggHistPodzial<-function(nazwa, podzial, filtr="--", wartosc=filtr_pusty, tytul_legendy=podzial, kolory=c("red", "blue")){
+    tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
+    if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
+      dane_zmod <- dane
+      tytul <- paste(tytul, "\nz podziałem na", podzial)
+    }
+    else{
+      dane_zmod <- dane[dane[ ,filtr]==wartosc, ]
+      tytul <- paste(tytul, "\n", filtr, ": ", wartosc, " z podziałem na ", podzial, sep="")
+    }
+    sum_wynik <- dane_zmod[,nazwa]  
+    procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
+    podzial_dane <- dane_zmod[,podzial]
+    dane_wybrane <- data.frame(procent_wynik, podzial_dane)
+    dane_wybrane <- dane_wybrane[complete.cases(dane_wybrane),]
+    colnames(dane_wybrane) <- c("procent_wynik", "podzial_dane")
+    krok <- 100 * 1/max(sum_wynik,  na.rm=T)
+    p <- ggplot(dane_wybrane, aes(x=procent_wynik, fill=podzial_dane, y=..density.. * 100)) +
+      scale_fill_manual(values=kolory, name=podzial_dane) +
+      geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
+      xlab("% punktów") +
+      ylab("% zdających w ramach grupy") +
+      guides(fill=guide_legend(title=tytul_legendy)) +
+      ggtitle(tytul)   
+    return(p)
+  }   
+
+  grupyWykres <- function(nazwa, filtr="--", wartosc=filtr_pusty){
+    gg_color_hue <- function(n) {
+      hues = seq(15, 375, length=n+1)
+      hcl(h=hues, l=65, c=100)[1:n]
+    }
+    kolory <- gg_color_hue(length(unique(kategoria)))
+    if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
+      kategoria_zmod <- kategoria
+      grupa_zmod <- grupa
+      dane_zmod <- dane
+      tytul <- "kto zdaje?"
+    }
+    else{
+      kategoria_zmod <- kategoria[kategoria!=filtr]
+      grupa_zmod <- grupa[kategoria!=filtr]
+      dane_zmod <- dane[dane[,filtr]==wartosc,]
+      tytul <- paste("kto zdaje?", "\n", filtr, ": ", wartosc, sep="")
+      kolory<-kolory[unique(kategoria)!=filtr]
+    }
+    #liczebnosc grup
+    liczba <- sapply(1:length(grupa_zmod), function(i){
+      k <- kategoria_zmod[i]
+      g <- grupa_zmod[i]
+      return(length(which(dane_zmod[, k] == g & !is.na(dane_zmod[,nazwa]))))
+    })
+    
+    liczba <- liczba/1000
+    
+    liczebnosc_grup <- data.frame(kategoria_zmod, grupa_zmod, liczba)
+    liczebnosc_grup$grupa_zmod = factor(liczebnosc_grup$grupa, levels=rev(grupa_zmod))
+    liczebnosc_grup$kategoria_zmod = factor(liczebnosc_grup$kategoria, levels=unique(kategoria_zmod)) #c("płeć", "dysleksja", "poprawkowa", "wiek"))
+    
+#     cat(str(liczebnosc_grup), file = stderr())
+#     cat("\n", file = stderr())
+    grupHist <- ggplot(liczebnosc_grup, aes(x=grupa_zmod, y=liczba, fill=kategoria_zmod)) +
+      geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +
+      scale_fill_manual(values=kolory) +
+      xlab("") +
+      ylab("liczba zdających (w tysiącach)") +
+      guides(fill=guide_legend(title="kategorie")) +
+      coord_flip() +
+      ggtitle(tytul)
+    return(grupHist)
+  }
+
+```
+
+
+*Warto zauważyć* 
+
+Porównywanie rozkładów wyników matur pomiędzy różnymi przedmiotami i grupami zdających dostarcza więcej informacji, niż porównywanie samych średnich – ciekawy jest też kształt wykresu. W przypadku obowiązkowych egzaminów wyróżnia się on charakterystycznym „zębem” w okolicach progu zdania wynoszącego 30%. Jest to szczególnie widoczne w przypadku matury podstawowej z języka polskiego. Rozkład wyników tego egzaminu układa się w kształt funkcji Gaussa, zaburzony niedoborem wyników o 1-3 punkty poniżej progu i nadmiarem o 1-2 punkty powyżej. Osób, którym zabrakło 1 punktu do zdania matury jest tylko 23, ilość znikoma w skali całego kraju. W przypadku pozostałych obowiązkowych egzaminów, matematyki i języka angielskiego (najczęściej wybieranego języka obcego) na poziomie podstawowym , również widać pewien niedobór zdających mających tuż poniżej 30% i niewielki nadmiar powyżej, ale jest to dużo mniejsza liczba. Występowanie tego „zęba” jest najprawdopodobniej związane z naciąganiem wyników na korzyść maturzystów poprzez egzaminatorów. Zapewne zadania z języka polskiego, szczególnie pytania otwarte, pozostawiają większą możliwość takich manipulacji, niż zadania z matematyki lub nawet – języka obcego.
+
+```{r echo=FALSE}
+wykres <- ggHistWszyscy("j_polski_podstawowa")
+grupHist <- grupyWykres("j_polski_podstawowa")
+multi <- arrangeGrob(wykres, grupHist)
+print(multi)
+```
+
+
+Porównując wyniki matur pisanych przez kobiety i mężczyzn można w pierwszej kolejności zauważyć, że ogólnie więcej kobiet niż mężczyzn przystąpiło do tego egzaminu (co można sprawdzić porównując proporcję płci dla egzaminów obowiązkowych: języka polskiego i matematyki na poziomie podstawowym). Kobiety uzyskały lepsze wyniki od mężczyzn z aż 4 matur na poziomie podstawowym (biologii, chemii, fizyki i języka polskiego) oraz z jednej na poziomie rozszerzonym (język polski). Natomiast mężczyźni mieli lepsze wyniki z 3 matur na poziomie podstawowym (geografii, historii i języka angielskiego) i aż z 6 na poziomie rozszerzonym (biologia, chemia, geografia, historia, język angielski i WOS). Spośród pozostałych egzaminów, w 3 można zaobserwować większy rozrzut wyników wśród mężczyzn (kobiety częściej wyniki w okolicy średniej, mężczyźni – więcej wyników bardzo słabych i bardzo dobrych). Dotyczy to matury podstawowej z WOSu oraz matur rozszerzonych z fizyki i matematyki. Wyniki matury z matematyki podstawowej przedstawiają bardziej złożony wzorzec. Mężczyźni częściej otrzymywali najlepsze wyniki (powyżej 75%), ale też nieco częściej - wyniki w okolicy progu zdawalności. Z kolei więcej kobiet uzyskało wyniki dobre (40-75%) ale też było ich nieco więcej wśród osób z najsłabszymi wynikami, poniżej 15%. W przypadku obu matur z informatyki wydaje się, że wśród zdających obie płcie radziły sobie równie dobrze, ale porównania utrudnia mała liczba kobiet wybierających te egzaminy. 
+
+To, czy więcej mężczyzn czy kobiet przystępuje do danej matury nie zawsze jest zgodne z tym, która z płci częściej dostaje z tego przedmiotu dobre wyniki. Porównując liczbę zdających z poszczególnych matur trzeba pamiętać, że ogólnie więcej kobiet niż mężczyzn przystępuje do tego egzaminu. Kobiety częściej niż mężczyźni wybierają zdawanie rozszerzonej biologii, chemii i WOS-u, mimo, że rzadziej niż mężczyźni otrzymują z tych przedmiotów dobre wyniki. Maturzystki „zgodnie z wynikami” wybierają natomiast biologię i chemię podstawową, oraz rozszerzony język polski. Kobiety wybierają również częściej niż mężczyźni WOS podstawowy, z którego żadna z płci nie uzyskuje wyraźnie lepszych wyników. Nieco częściej, niż kobiety, mężczyźni wybierali zdawanie geografii podstawowej i obu egzaminów z historii – przedmiotów, z których mężczyźni mają częściej dobre wyniki, niż kobiety. Natomiast spośród egzaminów zdecydowanie częściej wybieranych przez mężczyzn albo żadna z płci nie uzyskuje jednoznacznie lepszych wyników (oba egzaminy z informatyki, rozszerzona fizyka i matematyka), albo kobiety częściej uzyskują dobre wyniki (fizyka podstawowa). Przedmioty, które są równie preferowane przez obie płcie to (oprócz obowiązkowych matur) również rozszerzona geografia i język angielski – przedmioty, z których mężczyźni częściej uzyskiwali dobre wyniki.
+
+Interpretacji porównania wyników dla poszczególnych płci należy dokonywać szczególnie ostrożnie: jest to temat delikatny i łatwo o nadinterpretacje dyktowane własnymi poglądami. Trzeba też pamiętać, że w przypadku nieobowiązkowych matur zdający nie są losową próbką z populacji i oprócz wyników trzeba uwzględniać również proporcje zdających. Zdawanie przedmiotów ścisłych: fizyki, matematyki i informatyki, pozostaje domeną mężczyzn. Równocześnie jednak kobiety, które zdecydowały się wybrać te egzaminy, nie uzyskują wyraźnie gorszych wyników, a nawet, w przypadku podstawowej fizyki – miały częściej dużo punktów. Można podejrzewać, że wśród maturzystów dalej istnieje stereotyp, że są to „męskie” przedmioty. Natomiast stereotyp „kobiety-humanistki” raczej nie jest potwierdzany przez wyniki matur. Co prawda z języka polskiego kobiety radziły sobie lepiej i częściej wybierały egzamin rozszerzony, ale już z WOS-u, choć częściej zdawanego przez maturzystki, mężczyźni uzyskiwali porównywalne (poziom podstawowy) albo lepsze wyniki (poziom rozszerzony). Z języka angielskiego i z historii mężczyźni radzili sobie lepiej, niż kobiety i wybierali te przedmioty równie często lub nawet częściej. Podobnie zawiła jest sytuacja z przedmiotami przyrodniczymi: biologia i chemia są częściej wybierane przez kobiety, choć uzyskują z nich lepsze oceny tylko na poziomie podstawowym. Natomiast geografię nieco częściej wybierali mężczyźni i uzyskiwali z niej częściej dobre wyniki. 
+
+Porównując wyniki matur osób ze stwierdzoną dysleksją i pozostałych, dla większości przedmiotów nie widać różnic. Może być to spowodowane między innymi niewielką liczbą dyslektyków, przez co rozkład ich wyników jest bardziej „poszarpany”. Różnice widać dopiero w maturach pisanych przez największą liczbę zdających: obu poziomach egzaminów z języka angielskiego, języka polskiego i matematyki oraz nieco mniej wyraźnie – w egzaminach z rozszerzonej chemii i fizyki. W wymienionych egzaminach na poziomie rozszerzonym dyslektycy częściej radzili sobie gorzej, niż pozostali zdający. Wyniki trzech obowiązkowych egzaminów na poziomie podstawowym pokazują bardziej złożony obraz sytuacji. Maturzystów z dysleksją jest bowiem najwięcej wśród osób o średnich wynikach, mało ich natomiast wśród osób o najlepszych i najgorszych osiągnięciach, co jest najwyraźniej widoczne na przykładzie matury podstawowej z matematyki. Wyjaśnień tego zjawiska może być kilka. Raczej trudno się spodziewać, by sama dysleksja pomagała uzyskać nieco lepsze wyniki najsłabszym maturzystom. Możliwe jest, że w niektórych sytuacjach ułatwienia stosowane wobec maturzystów-dyslektyków (możliwość pisania na komputerze zamiast ręcznie, lub nieco zmodyfikowane kryteria stosowane przez egzaminatorów przy sprawdzaniu matur - Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r.) mogą stawiać dyslektyków w uprzywilejowanej pozycji w stosunku do pozostałych uczniów. Aczkolwiek jest to dość ryzykowne stwierdzenie, zważywszy, że dyslektycy częściej mają gorsze, niż lepsze wyniki w porównaniu do reszty uczniów, co usprawiedliwia szczególne traktowanie tej grupy. Jenak najbardziej prawdopodobnym wyjaśnieniem wydaje się możliwość różnic w częstości diagnozowania dysleksji między różnymi grupami uczniów. Bardzo prawdopodobne, że wśród dzieci zaniedbanych, z trudnych rodzin lub po prostu z małych miejscowości dysleksja może być rzadziej diagnozowana. W ten sposób zdający oznaczeni jako dyslektycy mogą stanowić bardzo nielosową grupę i nie zawierać osób z trudnych środowisk, które często mają też problemy z nauką. Co prawda w dostępnych danych nie ma informacji na temat sytuacji rodzinnej i ekonomicznej maturzystów, ale widać, że wśród osób ze zdiagnozowaną dysleksją jest mniejszy udział osób z gmin wiejskich i z małych miejscowości, niż wśród pozostałych maturzystów. W dużych miastach może być zarówno łatwiejszy dostęp do dziecięcego psychologa, jak również do bibliotek, instytucji kultury czy dodatkowych zajęć, poprawiających wyniki uczniów i maturzystów.
+
+Niemal ze wszystkich matur im młodsi maturzyści, tym lepiej sobie radzą. 18-latkowie, o rok młodsi od większości kolegów zwykle otrzymują najlepsze wyniki. Stanowiący większość zdających 19 latkowie radzą sobie nieco gorzej, ale i tak lepiej, niż ich o rok starsi koledzy, natomiast osoby mające 21 lat i więcej zwykle uzyskują najgorsze wyniki. Warto przy tym zauważyć, że podział ze względu na wiek jest silnie związany z podziałem na absolwentów 3 letnich liceów i 4 letnich techników. Jednak nawet rozważając oddzielnie grupę osób kończących liceum i kończących technikum, widać że w każdej z nich osoby młodsze radzą sobie lepiej. Przy interpretacji tych wyników trzeba zachować ostrożność, szczególnie, że łatwo można użyć tych wyników jako argumentu za obniżeniem wieku rozpoczęcia szkoły. Należy jednak pamiętać, że najmłodsi zdający to głównie osoby, które z powodu dużej dojrzałości psychicznej poszły do szkoły już w wieku 6 lat, albo takie, które ze względu na wybitne wyniki w nauce ominęły którąś klasę. Jest to więc zdecydowanie nielosowa grupa, a obejmująca często najzdolniejszych maturzystów. Na podstawie ich wyników trudno wyciągać wnioski, czy wcześniejsze przystąpienie do matury w jakiś sposób im pomogło, czy może idąc normalnym trybem uzyskaliby podobne lub nawet lepsze wyniki. Tym bardziej nie można na tej podstawie wnioskować, czy pozostałym zdającym wcześniejsze rozpoczęcie edukacji wyszłoby na dobre. Podobnie, jeśli chodzi o maturzystów starszych przynajmniej o rok od kolegów ze swojej szkoły, ich przynależność do danej grupy wiekowej jest raczej wskaźnikiem, niż przyczyną problemów będących źródłem ich gorszych wyników. Oprócz takich przyczyn jak przewlekła choroba lub późniejsze rozpoczęcie nauki szkolnej, wielu z nich musiało powtarzać rok właśnie przez słabe wyniki w nauce. Jest to więc ponownie bardzo nielosowa grupa.
+	Z pośród osób zdających maturę w 2014 roku najwięcej było absolwentów liceów ogólnokształcących (194 tys.). O połowę mniej zdających ukończyło technikum (98 tys). Niecałe 5 tysięcy było absolwentami liceów profilowanych, a tylko kilkaset osób ukończyło licea i technika uzupełniające. Dla ułatwienia analiz maturzystów kończących 3 letnie liceum ogólnokształcące lub profilowane zestawiono razem w jedną grupę, którą można porównać z absolwentami techników. Stosunkowo nielicznych zdających, którzy ukończyli szkoły uzupełniające, pominięto w tym podziale. Przy tak zastosowanym podziale okazuje się, że z wszystkich egzaminów więcej absolwentów liceów, niż techników uzyskało dobre wyniki. Przyczyną może być większe nastawienie na kształcenie zawodu, niż przygotowanie do matury w technikach. Całkiem prawdopodobne również, że technika cieszą się mniejszym prestiżem wśród wybierających szkołę średnia uczniów i ich rodziców, przez co trafiają do nich osoby gorzej radzące sobie z nauką. 
+
+Większość maturzystów w 2014 roku ukończyła publiczną szkołę średnią (275 tysięcy w porównaniu z 22 tysiącami). Można by się spodziewać, że szkoły prywatne, dysponujące dodatkowymi funduszami z czesnego oraz przyjmujące dzieci zamożnych rodziców, mogą lepiej przygotowywać swoich uczniów do matury. Okazuje się jednak, że absolwenci szkół prywatnych uzyskali gorsze wyniki z niemal wszystkich matur na poziomie podstawowym, w tym również z egzaminów obowiązkowych, oraz z historii, polskiego i WOS-u na poziomie rozszerzonym. Lepiej radzili sobie jedynie z językiem angielskim i geografią na poziomie rozszerzonym. W przypadku większości matur rozszerzonych wśród absolwentów szkół publicznych występowało większe zróżnicowanie wyników: liczniejszą grupę stanowiły zarówno osoby o bardzo słabych, jak i o bardzo dobrych wynikach. Może to po części być spowodowane niewielką liczbą zdających, którzy ukończyli szkoły prywatne, a przez to większym „poszarpaniem” histogramów, ale też – o większym zróżnicowaniu tej grupy maturzystów. Trzeba ostrożnie podchodzić do oceniania działalności edukacyjnej obu typów szkół biorąc pod uwagę jedynie wyniki końcowe. Z pewnością zróżnicowanie osób rozpoczynających szkołę średnią miało tu również duże znaczenie. Prawdopodobny scenariusz jest taki, że w wielu rejonach najlepszą renomą cieszy się któraś ze szkół publicznych. Zamożniejsi rodzice zapewne wolą, jeśli to możliwe, posłać swoje dziecko do tej renomowanej szkoły i wybierają prywatną alternatywę jako pewną opcję awaryjną, jeśli wyniki ucznia pozwalają mu na dostanie się co najwyżej do jednej z gorzej postrzeganych szkół publicznych.
+
+Dwie ostatnie zmienne, typ gminy i wielkość miejscowości, dotyczą, co ważne, lokalizacji szkoły, a nie miejsca zamieszkania maturzystów. Zapewne liczba maturzystów zamieszkałych we wsiach i małych miastach jest większa, ale nie we wszystkich tych miejscowościach znajduje się szkoła średnia. Co więcej, wielu uczniów może wybierać naukę w większym mieście ze względu na bogatszą ofertę dydaktyczną. Być może z tego powodu najliczniejsza grupa maturzystów to absolwenci szkół znajdujących się w dużych miastach, powyżej 50 tys. mieszkańców. Wielkość miejscowości i typ gminy są na ogół silnie powiązane, bo wsie i małe miasteczka leżą zwykle na terenie gmin wiejskich i miejsko-wiejskich, natomiast średnie i duże miasta mają wydzielone własne gminy miejskie. Absolwenci szkół na terenie gmin wiejskich najczęściej uzyskiwali słabe wyniki niemal ze wszystkich matur. Maturzyści ze szkół położonych w gminach miejsko-wiejskich radzili sobie lepiej niż ich koledzy z innych gmin z matury podstawowej z biologii, chemii, fizyki, geografii i WOS-u. Jednak z większości egzaminów najwięcej punktów uzyskiwali uczniowie uczący się w gminach miejskich: dotyczyło to podstawowej informatyki, trzech obowiązkowych egzaminów na poziomie podstawowym oraz wszystkich matur na poziomie rozszerzonym. Co więcej, z pośród przedmiotów do wyboru maturzyści, którzy uczyli się w gminach wiejskich i miejsko wiejskich częściej zdawali egzaminy na poziomie podstawowym, niż ich koledzy uczący się  w gminach miejskich. Uczniowie ze szkół w gminach wiejskich szczególnie rzadko zdawali informatykę na obu poziomach, jak również rozszerzoną chemię, fizykę i angielski. Podobne różnice widać przy porównywaniu wyników matur dla uczniów uczących się w miejscowościach różnej wielkości. Najlepsze wyniki z większości przedmiotów uzyskują uczniowie uczący się w miastach powyżej 50 tys. mieszkańców (z wszystkich egzaminów rozszerzonych, z trzech obowiązkowych oraz z podstawowej informatyki). Jednak z wielu nieobowiązkowych matur podstawowych (biologii, geografii, historii i WOSu) maturzyści, którzy uczyli się we wszystkich trzech grupach miejscowości uzyskali podobne wyniki, a z chemii i z fizyki absolwenci szkół z największych miast poradzili sobie gorzej, niż ich koledzy uczący się w mniejszych miejscowościach. Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczególności pamiętając o tym, że wielkość miejscowości i typ gminy dotyczył szkoły średniej, a nie miejsca zamieszkania maturzystów), wyniki te są dość niepokojące. Prawdopodobnie świadczą one o utrudnieniach w dostępie do edukacji, z jakimi spotykają się uczniowie z mniejszych miejscowości. I choć możliwe, że część uczniów zdających maturę w dużych miastach pochodziła terenów wiejskich lub małych miast, to jednak taki wyjazd mogą zwykle sfinansować jedynie rodzice zamożniejszych uczniów. Taki rozkład wyników może więc świadczyć również o nierównościach ekonomicznych w dostępie do edukacji. Szczególnie może niepokoić mała liczba zdających i słabe wyniki z przedmiotów ścisłych i technicznych (informatyki, rozszerzonej fizyki czy chemii) oraz rozszerzonego języka angielskiego w mniejszych miejscowościach i na terenach wiejskich. Te przedmioty mogą być szczególnie przydatne w znalezieniu pracy w społeczeństwie opartym na technologii i otwartym na inne kraje. 
