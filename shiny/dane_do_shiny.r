@@ -75,9 +75,8 @@ dane <- merge(przedmioty, szkoly, by="id_szkoly")
 levels(dane$rodzaj_gminy)[levels(dane$rodzaj_gminy) == "dzielnica m.st. Warszawy"] <- "miejska"
 
 dane$typ_szkoly[!(dane$typ_szkoly %in% c('LO', 'LP', 'T'))] <- NA
-levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LO" | levels(dane$typ_szkoly) == "LP"] <- "liceum ogólnokształcące lub profilowane"
+levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LO" | levels(dane$typ_szkoly) == "LP"] <- "liceum"
 levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "T"] <- "technikum"
-
 
 dane$publiczna[dane$publiczna] <- "publiczna"
 dane$publiczna[dane$publiczna ==F] <- "prywatna"

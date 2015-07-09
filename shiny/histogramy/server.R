@@ -38,7 +38,7 @@ shinyServer(function(input, output, session) {
                  grupa <- c("kobiety", "mężczyźni",
                             "brak dysleksji", "dysleksja",
                             "18 i mniej", "19", "20", "21 i więcej",
-                            "liceum ogólnokształcące lub profilowane", "technikum",
+                            "liceum", "technikum",
                             "publiczna", "prywatna",
                             "wiejska", "miejsko-wiejska", "miejska",
                             "poniżej 5 tys.", "5 tys. - 50 tys.", "ponad 50 tys."
@@ -84,11 +84,11 @@ shinyServer(function(input, output, session) {
     tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
       dane_zmod <- dane
-      tytul <- paste(tytul, "\nz podziałem na", podzial)
+      tytul <- paste(tytul, "\nz podziałem na:", podzial)
     }
     else{
       dane_zmod <- dane[dane[ ,filtr]==wartosc, ]
-      tytul <- paste(tytul, "\n", filtr, ": ", wartosc, " z podziałem na ", podzial, sep="")
+      tytul <- paste(tytul, "\n", filtr, ": ", wartosc, " z podziałem na: ", podzial, sep="")
     }
     sum_wynik <- dane_zmod[,nazwa]  
     procent_wynik <- 100 * sum_wynik/max(sum_wynik, na.rm=T)
