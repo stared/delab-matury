@@ -51,9 +51,9 @@ function CoincidenceGraph(selector) {
       .domain(d3.range(0, 10));
 
     var force = d3.layout.force()
-        .charge(function (d) { return -75 * sizeScale(d.liczba); })
+        .charge(function (d) { return -70 * sizeScale(d.liczba); })
         .linkDistance(0)
-        .gravity(0.5)
+        .gravity(0.4)
         .size([width - 200, height])
         .linkStrength(function (e) {
           return e.oe > 1 ? (e.oe - 1) / (maxOe - 1) : 0;
