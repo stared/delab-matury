@@ -3,12 +3,14 @@
 function CoincidenceGraph(selector) {
   "use strict";
 
-  var width = 700,
+  var width = 900,
       height = 700;
 
   var svg = d3.select(selector).append("svg")
     .attr("width", width)
     .attr("height", height);
+
+  var g = svg.append("g");
 
   var tooltip = new Tooltip(selector);
 
@@ -52,14 +54,14 @@ function CoincidenceGraph(selector) {
         .charge(function (d) { return -75 * sizeScale(d.liczba); })
         .linkDistance(0)
         .gravity(0.5)
-        .size([width, height])
+        .size([width - 200, height])
         .linkStrength(function (e) {
           return e.oe > 1 ? (e.oe - 1) / (maxOe - 1) : 0;
         })
         .nodes(graph.nodes)
         .links(graph.links);
 
-    var link = svg.selectAll(".link")
+    var link = g.selectAll(".link")
       .data(graph.links)  // sort it
       .enter().append("line")
         .attr("class", "link")
@@ -75,7 +77,7 @@ function CoincidenceGraph(selector) {
           tooltip.out();
         });
 
-    var node = svg.selectAll(".node")
+    var node = g.selectAll(".node")
       .data(graph.nodes)
       .enter().append("circle")
         .attr("class", "node")
@@ -90,7 +92,7 @@ function CoincidenceGraph(selector) {
           tooltip.out();
         });
 
-    var label = svg.selectAll(".label")
+    var label = g.selectAll(".label")
       .data(graph.nodes)
       .enter().append("text")
         .attr("class", "label")
@@ -114,6 +116,15 @@ function CoincidenceGraph(selector) {
             .attr("x2", function(e) { return e.target.x; })
             .attr("y2", function(e) { return e.target.y; });
     });
+
+    var legend = new Legend(selector + " svg");
+
+    legend.g.attr("transform", "translate(650, 50)");
+
+    legend.create([
+      {name: "matura podstawowa", color: colors(0)},
+      {name: "matura rozszerzona", color: colors(4)},
+    ]);
 
   };
 
