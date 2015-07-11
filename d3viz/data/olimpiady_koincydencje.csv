@@ -1,0 +1,11 @@
+,biologiczna,chemiczna,fizyczna,geograficzna,historyczna,informatyczna,j. angielskiego,j. polskiego,matematyczna,z WOSu
+biologiczna,442,16,6,3,1,0,1,2,0,1
+chemiczna,16,340,12,3,0,0,2,0,5,0
+fizyczna,6,12,236,0,0,14,2,2,37,0
+geograficzna,3,3,0,389,18,0,3,9,1,16
+historyczna,1,0,0,18,481,0,3,34,1,47
+informatyczna,0,0,14,0,0,254,2,1,78,0
+j. angielskiego,1,2,2,3,3,2,173,7,5,0
+j. polskiego,2,0,2,9,34,1,7,1038,1,10
+matematyczna,0,5,37,1,1,78,5,1,358,3
+z WOSu,1,0,0,16,47,0,0,10,3,392

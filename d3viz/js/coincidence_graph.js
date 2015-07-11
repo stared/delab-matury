@@ -26,10 +26,14 @@ function CoincidenceGraph(selector) {
     });
   };
 
-  this.draw = function (graph) {
+  this.draw = function (graph, options) {
+
+    var options = options || {};
+    var maxSize = options.maxSize || 75;
+    var baseCharge = options.baseCharge || -70;
 
     graph.links = graph.links.sort(function (a, b) {
-      return b.liczba - a.liczba;
+      return b.count - a.count;
     });
 
     // but it hides some data...
@@ -38,8 +42,8 @@ function CoincidenceGraph(selector) {
     });
 
     var sizeScale = d3.scale.sqrt()
-      .domain([0, d3.max(graph.nodes, function (d) { return d.liczba; })])
-      .range([0, 75]);
+      .domain([0, d3.max(graph.nodes, function (d) { return d.count; })])
+      .range([0, maxSize]);
 
     var maxOe = d3.max(graph.links, function (e) { return e.oe; });
 
@@ -51,7 +55,7 @@ function CoincidenceGraph(selector) {
       .domain(d3.range(0, 10));
 
     var force = d3.layout.force()
-        .charge(function (d) { return -70 * sizeScale(d.liczba); })
+        .charge(function (d) { return baseCharge * sizeScale(d.count); })
         .linkDistance(0)
         .gravity(0.4)
         .size([width - 200, height])
@@ -65,11 +69,11 @@ function CoincidenceGraph(selector) {
       .data(graph.links)  // sort it
       .enter().append("line")
         .attr("class", "link")
-        .style("stroke-width", function (e) { return 2 * sizeScale(e.liczba); })
+        .style("stroke-width", function (e) { return 2 * sizeScale(e.count); })
         .style("opacity", function (e) { return opacityScale(e.oe); })
         .on("mouseover", function (e) {
-          var text = siNumberApprox(e.liczba).replace("k", " tys.") + " zdajacych zarazem:<br>" +
-                     e.source.nazwa + " i " + e.target.nazwa + "<br><br>" +
+          var text = siNumberApprox(e.count).replace("k", " tys.") + " zdajacych zarazem:<br>" +
+                     e.source.name + " i " + e.target.name + "<br><br>" +
                      e.oe.toFixed(1) + "x bardziej prawdopodobna kombinacja niz losowo";
           tooltip.show(text);
         })
@@ -81,12 +85,12 @@ function CoincidenceGraph(selector) {
       .data(graph.nodes)
       .enter().append("circle")
         .attr("class", "node")
-        .attr("r", function (d) { return sizeScale(d.liczba); })
+        .attr("r", function (d) { return sizeScale(d.count); })
         .style("fill", function (d) {
-          return (d.nazwa.indexOf("rozszerzona") !== -1) ? colors(4) : colors(0);
+          return (d.name.indexOf("rozszerzona") !== -1) ? colors(4) : colors(0);
         })
         .on("mouseover", function (d) {
-          tooltip.show(siNumberApprox(d.liczba).replace("k", " tys.") + " zdajacych:<br>" + d.nazwa);
+          tooltip.show(siNumberApprox(d.count).replace("k", " tys.") + " zdajacych:<br>" + d.name);
         })
         .on("mouseout", function () {
           tooltip.out();
@@ -96,7 +100,7 @@ function CoincidenceGraph(selector) {
       .data(graph.nodes)
       .enter().append("text")
         .attr("class", "label")
-        .style("font-size", function (d) { return 0.7 * sizeScale(d.liczba); })
+        .style("font-size", function (d) { return 0.7 * sizeScale(d.count); })
         .text(function (d) { return d.label; });
 
     var drag = force.drag();
@@ -117,6 +121,14 @@ function CoincidenceGraph(selector) {
             .attr("y2", function(e) { return e.target.y; });
     });
 
+  };
+
+  this.createLegend = function () {
+
+    // FIX
+    var colors = d3.scale.category10()
+      .domain(d3.range(0, 10));
+
     var legend = new Legend(selector + " svg");
 
     legend.g.attr("transform", "translate(650, 50)");
@@ -127,5 +139,9 @@ function CoincidenceGraph(selector) {
     ]);
 
   };
+
+  this.remove = function () {
+    svg.remove();
+  }
 
 }
