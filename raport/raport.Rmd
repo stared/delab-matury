@@ -10,10 +10,14 @@ header-includes:
 \def\figurename{Ryc.}
 
 ```{r echo=FALSE}
-# komentarze
-# wstęp!
+## komentarze
+# wstęp: ogólnie co i po co, odniesienie do wniosku, skąd dane? - Piotr
 # odnośniki do ilustracji (zmienne, nie na twardo?)
-# teraz odnośniki do ilustracji są do kitu
+# bibliografia, publikacje naukowo-naukawe
+# opis: mapa szkół - tego nie?
+# opis: względna trudność przedmiotów - Piotr
+# po co we wstępie do każdego punktu
+# olimpiady - niedobór olimpijczyków w porównaniu z liczbą z regulaminów olimpiad: międzynarodowa matura? (zwłaszcza - laureaci z j. angielskiego, których brakuje jakieś 1/3 do 1/2)
 ```
 
 ```{r include=FALSE}
@@ -21,27 +25,46 @@ header-includes:
 source('histogramy.r')
 ```
 
-Graf wspólnie wybieranych egzaminów
------------------------------------
+Grafy: wspólnie wybieranych egzaminów oraz laureatów i finalistów olimpiad przedmiotowych
+-----------------------------------------------------------------------------------------
 
-Jedną z wizualizacji stworzonych w ramach projektu jest interaktywny graf obrazujący zależności między zdawanymi egzaminami (ryc. 1). Wielkość [powierzchnia?] kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin [w 2014 roku?]. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
 
-Gdyby maturzyści wybierali niezależnie każdy ze zdawanych egzaminów, wówczas należałoby się spodziewać, że liczba zdających równocześnie maturę X i Y ($L_{XY}$) powinna wynosić
+Zdający maturę muszą napisać egzamin z języka polskiego, matematyki i wybranego języka obcego na poziomie podstawowym oraz od 1 do 3 innych egzaminów, wybranych przez zdającego (§?, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku). Jednym z ciekawych zagadnień jest to, jakie przedmioty są wybierane i łączone przez maturzystów. W niniejszym projekcie do przeanalizowania tego tematu stworzono interaktywny graf (ryc. 1). Powierzchnia kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
+
+Gdyby maturzyści wybierali niezależnie każdy ze zdawanych egzaminów, wówczas należałoby się spodziewać, że liczba zdających równocześnie maturę X i Y ($n_{XY}$) powinna wynosić
 $$
-L_{XY} = \frac{|X|}{N}\frac{|Y|}{N}
+n_{XY} = \frac{|X|}{n}\frac{|Y|}{n} n
 $$
-Gdzie $|X|$ i $|Y|$ to odpowiednio liczba maturzystów zdających egzamin X i Y, natomiast $N$ to liczba wszystkich maturzystów. Miarą współwystępowania przedmiotów jest to ile razy częściej (lub rzadziej) były one wybierane wspólnie w porównaniu z $L_{XY}$. Aby zwiększyć czytelność wizualizacji, na grafie przedstawiono tylko połączenia pomiędzy przedmiotami wybieranymi częściej niż losowo, przy czym im ciemniejsze krawędź, tym częściej przedmioty stanowiące jej wierzchołki były wspólnie wybierane.
+Gdzie $|X|$ i $|Y|$ to odpowiednio liczba maturzystów zdających egzamin X i Y, natomiast $n$ to liczba wszystkich maturzystów w 2014 roku. Miarą współwystępowania przedmiotów jest to ile razy częściej (lub rzadziej) były one wybierane wspólnie w porównaniu z $L_{XY}$. Aby zwiększyć czytelność wizualizacji, na grafie przedstawiono tylko połączenia pomiędzy przedmiotami wybieranymi częściej niż losowo, przy czym im ciemniejsze krawędź, tym częściej przedmioty stanowiące jej wierzchołki były wspólnie wybierane.
 
 Po najechaniu kursorem na wybrany węzeł pojawia się pełna nazwa odpowiadającego mu egzaminu oraz liczba zdających go maturzystów. Podobnie w przypadku krawędzi: ukazuje się informacja o przedmiotach stanowiących wierzchołki tego połączenia, liczbie maturzystów wybierających równocześni obydwa te egzaminy oraz wspomniane wyżej mierze, o ile częściej są one wybierane wspólnie w porównaniu z modelem losowym. 
 
-![Zrzut ekranu: interaktywny graf wspólnie wybieranych egzaminów.](graf.png)
+![Zrzut ekranu: interaktywny graf wspólnie wybieranych egzaminów w 2014 roku](graf_matury.png)
+
+![Zrzut ekranu: interaktywny graf laureatów i finalistów olimpiad przedmiotowych w latach 2010-2014](graf_olimpiady.png)
+
+W ramach tej samej wizualizacji jest dostępny jeszcze drugi graf, przedstawiający zależności między olimpiadami przedmiotowymi (ryc. ). Są to konkursy skierowane do uczniów szkół średnich, mające na celu wyłonić najlepsze w Polsce osóby z poszczególnych przedmiotów. Przygotowanie do olimpiady wymaga zwykle dużo czasu i wysiłku. Mimo to niektórzy uczniowie są w stanie zakwalifikować się do finału więcej niż jednego z tych konkursów. Prześledzenie liczby takich "multiolimpijczyków" może pomóc wyjaśnić, czy wybitne osiągnięcia z jednego przedmiotu wymagają od uczniówpoświęcania  mniejszej uwagi pozostałym. Natomiast to, które olimpiady są najczęściej łączone, dostarcza ciekawych informacji o zainteresowaniach tej grupy najzdolniejszych maturzystów.
+
+Graf dotyczący olimpiad przedmiotowych można zobaczyć wybierając opcję "olimpiady" w lewym górnym rogu ekranu. Podobnie jak w grafie dotyczącym matur, wielkość wierzchołków odpowiada liczbie finalistów i laureatów przystępujących do zdawania matury, natomiast szerokość krawędzi - liczbie "multiolimpijczyków" z poszczególnych par przedmiotów. Ponieważ jednak liczby te nie są duże (30-200 olimpijczyków rocznie), tym razem wykorzystano sumaryczne dane z pięciu lat (2010-2014). Podobnie jak poprzednio, intensywność barwy krawędzi odpowiada temu, ile razy częściej "multiolimpijczycy" występują w porównaniu z modelem losowym, zakładającym, że laureaci i finaliści poszczególnych olimpiad są losowani niezależnie spośród wszystkich maturzystów zdających maturę w latach 2010-2014. Model ten zakłada, że liczba laureatów i finalistów równocześnie z olimpiady z przedmiotów X i z Y powinna wynosić:
+
+$$
+o_{XY} = \frac{o_X}{N}\frac{o_Y}{N} N
+$$
+
+Gdzie $o_X$ i $o_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2015. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden "multiolimpijczyk", co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
 
 *Warto zauważyć*
 Najczęściej wybieranymi przedmiotami są oczywiście matury obowiązkowe: język polski i matematyka na poziomie podstawowym oraz język angielski – najczęściej wybierany jako obowiązkowy język obcy. Ponieważ niemal wszyscy maturzyści pisali te trzy egzaminy, więc częstość ich współwystępowania z dowolnym innym przedmiotem jest praktycznie równa częstości zdawania tegoż przedmiotu. Odpowiada to modelowi losowemu, zatem krawędzie łączące te matury z innymi przedmiotami nie zostały przedstawione na grafie. Jednak sama wielkość wierzchołków odpowiadających trzem obowiązkowym maturom stanowi dobre porównanie, pozwalające oszacować, jak dużo maturzystów zdawało pozostałe przedmioty.
 
 Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów. Pierwszą z nich stanowią przedmioty ścisłe i techniczne. Centrum tej grupy zajmuje rozszerzona matematyka, z którą wspólnie zdawane są  oba poziomy egzaminów z fizyki i informatyki. Druga gałąź grafu to przedmioty humanistyczne i społeczne. Centralne miejsce zajmuje tu rozszerzony język polski, a oprócz niego: oba poziomy matury z historii i WOS-u oraz wyraźnie powiązana z tą grupą geografia podstawowa. Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-społeczną stanowią egzaminy rozszerzone z języka angielskiego i geografii, popularne wśród zdających matury z obu tych grup. Trzecia, najbardziej izolowana gałąź to przedmioty przyrodnicze: chemia i biologia na obu poziomach. Podział ten odpowiada zapewne bardziej wymogom stawianym kandydatom przez uczelnie wyższe, niż powiązaniom między zainteresowaniami maturzystów. Pierwsza z wymienionych grup to prawdopodobnie osoby wybierające studia na politechnice i kierunki ścisłe na uniwersytetach. Druga to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze. Ciekawym spostrzeżeniem może być, że całkiem wyraźny podział istnieje już na poziomie wymagań stawianych kandydatom na studentów. Zapewne stosunkowo mało kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
 
-Na koniec, warto spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Oczywiście, oprócz języka polskiego, matematyki i języka obcego maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są silniej powiązane na zamieszczonym grafie, niż egzaminy na poziomie podstawowym, stanowiące raczej dalsze odgałęzienia wszystkich trzech gałęzi. Zapewne wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację na po zdaniu matury, dzięki czemu mogli swobodniej wybierać zdawane przedmioty i sugerować się bardziej własnymi umiejętnościami i preferencjami, niż ich koledzy wybierający przedmioty pod kątem  wymagań rekrutacyjnych na studia wyższe.
+Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Oczywiście, oprócz języka polskiego, matematyki i języka obcego maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są silniej powiązane na zamieszczonym grafie, niż egzaminy na poziomie podstawowym, stanowiące raczej dalsze odgałęzienia wszystkich trzech gałęzi. Zapewne wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację na po zdaniu matury, dzięki czemu mogli swobodniej wybierać zdawane przedmioty i sugerować się bardziej własnymi umiejętnościami i preferencjami, niż ich koledzy wybierający przedmioty pod kątem  wymagań rekrutacyjnych na studia wyższe.
+
+Na podstawie grafu dotyczącego olimpiad przedmiotowych można w pierwszej kolejności zauważyć, że między poszczególnymi konkursami istnieje gęsta sieć odpowiadająca stosunkowo dużej liczbie osób zakwalifikowanych do finału przynajmniej dwóch olimpiad. Podobnie jak w przypadku matur, przedmioty humanistyczne i społeczne tworzą wspólną, silnie powiązaną grupę, ale olimpiady ścisłe i przyrodnicze grupują się wspólnie. Najsilniej powiązaną parę stanowią matematyka i informatyka. W ciągu pięciu lat aż 78 maturzystów było dostało się do finału olimpiad z matematyki i informatyki, co stanowi aż 1444 razy więcej, niż przewidywał model losowy. Olimpiada matematyczna jest też bardzo silnie powiązana z fizyczną (37 multiolimpijczyków, 737 razy więcej, niż losowo), zaś fizyczna z informatyczną (14 multiolimpijczyków, 390 razy więcej, niż losowo) i z chemiczną (12 multiolimpijczyków, 252 razy więcej, niż losowo). Ta ostatnia jest z kolei silnie powiązana z olimpiadą biologiczną: (16 multiolimpijczyków, 179 razy więcej, niż losowo). 
+
+Ze strony przedmiotów humanistycznych i społecznych najsilniej powiązane olimpiady to historia i WOS (47 multiolimpijczyków, 420 razy częściej, niż losowo). Dużo jest też multiolimpijczyków łączących geografię i WOS (16, 177 razy więcej, niż losowo) oraz geografię i historię (18, 162 razy więcej, niż losowo). Stosunkowo dużo było też osób zakwalifikowanych do finałów olimpiad z języka polskiego i historii (34), ale ze względu na to, że z języka polskiego jest najwięcej finalistów i laureatów, stanowi to "tylko" 115 razy więcej, niż przewiduje model losowy. Olimpiada z języka angielskiego nie jest szczególnie silnie połączona z żadną z dwóch wymienionych grup olimpiad przedmiotowych. Na koniec warto zauważyć, że zdarzali się również maturzyści wybierający nietypowe połączenia, np. olimpiady z biologii i z WOSu, matematyki i historii lub z języka polskiego i informatyki.
+
+Podsumowując, pisanie olimpiady z jednego przedmiotu na ogół nie ogranicza i nie zawęża zainteresowań ucznia, o czym świadczy duża liczba multiolimpijczyków, znacznie wyższa, od przewidywanej. Wśród najzdolniejszych maturzystów widać podział zainteresowań na humanistyczno-społeczne oraz przyrodniczo-ścisłe, aczkolwiek pojedynczy olimpijczycy mogą wybierać bardziej nietypowe połączenia. 
 
 Histogramy wyników matur
 ------------------------
