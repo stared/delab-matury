@@ -31,6 +31,15 @@ function CoincidenceGraph(selector) {
     var options = options || {};
     var maxSize = options.maxSize || 75;
     var baseCharge = options.baseCharge || -70;
+    var eoThresholdMin = options.eoThresholdMin || 1.25;
+
+    this.categories = _.chain(graph.nodes)
+      .countBy('category')
+      .keys()
+      .value();
+
+    var colors = d3.scale.category10()
+      .domain(this.categories);
 
     graph.links = graph.links.sort(function (a, b) {
       return b.count - a.count;
@@ -38,7 +47,7 @@ function CoincidenceGraph(selector) {
 
     // but it hides some data...
     graph.links = graph.links.filter(function (e) {
-      return e.oe > 1.25; // || e.oe < 0.5;
+      return e.oe > eoThresholdMin; // || e.oe < 0.5;
     });
 
     var sizeScale = d3.scale.sqrt()
@@ -50,9 +59,6 @@ function CoincidenceGraph(selector) {
     var opacityScale = d3.scale.log()
       .domain([1, maxOe])
       .range([0, 0.75]);
-
-    var colors = d3.scale.category10()
-      .domain(d3.range(0, 10));
 
     var force = d3.layout.force()
         .charge(function (d) { return baseCharge * sizeScale(d.count); })
@@ -72,9 +78,16 @@ function CoincidenceGraph(selector) {
         .style("stroke-width", function (e) { return 2 * sizeScale(e.count); })
         .style("opacity", function (e) { return opacityScale(e.oe); })
         .on("mouseover", function (e) {
-          var text = siNumberApprox(e.count).replace("k", " tys.") + " zdajacych zarazem:<br>" +
-                     e.source.name + " i " + e.target.name + "<br><br>" +
-                     e.oe.toFixed(1) + "x bardziej prawdopodobna kombinacja niz losowo";
+          if (!!e.source.category && !!e.target.category) {
+            // do przemyślenia
+            var text = siNumberApprox(e.count).replace("k", " tys.") + " zdajacych zarazem:<br>" +
+                       e.source.category + ": " + e.source.name + " i " + e.target.category + ": " + e.target.name + "<br><br>" +
+                       e.oe.toFixed(1) + "x bardziej prawdopodobna kombinacja niz losowo";
+          } else {
+            var text = siNumberApprox(e.count).replace("k", " tys.") + " zdajacych zarazem:<br>" +
+                       e.source.name + " i " + e.target.name + "<br><br>" +
+                       e.oe.toFixed(1) + "x bardziej prawdopodobna kombinacja niz losowo";
+          }
           tooltip.show(text);
         })
         .on("mouseout", function () {
@@ -87,7 +100,7 @@ function CoincidenceGraph(selector) {
         .attr("class", "node")
         .attr("r", function (d) { return sizeScale(d.count); })
         .style("fill", function (d) {
-          return (d.name.indexOf("rozszerzona") !== -1) ? colors(4) : colors(0);
+          return colors(d.category);
         })
         .on("mouseover", function (d) {
           tooltip.show(siNumberApprox(d.count).replace("k", " tys.") + " zdajacych:<br>" + d.name);
@@ -125,18 +138,18 @@ function CoincidenceGraph(selector) {
 
   this.createLegend = function () {
 
-    // FIX
     var colors = d3.scale.category10()
-      .domain(d3.range(0, 10));
+      .domain(this.categories);
 
     var legend = new Legend(selector + " svg");
 
     legend.g.attr("transform", "translate(650, 50)");
 
-    legend.create([
-      {name: "matura podstawowa", color: colors(0)},
-      {name: "matura rozszerzona", color: colors(4)},
-    ]);
+    var legendList = this.categories.map(function (cat) {
+      return {name: cat, color: colors(cat)};
+    })
+
+    legend.create(legendList);
 
   };
 

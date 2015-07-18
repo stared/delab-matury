@@ -17,6 +17,10 @@ wybor.append('option')
   .attr('value', "olimpiady")
   .text("olimpiady");
 
+wybor.append('option')
+  .attr('value', "demograficznie2014")
+  .text("demograficznie2014");
+
 var toLoad = {
 
   "matury2014": function () {
@@ -32,6 +36,13 @@ var toLoad = {
         }
 
         node.name = node.name.replace("j_", "j. ").replace("_", " ");
+
+        if (node.name.indexOf("rozszerzona") !== -1) {
+          node.category = "rozszerzona";
+        } else {
+          node.category = "podstawowa";
+        }
+        
       });
 
       main.cGraph = new CoincidenceGraph("#d3graph");
@@ -90,6 +101,21 @@ var toLoad = {
 
     });
   },
+
+  "demograficznie2014": function () {
+    d3.json("data/koincydencje_demograficzne.json", function (error, data) {
+
+      data.nodes.forEach(function (node) {
+        node.label = node.name.slice(0, 4).toLowerCase();
+      });
+
+      main.cGraph = new CoincidenceGraph("#d3graph");
+      main.cGraph.draw(data, {eoThresholdMin: 1.05, maxSize: 50, baseCharge: -100});
+      main.cGraph.createLegend();
+
+    });
+  },
+
 };
 
 toLoad["matury2014"]();
