@@ -1,5 +1,7 @@
 library(dplyr)
 
+# ustaw: set working directory: to source file location
+
 zapisz<- function(rok){
   matury <- read.csv("../dane/wyniki/testy.csv") %>%
   filter(rodzaj_egzaminu=="matura", czy_egzamin==TRUE, rok==rok) %>%
@@ -89,5 +91,7 @@ dane$wielkosc_miejscowosci[wm>50000] <- "ponad 50 tys."
 write.csv(dane, paste0("histogramy/wyniki", rok, ".csv", sep=""))
 }
 
-lata<-2010:2014
-sapply(lata, zapisz)
+# lata<-2010:2014
+# sapply(lata, zapisz)
+
+zapisz(2014)
