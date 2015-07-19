@@ -1,5 +1,8 @@
 ---
 title: "Raport z projektu: Analiza i interaktywna wizualizacja danych maturalnych"
+author:
+  - Piotr Migdał
+  - Marta Czarnocka-Cieciura
 output: 
   pdf_document:
     fig_caption: yes
@@ -28,10 +31,27 @@ source('histogramy.r')
 library(kfigr)
 ```
 
+# Abstrakt
 
-Grafy: wspólnie wybieranych egzaminów oraz laureatów i finalistów olimpiad przedmiotowych
------------------------------------------------------------------------------------------
+Niniejszy raport przedstawia główne wyniki uzyskane w ramach mikrograntu DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", w czasie kwiecień-lipiec 2015. Przedstawiamy w nich główne wyniki oraz opisujemy stworzone wizualizacje: wspólnego wybierania matur, eksploracja wyników w zależności od czynników demograficznych, wyniki w zależności od województw, uczestnictwo w olimpiadach przedmiotowych i ich związek z wynikami matur. 
 
+# Wstęp
+
+Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceum oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem do przekrojowej analizy edukacji przedakademickiej w Polsce.
+
+Korzystając z danych maturalnych można nie tylko prześledzić bezpośrednie wyniki, ale też wyciągnąć wnioski dotyczące efektywnych możliwości edukacyjnych danej szkoły czy regionu. Co więcej, pozwalają one porównać egzaminy maturalne z różnych przedmiotów między sobą, a także z innymi wynikami edukacyjnymi.
+
+Projekt przewiduje przeanalizowanie danych z matur, składających się ze zanonimizowanych wyników z każdego zadania i dla każdego przedmiotu, z lat 2010-2014, połączonych z dodatkowymi danymi o szkołach. Pozwoli to, między innymi, ocenić wpływ wielkości miasta, szkoły czy klasy na wyniki matur, porównać wyniki pomiędzy szkołami i powiatami oraz ocenić względną trudność matur z  poszczególnych przedmiotów.
+
+Głównym celem projektu jest przedstawienie danych maturalnych w postaci interaktnywch wizualizacji, które pozwolą na wyciąganie wniosków z danych.
+
+# Najciekawsze spostrzeżenia
+
+Publiczne,
+
+# Główne wyniki
+
+## Grafy: wspólnie wybieranych egzaminów oraz laureatów i finalistów olimpiad przedmiotowych
 
 Zdający maturę muszą napisać egzamin z języka polskiego, matematyki i wybranego języka obcego na poziomie podstawowym oraz od 1 do 3 innych egzaminów, wybranych przez zdającego (§?, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku). Jednym z ciekawych zagadnień jest to, jakie przedmioty są wybierane i łączone przez maturzystów. W niniejszym projekcie do przeanalizowania tego tematu stworzono interaktywny graf (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
 
@@ -62,7 +82,8 @@ $$
 
 Gdzie $o_X$ i $o_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2015. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden "multiolimpijczyk", co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
 
-*Warto zauważyć*
+### Warto zauważyć
+
 Najczęściej wybieranymi przedmiotami są oczywiście matury obowiązkowe: język polski i matematyka na poziomie podstawowym oraz język angielski – najczęściej wybierany jako obowiązkowy język obcy. Ponieważ niemal wszyscy maturzyści pisali te trzy egzaminy, więc częstość ich współwystępowania z dowolnym innym przedmiotem jest praktycznie równa częstości zdawania tegoż przedmiotu. Odpowiada to modelowi losowemu, zatem krawędzie łączące te matury z innymi przedmiotami nie zostały przedstawione na grafie. Jednak sama wielkość wierzchołków odpowiadających trzem obowiązkowym maturom stanowi dobre porównanie, pozwalające oszacować, jak dużo maturzystów zdawało pozostałe przedmioty.
 
 Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów. Pierwszą z nich stanowią przedmioty ścisłe i techniczne. Centrum tej grupy zajmuje rozszerzona matematyka, z którą wspólnie zdawane są  oba poziomy egzaminów z fizyki i informatyki. Druga gałąź grafu to przedmioty humanistyczne i społeczne. Centralne miejsce zajmuje tu rozszerzony język polski, a oprócz niego: oba poziomy matury z historii i WOS-u oraz wyraźnie powiązana z tą grupą geografia podstawowa. Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-społeczną stanowią egzaminy rozszerzone z języka angielskiego i geografii, popularne wśród zdających matury z obu tych grup. Trzecia, najbardziej izolowana gałąź to przedmioty przyrodnicze: chemia i biologia na obu poziomach. Podział ten odpowiada zapewne bardziej wymogom stawianym kandydatom przez uczelnie wyższe, niż powiązaniom między zainteresowaniami maturzystów. Pierwsza z wymienionych grup to prawdopodobnie osoby wybierające studia na politechnice i kierunki ścisłe na uniwersytetach. Druga to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze. Ciekawym spostrzeżeniem może być, że całkiem wyraźny podział istnieje już na poziomie wymagań stawianych kandydatom na studentów. Zapewne stosunkowo mało kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
@@ -75,8 +96,7 @@ Ze strony przedmiotów humanistycznych i społecznych najsilniej powiązane olim
 
 Podsumowując, pisanie olimpiady z jednego przedmiotu na ogół nie ogranicza i nie zawęża zainteresowań ucznia, o czym świadczy duża liczba multiolimpijczyków, znacznie wyższa, od przewidywanej. Wśród najzdolniejszych maturzystów widać podział zainteresowań na humanistyczno-społeczne oraz przyrodniczo-ścisłe, aczkolwiek pojedynczy olimpijczycy mogą wybierać bardziej nietypowe połączenia. 
 
-Histogramy wyników matur
-------------------------
+## Histogramy wyników matur
 
 Interaktywna wizualizacja przedstawiająca rozkład wyników matur wśród maturzystów należących do różnych grup. Głównym elementem wizualizacji jest histogram, w którym wysokość każdego ze słupków reprezentuje odsetek maturzystów, którzy uzyskali dokładnie tyle samo punktów, czyli szerokość każdego słupka wynosi 1 punkt. Jednak dla ułatwienia porównań pomiędzy różnymi przedmiotami (które mogą mieć różna maksymalną liczbę punktów), na osi poziomej przedstawiono wyniki w procentach.
 
@@ -94,7 +114,7 @@ Do tej wizualizacji użyto danych dotyczących maturzystów zdających maturę p
 
 Wizualizacja ta została wykonana w R z użyciem biblioteki *ggplot2* służącej do wykonywania wykresów i biblioteki *shiny* umożliwiającej tworzenie interaktywnych aplikacji dostępnych z poziomu przeglądarki. 
 
-*Warto zauważyć* 
+### Warto zauważyć
 
 Porównywanie rozkładów wyników matur pomiędzy różnymi przedmiotami i grupami zdających dostarcza więcej informacji, niż porównywanie samych średnich – ciekawy jest też kształt wykresu. W przypadku obowiązkowych egzaminów wyróżnia się on charakterystycznym „zębem” w okolicach progu zdania wynoszącego 30%. Jest to szczególnie widoczne w przypadku matury podstawowej z języka polskiego (ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`). Rozkład wyników tego egzaminu układa się w kształt funkcji Gaussa, zaburzony niedoborem wyników o 1-3 punkty poniżej progu i nadmiarem o 1-2 punkty powyżej. Osób, którym zabrakło 1 punktu do zdania matury jest tylko 23, ilość znikoma w skali całego kraju. W przypadku pozostałych obowiązkowych egzaminów, matematyki (ryc. `r figr("shiny_mat_podstawowa", type="figure")`) i języka angielskiego (najczęściej wybieranego języka obcego) na poziomie podstawowym , również widać pewien niedobór zdających mających tuż poniżej 30% i niewielki nadmiar powyżej, ale jest to dużo mniejsza liczba. Występowanie tego „zęba” jest najprawdopodobniej związane z naciąganiem wyników na korzyść maturzystów poprzez egzaminatorów. Zapewne zadania z języka polskiego, szczególnie pytania otwarte, pozostawiają większą możliwość takich manipulacji, niż zadania z matematyki lub nawet – języka obcego.
 
@@ -173,8 +193,7 @@ print(wykres)
 
 Dwie ostatnie zmienne, typ gminy i wielkość miejscowości, dotyczą lokalizacji szkoły, a nie miejsca zamieszkania maturzystów. Zapewne liczba maturzystów zamieszkałych we wsiach i małych miastach jest większa, ale nie we wszystkich tych miejscowościach znajduje się szkoła średnia. Co więcej, część uczniów może wybierać naukę w większym mieście ze względu na bogatszą ofertę dydaktyczną. Być może z tego powodu najliczniejsza grupa maturzystów to absolwenci szkół znajdujących się w dużych miastach, powyżej 50 tys. mieszkańców (dolny wykres na ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`). Wielkość miejscowości i typ gminy są na ogół silnie powiązane, bo wsie i małe miasteczka leżą zwykle na terenie gmin wiejskich i miejsko-wiejskich, natomiast średnie i duże miasta mają wydzielone własne gminy miejskie. Absolwenci szkół na terenie gmin wiejskich najczęściej uzyskiwali słabe wyniki niemal ze wszystkich matur. Maturzyści ze szkół położonych w gminach miejsko-wiejskich radzili sobie lepiej niż ich koledzy z gmin miejskich z matury podstawowej z biologii, chemii, fizyki, geografii i WOS-u. Jednak z większości egzaminów najwięcej punktów uzyskiwali uczniowie uczący się w gminach miejskich: dotyczyło to podstawowej informatyki, trzech obowiązkowych egzaminów na poziomie podstawowym oraz wszystkich matur na poziomie rozszerzonym (np. biologii, ryc. `r figr("shiny_bio_rozszerzona_gminy", type="figure")`). Co więcej, z pośród przedmiotów do wyboru maturzyści, którzy uczyli się w gminach wiejskich i miejsko wiejskich częściej zdawali egzaminy na poziomie podstawowym, niż ich koledzy uczący się  w gminach miejskich. Uczniowie ze szkół w gminach wiejskich szczególnie rzadko zdawali informatykę na obu poziomach (rozszerzona informatyka: ryc. `r figr("shiny_inf_rozszerzona_grupy", type="figure")`, w porównaniu z wszystkimi zdającymi – dolny wykres na ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`), jak również rozszerzoną chemię, fizykę i angielski. Podobne różnice widać przy porównywaniu wyników matur dla uczniów uczących się w miejscowościach różnej wielkości. Najlepsze wyniki z większości przedmiotów uzyskują uczniowie uczący się w miastach powyżej 50 tys. mieszkańców: z wszystkich egzaminów rozszerzonych (np. z rozszerzonej biologii ryc. `r figr("shiny_bio_rozszerzona_miejscowosc", type="figure")`), z trzech obowiązkowych oraz z podstawowej informatyki. Jednak z wielu nieobowiązkowych matur podstawowych (biologii, geografii, historii i WOSu) maturzyści, którzy uczyli się we wszystkich trzech grupach miejscowości uzyskali podobne wyniki, a z chemii i z fizyki absolwenci szkół z największych miast poradzili sobie gorzej, niż ich koledzy uczący się w mniejszych miejscowościach. Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczególności pamiętając o tym, że wielkość miejscowości i typ gminy dotyczył szkoły średniej, a nie miejsca zamieszkania maturzystów), wyniki te są dość niepokojące. Prawdopodobnie świadczą one o utrudnieniach w dostępie do edukacji, z jakimi spotykają się uczniowie z mniejszych miejscowości. I choć możliwe, że część uczniów zdających maturę w dużych miastach pochodziła terenów wiejskich lub małych miast, to jednak taki wyjazd mogą zwykle sfinansować jedynie rodzice zamożniejszych uczniów. Taki rozkład wyników może więc świadczyć również o nierównościach ekonomicznych w dostępie do edukacji. Szczególnie może niepokoić mała liczba zdających i słabe wyniki z przedmiotów ścisłych i technicznych (informatyki, rozszerzonej fizyki czy chemii) oraz rozszerzonego języka angielskiego w mniejszych miejscowościach i na terenach wiejskich. Te przedmioty mogą być szczególnie przydatne w znalezieniu pracy w społeczeństwie opartym na technologii i otwartym na inne kraje. 
 
-Wyniki uzyskane przez finalistów i laureatów olimpiad
-----------------------------------------
+## Wyniki uzyskane przez finalistów i laureatów olimpiad
 
 Jednym z celów niniejszego projektu była analiza wyników matur finalistów i laureatów olimpiad przedmiotowych. W ramach nagrody za wybitne wyniki są oni zwolnieni z obowiązku pisania matury z przedmiotu olimpiady oraz dostają z niej na świadectwie maksymalną liczbę punktów (§60, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku). Ta stosunkowo niewielka grupa maturzystów (od 40 do około 160 osób z każdego z przedmiotów) jest interesująca z kilku powodów. Po pierwsze, olimpijczycy stanowią zwykle najlepsze osoby z danego przedmiotu w Polsce wśród uczniów szkół średnich. Po drugie, przygotowanie do olimpiady przedmiotowej jest na ogół związane z dodatkowym wysiłkiem ze strony ucznia, co potencjalnie może negatywnie odbić się na wynikach uzyskiwanych z innych przedmiotów. Ciekawym pytaniem jest, na ile finaliści i laureaci olimpiad skupiają się na konkursowym przedmiocie i jak to wpływa na pozostałe wyniki na maturze. Wreszcie: czy olimpijczycy z różnych przedmiotów uzyskują podobne wyniki z pozostałych matur, czy może rodzaj konkursu bardziej ich różnicuje.
 
@@ -188,7 +207,7 @@ cat("![Średnie wyniki z trzech wybranych przedmiotów uzyskane przez finalistó
 
 Aby odpowiedzieć na te pytania, policzono średnie wyniki trzech obowiązkowych matur wśród finalistów i laureatów poszczególnych olimpiad przedmiotowych w latach 2010-2014. Ponieważ jednak pomiędzy olimpijczykami zróżnicowanie wyników z matury podstawowej z języka angielskiego było niewielkie (w 2014 średnie laureatów i finalistów wszystkich olimpiad przekraczały z tego przedmiotuy 90%), więc do dalszych analiz wybrano wyniki nieco trudniejszego egzaminu z tego przedmiotu na poziomie rozszerzonym. Warto tu zaznaczyć, że choć ten egzamin nie był obowiązkowy, większość finalistów i laureatów olimpiad przedmiotowych i tak go wybrała. Tak policzone średnie przedstawiono na wykresie punktowym (rok 2014: ryc. `r figr("olimpijczycy_wykres", type="figure")`), na którym osie pozioma i pionowa reprezentują wyniki matur z języka polskiego i matematyki na poziomie podstawowym, natomiast kolor punktów reprezentuje średni wynik z języka angielskiego na poziomie rozszerzonym. Powierzchnia każdego punktu odpowiada liczbie laureatów i finalistów poszczególnych olimpiad. Na osobnym, analogicznym wykresie porównano średnie wyniki olimpijczyków z poszczególnych przedmiotów do średnich wyników wszystkich maturzystów (rok 2014: ryc. `r figr("olimpijczycy_i inni_wykres", type="figure")`). Ze względu na duże zróżnicowanie liczebności porównywanych grup, wielkość punktów tym razem odpowiadała logarytmowi liczby maturzystów. 
 
-*Warto zauważyć*
+### Warto zauważyć
 
 Pierwszą rzeczą, jaką warto zauważyć jest to, że laureaci i finaliści każdej z olimpiad mają średnio znacznie wyższe wyniki z trzech rozważanych tu egzaminów w porównaniu z pozostałymi maturzystami (ryc. `r figr("olimpijczycy_i inni_wykres", type="figure")`). Najwyraźniej te same czynniki, które sprawiają, że dany uczeń uzyskał wybitne wyniki w olimpiadzie z jednego przedmiotu, pozwalają mu również lepiej radzić sobie z nauką pozostałych. Przyczyn tych może być wiele. Być może olimpijczycy w porównaniu z resztą rówieśników mają lepiej opanowane umiejętności uczenia się i przyswajania nowych wiadomości, większą motywację do nauki lub wreszcie: lepsze ku temu predyspozycje. Te przyczyny mogą z kolei być skutkiem różnic w środowisku rodzinnym lub szkolnym, ale także kwestią zmienności indywidualnej.
 
@@ -196,8 +215,7 @@ Porównując średnie wyniki między finalistami i laureatami różnych olimpiad
 
 Co ciekawe, we wcześniejszych latach (2010-2013) laureaci poszczególnych olimpiad średnio otrzymywali  bardzo podobne wyniki z podstawowych matur z matematyki i języka polskiego co w 2014 roku. W szczególności w całym tym okresie utrzymywał się opisany wcześniej trend negatywnej korelacji średnich wyników z tych egzaminów. Natomiast wyniki z języka angielskiego były bardziej zmienne.
 
-Mapa średnich wyników w województwach
--------------------------------------
+## Mapa średnich wyników w województwach
 
 Jest to interaktywna wizualizacja pozwalająca na porównanie liczby maturzystów i średnich wyników matur w poszczególnych województwach. Użytkownik ma możliwość wyboru opcji z dwóch pasków menu. Górny pasek pozwala na wybór roku, z którego pochodzą dane (z zakresu 2010-2014) lub średniej wieloletniej. Trzeba jednak pamiętać, że ta ostatnia wartość jest dość zgrubną miarą pozwalającą na porównywanie wyników między województwami, ponieważ w każdym roku zdający pisali nieco inny egzamin, który mógł nieco różnił się trudnością. Boczny pasek odpowiada za rodzaj wyświetlanych danych. Wybór opcji „wszyscy maturzyści” powoduje wyświetlanie na mapie kół, których powierzchnia jest proporcjonalna do liczby wszystkich maturzystów zdających w poszczególnych województwach (ryc. `r figr("mapy_maturzysci", type="figure")`). Natomiast wybranie nazwy egzaminu powoduje pojawienie się kolorowych kół, których pole odpowiada liczbie zdających ten egzamin, natomiast kolor symbolizuje średni wynik w województwie (ryc. `r figr("mapy_ang", type="figure")`). Jak widać z zamieszczonej legendy, biały kolor oznacza średnią krajową z danego egzaminu, niebieski – województwa mające wynik powyżej średniej, natomiast niebieski – poniżej. Najechanie myszką na któreś z przedstawionych na mapie kół skutkuje wyświetleniem dodatkowych informacji: nazwy województwa, liczby osób zdających, a przy wyborze konkretnego egzaminu, również średniego wyniku w procentach w tym województwie. Wizualizacja została napisana w języku JavaScript, przy użyciu biblioteki D3js.
 
@@ -209,6 +227,24 @@ cat("![Zrzut ekranu: liczba maturzystów w poszczególnych województwach w 2014
 cat("![Zrzut ekranu: średnie wyniki matury podstawowej z angielskiego w poszczególnych województwach w 2014 roku.](mapy_ang.png)")
 ```
 
-*Warto zauważyć*
+### Warto zauważyć
 
 Różnice w średnich wynikach matur pomiędzy województwami dla większości przedmiotów nie przekraczają 5-10 punktów procentowych. Nie ma wyraźnego podziału pomiędzy Polskę wschodnią i zachodnią, ponadto dla różnych przedmiotów rozkład wyników wyraźnie się różni. Natomiast różnych poziomów matur wydają się ze sobą korelować: w województwie, w którym wyniki z poziomu podstawowego są wysokie, zwykle również poziom rozszerzony jest powyżej średniej i podobnie, jeśli wyniki są słabe, to zwykle dotyczy to obu poziomów. Istnieją od tego wyjątki: np w 2014 roku w województwie dolnośląskim wyniki matur podstawowych z angielskiego i polskiego były wyraźnie wyższe, niż średnia krajowa, podczas gdy matura rozszerzona z tych samych przedmiotów poszła maturzystom z tego województwa gorzej, niż średnio w całej Polsce. Można zauważyć, że w niektórych województwach, np. zachodniopomorskim, małopolskim i śląskim, wyniki większości matur są powyżej średniej krajowej, a w innych, np. dolnośląskim, warmińsko-mazurskim i łódzkim – poniżej. Różnice między latami wydają się być mniejsze, niż pomiędzy przedmiotami, ale również od tego jest sporo wyjątków. Przykładowo w województwie kujawsko-pomorskim i świętokrzyskim wyniki matury z matematyki podstawowej znacznie fluktuowały w kolejnych latach w porównaniu z pozostałymi województwami.
+
+# Sprawy techniczne
+
+## Źródło danych
+
+Głównym źródłem danych...
+
+## Przetwarzanie i wizualizacja danych
+
+R (i jakie biblioteki), Python (i jakie biblioteki)
+
+Github
+
+## Główne problemy
+
+# Podsumowanie
+
+W tym plany (tj. rzeczy, które rozgrzebaliśmy)
