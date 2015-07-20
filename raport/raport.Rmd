@@ -5,7 +5,6 @@ author:
   - Marta Czarnocka-Cieciura
 output: 
   pdf_document
-
 ---
 
 ```{r echo=FALSE}
@@ -57,7 +56,7 @@ Publiczne,
 
 ## Grafy: wspólnie wybieranych egzaminów oraz laureatów i finalistów olimpiad przedmiotowych
 
-Zdający maturę muszą napisać egzamin z języka polskiego, matematyki i wybranego języka obcego na poziomie podstawowym oraz od 1 do 3 innych egzaminów, wybranych przez zdającego (§?, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku). Jednym z ciekawych zagadnień jest to, jakie przedmioty są wybierane i łączone przez maturzystów. W niniejszym projekcie do przeanalizowania tego tematu stworzono interaktywny graf (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
+Zdający maturę muszą napisać egzamin z języka polskiego, matematyki i wybranego języka obcego na poziomie podstawowym oraz od 1 do 4 lub 6 innych egzaminów, wybranych przez zdającego (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku i rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 r). Jednym z ciekawych zagadnień jest to, jakie przedmioty są wybierane i łączone przez maturzystów. W niniejszym projekcie do przeanalizowania tego tematu stworzono interaktywny graf (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
 
 Gdyby maturzyści wybierali niezależnie każdy ze zdawanych egzaminów, wówczas należałoby się spodziewać, że liczba zdających równocześnie maturę X i Y ($n_{XY}$) powinna wynosić
 $$
@@ -74,13 +73,17 @@ caption('graf_matury', "Zrzut ekranu: interaktywny graf wspólnie wybieranych eg
 ```
 
 
-```{r graf_olimpiady, echo = F, results = 'asis', anchor="figure"}
-cat("![](graf_olimpiady.png)")
+### Warto zauważyć
 
-caption('graf_olimpiady', "Zrzut ekranu: interaktywny graf laureatów i finalistów olimpiad przedmiotowych w latach 2010-2014")
-```
+Najczęściej wybieranymi przedmiotami są oczywiście matury obowiązkowe: język polski i matematyka na poziomie podstawowym oraz język angielski – najczęściej wybierany jako obowiązkowy język obcy. Ponieważ niemal wszyscy maturzyści pisali te trzy egzaminy, więc częstość ich współwystępowania z dowolnym innym przedmiotem jest praktycznie równa częstości zdawania tegoż przedmiotu. Odpowiada to modelowi losowemu, zatem krawędzie łączące te matury z innymi przedmiotami nie zostały przedstawione na grafie. Jednak sama wielkość wierzchołków odpowiadających trzem obowiązkowym maturom stanowi dobre porównanie, pozwalające oszacować, jak dużo maturzystów zdawało pozostałe przedmioty.
 
-W ramach tej samej wizualizacji jest dostępny jeszcze drugi graf, przedstawiający zależności między olimpiadami przedmiotowymi (ryc. `r figr("graf_olimpiady", type="figure")`). Są to konkursy skierowane do uczniów szkół średnich, mające na celu wyłonić najlepsze w Polsce osóby z poszczególnych przedmiotów. Przygotowanie do olimpiady wymaga zwykle dużo czasu i wysiłku. Mimo to niektórzy uczniowie są w stanie zakwalifikować się do finału więcej niż jednego z tych konkursów. Prześledzenie liczby takich "multiolimpijczyków" może pomóc wyjaśnić, czy wybitne osiągnięcia z jednego przedmiotu wymagają od uczniówpoświęcania  mniejszej uwagi pozostałym. Natomiast to, które olimpiady są najczęściej łączone, dostarcza ciekawych informacji o zainteresowaniach tej grupy najzdolniejszych maturzystów.
+Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów. Pierwszą z nich stanowią przedmioty ścisłe i techniczne. Centrum tej grupy zajmuje rozszerzona matematyka, z którą wspólnie zdawane są  oba poziomy egzaminów z fizyki i informatyki. Druga gałąź grafu to przedmioty humanistyczne i społeczne. Centralne miejsce zajmuje tu rozszerzony język polski, a oprócz niego: oba poziomy matury z historii i WOS-u oraz wyraźnie powiązana z tą grupą geografia podstawowa. Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-społeczną stanowią egzaminy rozszerzone z języka angielskiego i geografii, popularne wśród zdających matury z obu tych grup. Trzecia, najbardziej izolowana gałąź to przedmioty przyrodnicze: chemia i biologia na obu poziomach. Podział ten odpowiada zapewne bardziej wymogom stawianym kandydatom przez uczelnie wyższe, niż powiązaniom między zainteresowaniami maturzystów. Pierwsza z wymienionych grup to prawdopodobnie osoby wybierające studia na politechnice i kierunki ścisłe na uniwersytetach. Druga to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze. Ciekawym spostrzeżeniem może być, że całkiem wyraźny podział istnieje już na poziomie wymagań stawianych kandydatom na studentów. Zapewne stosunkowo mało kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
+
+Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Oczywiście, oprócz języka polskiego, matematyki i języka obcego maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są silniej powiązane na zamieszczonym grafie, niż egzaminy na poziomie podstawowym, stanowiące raczej dalsze odgałęzienia wszystkich trzech gałęzi. Zapewne wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację na po zdaniu matury, dzięki czemu mogli swobodniej wybierać zdawane przedmioty i sugerować się bardziej własnymi umiejętnościami i preferencjami, niż ich koledzy wybierający przedmioty pod kątem  wymagań rekrutacyjnych na studia wyższe.
+
+## Graf olimpiad przedmiotowych
+
+W ramach tej samej wizualizacji, co graf wspólnie wybieranych matur, jest dostępny jeszcze drugi graf, przedstawiający zależności między olimpiadami przedmiotowymi (ryc. `r figr("graf_olimpiady", type="figure")`). Są to konkursy skierowane do uczniów szkół średnich, mające na celu wyłonić najlepsze w Polsce osóby z poszczególnych przedmiotów. Przygotowanie do olimpiady wymaga zwykle dużo czasu i wysiłku. Mimo to niektórzy uczniowie są w stanie zakwalifikować się do finału więcej niż jednego z tych konkursów. Prześledzenie liczby takich "multiolimpijczyków" może pomóc wyjaśnić, czy wybitne osiągnięcia z jednego przedmiotu wymagają od uczniówpoświęcania  mniejszej uwagi pozostałym. Natomiast to, które olimpiady są najczęściej łączone, dostarcza ciekawych informacji o zainteresowaniach tej grupy najzdolniejszych maturzystów.
 
 Graf dotyczący olimpiad przedmiotowych można zobaczyć wybierając opcję "olimpiady" w lewym górnym rogu ekranu. Podobnie jak w grafie dotyczącym matur, wielkość wierzchołków odpowiada liczbie finalistów i laureatów przystępujących do zdawania matury, natomiast szerokość krawędzi - liczbie "multiolimpijczyków" z poszczególnych par przedmiotów. Ponieważ jednak liczby te nie są duże (30-200 olimpijczyków rocznie), tym razem wykorzystano sumaryczne dane z pięciu lat (2010-2014). Podobnie jak poprzednio, intensywność barwy krawędzi odpowiada temu, ile razy częściej "multiolimpijczycy" występują w porównaniu z modelem losowym, zakładającym, że laureaci i finaliści poszczególnych olimpiad są losowani niezależnie spośród wszystkich maturzystów zdających maturę w latach 2010-2014. Model ten zakłada, że liczba laureatów i finalistów równocześnie z olimpiady z przedmiotów X i z Y powinna wynosić:
 
@@ -90,13 +93,13 @@ $$
 
 Gdzie $o_X$ i $o_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2015. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden "multiolimpijczyk", co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
 
+```{r graf_olimpiady, echo = F, results = 'asis', anchor="figure"}
+cat("![](graf_olimpiady.png)")
+
+caption('graf_olimpiady', "Zrzut ekranu: interaktywny graf laureatów i finalistów olimpiad przedmiotowych w latach 2010-2014")
+```
+
 ### Warto zauważyć
-
-Najczęściej wybieranymi przedmiotami są oczywiście matury obowiązkowe: język polski i matematyka na poziomie podstawowym oraz język angielski – najczęściej wybierany jako obowiązkowy język obcy. Ponieważ niemal wszyscy maturzyści pisali te trzy egzaminy, więc częstość ich współwystępowania z dowolnym innym przedmiotem jest praktycznie równa częstości zdawania tegoż przedmiotu. Odpowiada to modelowi losowemu, zatem krawędzie łączące te matury z innymi przedmiotami nie zostały przedstawione na grafie. Jednak sama wielkość wierzchołków odpowiadających trzem obowiązkowym maturom stanowi dobre porównanie, pozwalające oszacować, jak dużo maturzystów zdawało pozostałe przedmioty.
-
-Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów. Pierwszą z nich stanowią przedmioty ścisłe i techniczne. Centrum tej grupy zajmuje rozszerzona matematyka, z którą wspólnie zdawane są  oba poziomy egzaminów z fizyki i informatyki. Druga gałąź grafu to przedmioty humanistyczne i społeczne. Centralne miejsce zajmuje tu rozszerzony język polski, a oprócz niego: oba poziomy matury z historii i WOS-u oraz wyraźnie powiązana z tą grupą geografia podstawowa. Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-społeczną stanowią egzaminy rozszerzone z języka angielskiego i geografii, popularne wśród zdających matury z obu tych grup. Trzecia, najbardziej izolowana gałąź to przedmioty przyrodnicze: chemia i biologia na obu poziomach. Podział ten odpowiada zapewne bardziej wymogom stawianym kandydatom przez uczelnie wyższe, niż powiązaniom między zainteresowaniami maturzystów. Pierwsza z wymienionych grup to prawdopodobnie osoby wybierające studia na politechnice i kierunki ścisłe na uniwersytetach. Druga to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze. Ciekawym spostrzeżeniem może być, że całkiem wyraźny podział istnieje już na poziomie wymagań stawianych kandydatom na studentów. Zapewne stosunkowo mało kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
-
-Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Oczywiście, oprócz języka polskiego, matematyki i języka obcego maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są silniej powiązane na zamieszczonym grafie, niż egzaminy na poziomie podstawowym, stanowiące raczej dalsze odgałęzienia wszystkich trzech gałęzi. Zapewne wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację na po zdaniu matury, dzięki czemu mogli swobodniej wybierać zdawane przedmioty i sugerować się bardziej własnymi umiejętnościami i preferencjami, niż ich koledzy wybierający przedmioty pod kątem  wymagań rekrutacyjnych na studia wyższe.
 
 Na podstawie grafu dotyczącego olimpiad przedmiotowych można w pierwszej kolejności zauważyć, że między poszczególnymi konkursami istnieje gęsta sieć odpowiadająca stosunkowo dużej liczbie osób zakwalifikowanych do finału przynajmniej dwóch olimpiad. Podobnie jak w przypadku matur, przedmioty humanistyczne i społeczne tworzą wspólną, silnie powiązaną grupę, ale olimpiady ścisłe i przyrodnicze grupują się wspólnie. Najsilniej powiązaną parę stanowią matematyka i informatyka. W ciągu pięciu lat aż 78 maturzystów było dostało się do finału olimpiad z matematyki i informatyki, co stanowi aż 1444 razy więcej, niż przewidywał model losowy. Olimpiada matematyczna jest też bardzo silnie powiązana z fizyczną (37 multiolimpijczyków, 737 razy więcej, niż losowo), zaś fizyczna z informatyczną (14 multiolimpijczyków, 390 razy więcej, niż losowo) i z chemiczną (12 multiolimpijczyków, 252 razy więcej, niż losowo). Ta ostatnia jest z kolei silnie powiązana z olimpiadą biologiczną: (16 multiolimpijczyków, 179 razy więcej, niż losowo). 
 
@@ -106,7 +109,9 @@ Podsumowując, pisanie olimpiady z jednego przedmiotu na ogół nie ogranicza i 
 
 ## Histogramy wyników matur
 
-Interaktywna wizualizacja przedstawiająca rozkład wyników matur wśród maturzystów należących do różnych grup. Głównym elementem wizualizacji jest histogram, w którym wysokość każdego ze słupków reprezentuje odsetek maturzystów, którzy uzyskali dokładnie tyle samo punktów, czyli szerokość każdego słupka wynosi 1 punkt. Jednak dla ułatwienia porównań pomiędzy różnymi przedmiotami (które mogą mieć różna maksymalną liczbę punktów), na osi poziomej przedstawiono wyniki w procentach.
+Jenym z celów niniejszego projektu było zbadanie, jak kształtują się wyniki poszczególnych egzaminów: jaka liczba punktów jest najczęściej uzyskiwana, jaka jest zmienność pomiędzy maturzystami oraz od jakich czynników zależą wyniki poszczególnych zdających. W tym celu można porównać miary tendencji centralnej (np. średnią lub medianę) i zmienności (np. odchylenie standardowe) uzyskanej liczby punktów pomiędzy poszczególnymi grupami maturzystów lub pomiędzy różnymi egzaminami. Jednak bardziej obrazowe i pełniejsze pod względem przedstawionej informacji jest zaprezentowanie całego rozkładu wyników w postaci histogramu. W ten sposób na wykresie słupkowym można przedstawić liczbę uczniów, którzy uzyskali wynik z poszczególnych przedziałów punktacji z danego egzaminu. Dzięki temu można zobaczyć między innymi, jakie wyniki były najczęściej uzyskiwane i czy jest tylko jedno takie maksimum oraz jak bardzo skośny jest wykres (więcej wyników słabszych, czy lepszych, niż najczęstsze). Można też wykryć zaburzenia w rozkładzie wyników, w postaci mniejszej lub większej liczby maturzystów w którymś z przedziałów punktowych w porównaniu z przewidywaniami wynikającymi z "wygładzonego" rozkładu wyników. Z kolei porównanie kilku histogramów dla różnych grup maturzystów pozwala łatwo znaleźć przedziały punktowe, w których jedna z grup jest częstsza.
+
+Na potrzeby tego projektu stworzono interaktywną wizualizację, pozwalającą na efektywne porównywanie rozkładów wyników z pośród dużej liczby możliwych kombinacji zdawanych egzaminów i różnych grup maturzystów. Wysokość każdego ze słupków w tak utworzonych histogramach reprezentuje odsetek maturzystów, którzy uzyskali dokładnie tyle samo punktów, czyli szerokość każdego słupka wynosi 1 punkt. Jednak dla ułatwienia porównań pomiędzy różnymi przedmiotami (które mogą mieć różna maksymalną liczbę punktów), na osi poziomej przedstawiono wyniki w procentach.
 
 ```{r shiny_screenshot_jpl_podstawowa, echo = F, results = 'asis', anchor="figure"}
 cat("![](shiny2.png)")
@@ -116,7 +121,7 @@ caption('shiny_screenshot_jpl_podstawowa', "Zrzut ekranu: interaktywne histogram
 
 Po lewej stronie histogramu znajduje się menu, z którego użytkownik może wybrać różne opcje. Są to przede wszystkim przedmiot i poziom egzaminu (podstawowy lub rozszerzony), z którego wyniki mają zostać zaprezentowane na histogramie. 
 
-Kolejna opcja, „podział”, umożliwia porównanie wyników matury pomiędzy różnymi grupami maturzystów, zróżnicowanych ze względu na płeć, wiek, zdiagnozowaną dysleksję lub jej brak, typ szkoły, do której uczęszczali (liceum ogólnokształcące, liceum profilowane lub technikum), czy szkoła jest publiczna czy prywatna, rodzaj gminy (miejska, miejsko-wiejska lub wiejska), oraz wielkość miejscowości, w której znajduje się szkoła. Po wybraniu jednej z tych kategorii histogram wyników matury zostaje rozbity na kilka kolorowych histogramów, z których każdy przedstawia wyniki innej grupy maturzystów, np. po wybraniu wieku jako zmiennej „podział” można zobaczyć 4 nałożone na siebie histogramy: dla osób w wieku 18 i mniej lat, 19 lat, 20 lat oraz 21 i więcej lat. Warto zwrócić uwagę, że wysokość histogramów jest unormowana osobno dla każdej z grup, czyli na osi pionowej przedstawiono odsetek zdających wśród osób z danej grupy, które otrzymały dany wynik. Takie rozwiązanie ułatwia porównanie wyników między grupami. Jednak równocześnie gubi ono informację o liczebności poszczególnych grup, która może mieć kluczowe znaczenie, jeśli chodzi o wpływ wyników uzyskanych przez daną grupę na rozkład wyników w całej populacji. Stąd też liczebności wszystkich grup, na które dzielą maturzystów wymienione wyżej kategorie, zostały przedstawione na dodatkowym wykresie słupkowym.
+Kolejna opcja, „podział”, umożliwia porównanie wyników matury pomiędzy różnymi grupami zdających wyróżnionymi na podstawie informacji o każdym z maturzystów dostępnych w wykorzystanej bazie danych: płci, wieku, zdiagnozowanej dysleksję lub jej braku, typie ukończonej szkoły średniej (liceum ogólnokształcące, liceum profilowane lub technikum), czy szkoła była publiczna czy prywatna, rodzaj gminy (miejska, miejsko-wiejska lub wiejska) oraz wielkość miejscowości, w której znajduje się ta szkoła. Po wybraniu jednej z tych kategorii histogram wyników matury zostaje rozbity na kilka kolorowych histogramów, z których każdy przedstawia wyniki innej grupy maturzystów, np. po wybraniu wieku jako zmiennej „podział” można zobaczyć 4 nałożone na siebie histogramy: dla osób w wieku 18 i mniej lat, 19 lat, 20 lat oraz 21 i więcej lat. Warto zwrócić uwagę, że wysokość histogramów jest unormowana osobno dla każdej z grup, czyli na osi pionowej przedstawiono odsetek zdających wśród osób z danej grupy, które otrzymały dany wynik. Takie rozwiązanie ułatwia porównanie wyników między grupami. Jednak równocześnie gubi ono informację o liczebności poszczególnych grup, która może mieć kluczowe znaczenie, jeśli chodzi o wpływ wyników uzyskanych przez daną grupę na rozkład wyników w całej populacji. Stąd też liczebności wszystkich grup, na które dzielą maturzystów wymienione wyżej kategorie, zostały przedstawione na dodatkowym wykresie słupkowym.
 
 Omówiona wcześniej opcja „podział” nie umożliwia zbadania interakcji zachodzących pomiędzy poszczególnymi kategoriami. Na przykład dwudziestoletni maturzyści mogą być zarówno absolwentami 4 letniego technikum, uczącymi się w normalnym trybie, jak również osobami kończącymi 3 letnie liceum, które miały roczna przerwę na którymś etapie szkolnej nauki. Aby móc badać takie interakcje np. między kategoriami „wiek” i „typ szkoły” na lewym pasku menu można wybrać dodatkową zmienną nazwaną „filtr”. Umożliwia ona wskazanie kategorii, z której chcemy wybrać interesującą nas grupę uczniów z paska „wartość filtra”. Przykładowo ustawienie zmiennej „filtr” = „wiek” i „wartość filtra” = 20 pozwala na przedstawienie na histogramie wyników matur pisanych wyłącznie przez dwudziestolatków. Wybranie równocześnie zmiennej „podział” = „typ szkoły” umożliwia porównanie rozkładu wyników tej grupy wiekowej między absolwentami liceów i techników.
 
@@ -272,10 +277,11 @@ Różnice w średnich wynikach matur pomiędzy województwami dla większości p
 ## Źródło danych
 
 Głównym źródłem danych...
+(mniejsze: kontur Polski)
 
 ## Przetwarzanie i wizualizacja danych
 
-R (i jakie biblioteki), Python (i jakie biblioteki)
+R (i jakie biblioteki), Python (i jakie biblioteki), D3js.
 
 Github
 
@@ -284,3 +290,14 @@ Github
 # Podsumowanie
 
 W tym plany (tj. rzeczy, które rozgrzebaliśmy)
+
+# bibliografia
+
+* Bostock, M. (2015) D3js (wersja?) [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
+
+* Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
+
+* Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 r. w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. nr 83, poz. 562, ze zm.)
+
+* Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
+
