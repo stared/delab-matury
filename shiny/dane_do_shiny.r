@@ -32,7 +32,7 @@ matury$nazwa %>%
 
 # indeksy, informacje ogolne
 przedmioty <- read.csv(paste0("../dane/wyniki/j._polski_podstawowa_", rok, ".csv", sep=""))
-# wyrzucam poprawkowe: czyli pop_podejscie != Na
+# wyrzucam poprawkowe: (czyli te, gdzie pop_podejscie != Na)
 przedmioty <- przedmioty[is.na(przedmioty$pop_podejscie),]
 rownames(przedmioty) <- przedmioty$id_obserwacji
 przedmioty <- select(przedmioty, id_szkoly, plec, rocznik, dysleksja)

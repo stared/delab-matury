@@ -93,6 +93,9 @@ $$
 
 Gdzie $o_X$ i $o_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2015. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden "multiolimpijczyk", co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
 
+Przy analizie grafu olimpiad należy podkreślić, że liczba olimpijczyków oznacza tu liczbę osób przystępujących do matury w 2014 roku, którzy w trakcie nauki w szkole średniej uzyskali tytuł laureata lub finalisty wybranego konkursu, a nie -- liczbę osób, które przeszły do finału tejże olimpiady w 2014 roku. Oznacza to, że w tej grupie są wymieszane osoby przystępujące do różnych edycji tej samej olimpiady, co częściowo tłumaczy, dlaczego liczba olimpijczyków może się różnić w porównaniu z danymi ze stron poszczególnych olimpiad przedmiotowych: z roku na rok może nieco fluktuować liczba maturzystów, którzy zdawali olimpiadę w pierwszej, drugiej, trzeciej, a w przypadku techników - również czwartej klasie. Poza tym pewna część uczniów mogła dostać się do finału więcej niż jednej edycji tej samej olimpiady, co może skutkować mniejszą liczbą maturzystów-olimpijczyków, niż corocznie przyznawanych tytułów finalistów i laureatów. Szczególnie duża jest różnica w liczbie olimpijczyków z języka angielskiego: zgodnie z regulaminem tej olimpiady do finału powinno corocznie przechodzić minimum 55 uczniów (§3 pkt 4.2.5 Regulamin Olimpiady Języka Angielskiego, online: http://www.wsjo.pl/oja/?id=16), podczas gdy według danych ZPD w latach 2010-2014 corocznie średnio tylko 35 maturzystów mogło się pochwalić tym tytułem. Możliwe, że część olimpijczyków zamiast do standardowej matury, przystąpiło do zdawania matury międzynarodowej (International Baccalaureate). W skali kraju niewielu absolwentów zdaje ten egzamin: jedynie 37 szkół (dane z roku 2015: International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/) oferuje klasy z programem przygotowującym do tego egzaminu. Ponieważ jednak jest to oferta dydaktyczna skierowana do szczególnie ambitnych uczniów, w szczególności tych planujących rozpoczęcie studiów w prestiżowych zagranicznych uczelniach, więc wśród laureatów olimpiad przedmiotowych, w tym z języka angielskiego, stosunkowo dużo osób może przystępować do tego egzaminu zamiast do standardowej matury.
+
+
 ```{r graf_olimpiady, echo = F, results = 'asis', anchor="figure"}
 cat("![](graf_olimpiady.png)")
 
@@ -208,7 +211,7 @@ print(wykres)
 caption('shiny_jan_podstawowa_publiczna', "Histogram wyników matury podstawowej z języka angielskiego z podziałem na absolwentów szkół publicznych i prywatnych")
 ```
 
-Większość maturzystów w 2014 roku ukończyła publiczną szkołę średnią (275 tysięcy w porównaniu z 22 tysiącami). Można by się spodziewać, że szkoły prywatne, dysponujące dodatkowymi funduszami z czesnego oraz przyjmujące dzieci zamożnych rodziców, mogą lepiej przygotowywać swoich uczniów do matury. Okazuje się jednak, że absolwenci szkół prywatnych uzyskali gorsze wyniki z niemal wszystkich matur na poziomie podstawowym, w tym również z egzaminów obowiązkowych (np. z języka angielskiego na poziomie podstawowym, ryc. `r figr("shiny_jan_podstawowa_publiczna", type="figure")`), oraz z historii, polskiego i WOS-u na poziomie rozszerzonym. Lepiej od absolwentów szkół publicznych radzili sobie jedynie z językiem angielskim i geografią na poziomie rozszerzonym. W przypadku większości matur rozszerzonych wśród absolwentów szkół publicznych występowało większe zróżnicowanie wyników: liczniejszą grupę stanowiły zarówno osoby o bardzo słabych, jak i o bardzo dobrych wynikach. Może to po części być spowodowane niewielką liczbą zdających, którzy ukończyli szkoły prywatne, a przez to większym „poszarpaniem” histogramów, ale też – o większym zróżnicowaniu tej grupy maturzystów. Trzeba ostrożnie podchodzić do oceniania działalności edukacyjnej obu typów szkół biorąc pod uwagę jedynie wyniki końcowe. Z pewnością zróżnicowanie osób rozpoczynających szkołę średnią miało tu również duże znaczenie. Prawdopodobny scenariusz jest taki, że w wielu rejonach najlepszą renomą cieszy się któraś ze szkół publicznych. Zamożniejsi rodzice zapewne wolą, jeśli to możliwe, posłać swoje dziecko do tej renomowanej szkoły i wybierają prywatną alternatywę jako pewną opcję awaryjną, jeśli wyniki ucznia pozwalają mu na dostanie się co najwyżej do jednej z gorzej postrzeganych szkół publicznych.
+Większość maturzystów w 2014 roku ukończyła publiczną szkołę średnią (275 tysięcy w porównaniu z 22 tysiącami). Można by się spodziewać, że szkoły prywatne, dysponujące dodatkowymi funduszami z czesnego oraz przyjmujące dzieci bardziej zamożnych rodziców, mogą lepiej przygotowywać swoich uczniów do matury. Okazuje się jednak, że absolwenci szkół prywatnych uzyskali gorsze wyniki z niemal wszystkich matur na poziomie podstawowym, w tym również z egzaminów obowiązkowych (np. z języka angielskiego na poziomie podstawowym, ryc. `r figr("shiny_jan_podstawowa_publiczna", type="figure")`), oraz z historii, polskiego i WOS-u na poziomie rozszerzonym. Lepiej od absolwentów szkół publicznych radzili sobie jedynie z językiem angielskim i geografią na poziomie rozszerzonym. W przypadku większości matur rozszerzonych wśród absolwentów szkół publicznych występowało większe zróżnicowanie wyników: liczniejszą grupę stanowiły zarówno osoby o bardzo słabych, jak i o bardzo dobrych wynikach. Może to po części być spowodowane niewielką liczbą zdających, którzy ukończyli szkoły prywatne, a przez to większym „poszarpaniem” histogramów, ale też – o większym zróżnicowaniu tej grupy maturzystów. Trzeba ostrożnie podchodzić do oceniania działalności edukacyjnej obu typów szkół biorąc pod uwagę jedynie wyniki końcowe. Po pierwsze, wśród szkół prywatnych dużo było liceów i techników uzupełniających, kształcących dorosłych, którzy stanowili grupę słabo radzącą sobie z maturą. To jednak w pełni nie tłumaczy słabszych wyników absolwentów szkół prywatnych, bo nawet wśród 19-latków absolwenci szkół publicznych uzyskiwali wyniki podobne lub lepsze. Prawdopodobny scenariusz jest taki, że w wielu rejonach najlepszą renomą cieszy się któraś ze szkół publicznych. Zamożniejsi rodzice zapewne wolą, jeśli to możliwe, posłać swoje dziecko do tej renomowanej szkoły i wybierają prywatną alternatywę jako pewną opcję awaryjną, jeśli wyniki ucznia pozwalają mu na dostanie się co najwyżej do jednej z gorzej postrzeganych szkół publicznych.
 
 ```{r shiny_bio_rozszerzona_gminy, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("biologia_rozszerzona", "rodzaj gminy", kolory=c("green", "blue", "red")) + theme(text = element_text(size=9))
@@ -278,6 +281,22 @@ Różnice w średnich wynikach matur pomiędzy województwami dla większości p
 
 ## Źródło danych
 
+Większość danych użytych w tym projekcie pochodziła ze strony Zespołu Pomiaru Dydaktycznego (http://zpd.ibe.edu.pl). Dokładniej, wykorzystano następujące zbiory danych:
+
+* szkoly
+
+* testy
+
+* uczniowieTesty
+
+* uczniowie
+
+* wyniki
+
+Dane te pochodzą z centralnej i okręgowych komisji egzaminacyjnych, ale w porównaniu z innymi bazami dostępnymi w internecie są bardzo szczegółowe. Zawierają one wyniki uzyskane przez poszczególnych zdających, zanonimizowane za pomocą przypisania im losowych etykiet. Można dzięki temu połączyć informacje o wynikach egzaminów, wybranych przedmiotach, przejściu do finału olimpiad przedmiotowych wraz z dodatkowymi informacjamih dotyczącymi maturzysty takimi jak płeć, wiek, zdiagnozowana dysleksja lub jej braku, typ ukończonej szkoły średniej (liceum ogólnokształcące, liceum profilowane lub technikum), czy szkoła ta była publiczna czy prywatna, rodzaj gminy (miejska, miejsko-wiejska lub wiejska) oraz wielkość miejscowości, w której znajduje się ta szkoła.
+
+Dane dostępne na stronie ZPD dotyczą części pisemnych 20 egzaminów maturalnych: 10 najczęściej wybieranych przedmiotów (biologii, chemii, fizyki, geografii, historii, informatyki, języka angielskiego, języka polskiego, matematyki i WOS-u), na poziomie podstawowym i rozszerzonym. Brakuje tam jednak wyników rzadziej wybieranych przedmiotów, a w szczególności matur z innych języków niż polski i angielski.
+
 Głównym źródłem danych...
 (mniejsze: kontur Polski)
 
@@ -302,4 +321,8 @@ W tym plany (tj. rzeczy, które rozgrzebaliśmy)
 * Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 r. w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. nr 83, poz. 562, ze zm.)
 
 * Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
+
+* Regulamin Olimpiady Języka Angielskiego, online: http://www.wsjo.pl/oja/?id=16
+
+* dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
 
