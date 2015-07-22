@@ -13,8 +13,7 @@ output:
 # bibliografia, publikacje naukowo-naukawe
 # opis: mapa szkół - tego nie?
 # opis: względna trudność przedmiotów - Piotr
-# po co we wstępie do każdego punktu
-# olimpiady - niedobór olimpijczyków w porównaniu z liczbą z regulaminów olimpiad: międzynarodowa matura? (zwłaszcza - laureaci z j. angielskiego, których brakuje jakieś 1/3 do 1/2) - w PL tylko 32 szkoły to realizują
+# olimpiady - niedobór olimpijczyków a międzynarodowa matura? - w info o danych.
 ```
 
 ```{r include=FALSE}
@@ -54,9 +53,9 @@ Publiczne,
 
 # Główne wyniki
 
-## Grafy: wspólnie wybieranych egzaminów oraz laureatów i finalistów olimpiad przedmiotowych
+## Wspólnie wybierane przedmioty
 
-Zdający maturę muszą napisać egzamin z języka polskiego, matematyki i wybranego języka obcego na poziomie podstawowym oraz od 1 do 4 lub 6 innych egzaminów, wybranych przez zdającego (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku i rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 r). Jednym z ciekawych zagadnień jest to, jakie przedmioty są wybierane i łączone przez maturzystów. W niniejszym projekcie do przeanalizowania tego tematu stworzono interaktywny graf (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
+Zdający maturę muszą napisać egzamin z języka polskiego, matematyki i wybranego języka obcego na poziomie podstawowym oraz od 1 do 4 lub 6 innych egzaminów, wybranych przez zdającego (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku i rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 r). Jednym z ciekawych zagadnień jest to, jakie przedmioty są wybierane i łączone przez maturzystów. W niniejszym projekcie do przeanalizowania tego tematu stworzono interaktywny graf, czyli formę wizualizacji przedstawiającą dane za pomocą węzłów (wierzchołków) i łączacych je krawędzi (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących węzły grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, fioletowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada liczbie maturzystów, którzy wybrali oba te przedmioty. 
 
 Gdyby maturzyści wybierali niezależnie każdy ze zdawanych egzaminów, wówczas należałoby się spodziewać, że liczba zdających równocześnie maturę X i Y ($n_{XY}$) powinna wynosić
 $$
@@ -80,35 +79,6 @@ Najczęściej wybieranymi przedmiotami są oczywiście matury obowiązkowe: jęz
 Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów. Pierwszą z nich stanowią przedmioty ścisłe i techniczne. Centrum tej grupy zajmuje rozszerzona matematyka, z którą wspólnie zdawane są  oba poziomy egzaminów z fizyki i informatyki. Druga gałąź grafu to przedmioty humanistyczne i społeczne. Centralne miejsce zajmuje tu rozszerzony język polski, a oprócz niego: oba poziomy matury z historii i WOS-u oraz wyraźnie powiązana z tą grupą geografia podstawowa. Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-społeczną stanowią egzaminy rozszerzone z języka angielskiego i geografii, popularne wśród zdających matury z obu tych grup. Trzecia, najbardziej izolowana gałąź to przedmioty przyrodnicze: chemia i biologia na obu poziomach. Podział ten odpowiada zapewne bardziej wymogom stawianym kandydatom przez uczelnie wyższe, niż powiązaniom między zainteresowaniami maturzystów. Pierwsza z wymienionych grup to prawdopodobnie osoby wybierające studia na politechnice i kierunki ścisłe na uniwersytetach. Druga to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze. Ciekawym spostrzeżeniem może być, że całkiem wyraźny podział istnieje już na poziomie wymagań stawianych kandydatom na studentów. Zapewne stosunkowo mało kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
 
 Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Oczywiście, oprócz języka polskiego, matematyki i języka obcego maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są silniej powiązane na zamieszczonym grafie, niż egzaminy na poziomie podstawowym, stanowiące raczej dalsze odgałęzienia wszystkich trzech gałęzi. Zapewne wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację na po zdaniu matury, dzięki czemu mogli swobodniej wybierać zdawane przedmioty i sugerować się bardziej własnymi umiejętnościami i preferencjami, niż ich koledzy wybierający przedmioty pod kątem  wymagań rekrutacyjnych na studia wyższe.
-
-## Graf olimpiad przedmiotowych
-
-W ramach tej samej wizualizacji, co graf wspólnie wybieranych matur, jest dostępny jeszcze drugi graf, przedstawiający zależności między olimpiadami przedmiotowymi (ryc. `r figr("graf_olimpiady", type="figure")`). Są to konkursy skierowane do uczniów szkół średnich, mające na celu wyłonić najlepsze w Polsce osóby z poszczególnych przedmiotów. Przygotowanie do olimpiady wymaga zwykle dużo czasu i wysiłku. Mimo to niektórzy uczniowie są w stanie zakwalifikować się do finału więcej niż jednego z tych konkursów. Prześledzenie liczby takich "multiolimpijczyków" może pomóc wyjaśnić, czy wybitne osiągnięcia z jednego przedmiotu wymagają od uczniówpoświęcania  mniejszej uwagi pozostałym. Natomiast to, które olimpiady są najczęściej łączone, dostarcza ciekawych informacji o zainteresowaniach tej grupy najzdolniejszych maturzystów.
-
-Graf dotyczący olimpiad przedmiotowych można zobaczyć wybierając opcję "olimpiady" w lewym górnym rogu ekranu. Podobnie jak w grafie dotyczącym matur, wielkość wierzchołków odpowiada liczbie finalistów i laureatów przystępujących do zdawania matury, natomiast szerokość krawędzi - liczbie "multiolimpijczyków" z poszczególnych par przedmiotów. Ponieważ jednak liczby te nie są duże (30-200 olimpijczyków rocznie), tym razem wykorzystano sumaryczne dane z pięciu lat (2010-2014). Podobnie jak poprzednio, intensywność barwy krawędzi odpowiada temu, ile razy częściej "multiolimpijczycy" występują w porównaniu z modelem losowym, zakładającym, że laureaci i finaliści poszczególnych olimpiad są losowani niezależnie spośród wszystkich maturzystów zdających maturę w latach 2010-2014. Model ten zakłada, że liczba laureatów i finalistów równocześnie z olimpiady z przedmiotów X i z Y powinna wynosić:
-
-$$
-o_{XY} = \frac{o_X}{N}\frac{o_Y}{N} N
-$$
-
-Gdzie $o_X$ i $o_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2015. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden "multiolimpijczyk", co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
-
-Przy analizie grafu olimpiad należy podkreślić, że liczba olimpijczyków oznacza tu liczbę osób przystępujących do matury w 2014 roku, którzy w trakcie nauki w szkole średniej uzyskali tytuł laureata lub finalisty wybranego konkursu, a nie -- liczbę osób, które przeszły do finału tejże olimpiady w 2014 roku. Oznacza to, że w tej grupie są wymieszane osoby przystępujące do różnych edycji tej samej olimpiady, co częściowo tłumaczy, dlaczego liczba olimpijczyków może się różnić w porównaniu z danymi ze stron poszczególnych olimpiad przedmiotowych: z roku na rok może nieco fluktuować liczba maturzystów, którzy zdawali olimpiadę w pierwszej, drugiej, trzeciej, a w przypadku techników - również czwartej klasie. Poza tym pewna część uczniów mogła dostać się do finału więcej niż jednej edycji tej samej olimpiady, co może skutkować mniejszą liczbą maturzystów-olimpijczyków, niż corocznie przyznawanych tytułów finalistów i laureatów. Szczególnie duża jest różnica w liczbie olimpijczyków z języka angielskiego: zgodnie z regulaminem tej olimpiady do finału powinno corocznie przechodzić minimum 55 uczniów (§3 pkt 4.2.5 Regulamin Olimpiady Języka Angielskiego, online: http://www.wsjo.pl/oja/?id=16), podczas gdy według danych ZPD w latach 2010-2014 corocznie średnio tylko 35 maturzystów mogło się pochwalić tym tytułem. Możliwe, że część olimpijczyków zamiast do standardowej matury, przystąpiło do zdawania matury międzynarodowej (International Baccalaureate). W skali kraju niewielu absolwentów zdaje ten egzamin: jedynie 37 szkół (dane z roku 2015: International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/) oferuje klasy z programem przygotowującym do tego egzaminu. Ponieważ jednak jest to oferta dydaktyczna skierowana do szczególnie ambitnych uczniów, w szczególności tych planujących rozpoczęcie studiów w prestiżowych zagranicznych uczelniach, więc wśród laureatów olimpiad przedmiotowych, w tym z języka angielskiego, stosunkowo dużo osób może przystępować do tego egzaminu zamiast do standardowej matury.
-
-
-```{r graf_olimpiady, echo = F, results = 'asis', anchor="figure"}
-cat("![](graf_olimpiady.png)")
-
-caption('graf_olimpiady', "Zrzut ekranu: interaktywny graf laureatów i finalistów olimpiad przedmiotowych w latach 2010-2014")
-```
-
-### Warto zauważyć
-
-Na podstawie grafu dotyczącego olimpiad przedmiotowych można w pierwszej kolejności zauważyć, że między poszczególnymi konkursami istnieje gęsta sieć odpowiadająca stosunkowo dużej liczbie osób zakwalifikowanych do finału przynajmniej dwóch olimpiad. Podobnie jak w przypadku matur, przedmioty humanistyczne i społeczne tworzą wspólną, silnie powiązaną grupę, ale olimpiady ścisłe i przyrodnicze grupują się wspólnie. Najsilniej powiązaną parę stanowią matematyka i informatyka. W ciągu pięciu lat aż 78 maturzystów było dostało się do finału olimpiad z matematyki i informatyki, co stanowi aż 1444 razy więcej, niż przewidywał model losowy. Olimpiada matematyczna jest też bardzo silnie powiązana z fizyczną (37 multiolimpijczyków, 737 razy więcej, niż losowo), zaś fizyczna z informatyczną (14 multiolimpijczyków, 390 razy więcej, niż losowo) i z chemiczną (12 multiolimpijczyków, 252 razy więcej, niż losowo). Ta ostatnia jest z kolei silnie powiązana z olimpiadą biologiczną: (16 multiolimpijczyków, 179 razy więcej, niż losowo). 
-
-Ze strony przedmiotów humanistycznych i społecznych najsilniej powiązane olimpiady to historia i WOS (47 multiolimpijczyków, 420 razy częściej, niż losowo). Dużo jest też multiolimpijczyków łączących geografię i WOS (16, 177 razy więcej, niż losowo) oraz geografię i historię (18, 162 razy więcej, niż losowo). Stosunkowo dużo było też osób zakwalifikowanych do finałów olimpiad z języka polskiego i historii (34), ale ze względu na to, że z języka polskiego jest najwięcej finalistów i laureatów, stanowi to "tylko" 115 razy więcej, niż przewiduje model losowy. Olimpiada z języka angielskiego nie jest szczególnie silnie połączona z żadną z dwóch wymienionych grup olimpiad przedmiotowych. Na koniec warto zauważyć, że zdarzali się również maturzyści wybierający nietypowe połączenia, np. olimpiady z biologii i z WOSu, matematyki i historii lub z języka polskiego i informatyki.
-
-Podsumowując, pisanie olimpiady z jednego przedmiotu na ogół nie ogranicza i nie zawęża zainteresowań ucznia, o czym świadczy duża liczba multiolimpijczyków, znacznie wyższa, od przewidywanej. Wśród najzdolniejszych maturzystów widać podział zainteresowań na humanistyczno-społeczne oraz przyrodniczo-ścisłe, aczkolwiek pojedynczy olimpijczycy mogą wybierać bardziej nietypowe połączenia. 
 
 ## Histogramy wyników matur
 
@@ -255,6 +225,36 @@ Porównując średnie wyniki między finalistami i laureatami różnych olimpiad
 
 Co ciekawe, we wcześniejszych latach (2010-2013) laureaci poszczególnych olimpiad średnio otrzymywali  bardzo podobne wyniki z podstawowych matur z matematyki i języka polskiego co w 2014 roku. W szczególności w całym tym okresie utrzymywał się opisany wcześniej trend negatywnej korelacji średnich wyników z tych egzaminów. Natomiast wyniki z języka angielskiego były bardziej zmienne.
 
+## Multiolimpijczycy
+
+Kolejnym cieksawym zagadnieniem związanym z olimpiadami przedmiotowymi jest to, jak często zdarza się, że ta sama osoba jest laureatem lub finalista z przynajmniej dwóch przedmiotów. Prześledzenie liczby takich "multiolimpijczyków" może pomóc wyjaśnić, czy wybitne osiągnięcia z jednego przedmiotu wymagają od uczniów poświęcania  mniejszej uwagi pozostałym. Natomiast to, które olimpiady są najczęściej łączone, dostarcza ciekawych informacji o zainteresowaniach tej grupy najzdolniejszych maturzystów.
+
+W ramach tej samej wizualizacji, co graf wspólnie wybieranych matur, jest dostępny jeszcze drugi graf, przedstawiający zależności między olimpiadami przedmiotowymi (ryc. `r figr("graf_olimpiady", type="figure")`). Można go zobaczyć wybierając opcję "olimpiady" w lewym górnym rogu ekranu. Podobnie jak w grafie dotyczącym matur, wielkość wierzchołków odpowiada liczbie finalistów i laureatów przystępujących do zdawania matury, natomiast szerokość krawędzi - liczbie multiolimpijczyków z poszczególnych par przedmiotów. Ponieważ jednak liczby te nie są duże (30-200 olimpijczyków rocznie), tym razem wykorzystano sumaryczne dane z pięciu lat (2010-2014). Podobnie jak poprzednio, intensywność barwy krawędzi odpowiada temu, ile razy częściej multiolimpijczycy występują w porównaniu z modelem losowym, zakładającym, że laureaci i finaliści poszczególnych olimpiad są losowani niezależnie spośród wszystkich maturzystów zdających maturę w latach 2010-2014. Model ten zakłada, że liczba laureatów i finalistów równocześnie z olimpiady z przedmiotów X i z Y powinna wynosić:
+
+$$
+o_{XY} = \frac{o_X}{N}\frac{o_Y}{N} N
+$$
+
+Gdzie $o_X$ i $o_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2015. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden multiolimpijczyk, co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
+
+Przy analizie grafu olimpiad należy podkreślić, że liczba olimpijczyków oznacza tu liczbę osób przystępujących do matury w 2014 roku, którzy w trakcie nauki w szkole średniej uzyskali tytuł laureata lub finalisty wybranego konkursu, a nie -- liczbę osób, które przeszły do finału tejże olimpiady w 2014 roku. Oznacza to, że w tej grupie są wymieszane osoby przystępujące do różnych edycji tej samej olimpiady, co częściowo tłumaczy, dlaczego liczba olimpijczyków może się różnić w porównaniu z danymi ze stron poszczególnych olimpiad przedmiotowych: z roku na rok może nieco fluktuować liczba maturzystów, którzy zdawali olimpiadę w pierwszej, drugiej, trzeciej, a w przypadku techników - również czwartej klasie. Poza tym pewna część uczniów mogła dostać się do finału więcej niż jednej edycji tej samej olimpiady, co może skutkować mniejszą liczbą maturzystów-olimpijczyków, niż corocznie przyznawanych tytułów finalistów i laureatów. Szczególnie duża jest różnica w liczbie olimpijczyków z języka angielskiego: zgodnie z regulaminem tej olimpiady do finału powinno corocznie przechodzić minimum 55 uczniów (§3 pkt 4.2.5 Regulamin Olimpiady Języka Angielskiego, online: http://www.wsjo.pl/oja/?id=16), podczas gdy według danych ZPD w latach 2010-2014 corocznie średnio tylko 35 maturzystów mogło się pochwalić tym tytułem. Możliwe, że część olimpijczyków zamiast do standardowej matury, przystąpiło do zdawania matury międzynarodowej (International Baccalaureate). W skali kraju niewielu absolwentów zdaje ten egzamin: jedynie 37 szkół (dane z roku 2015: International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/) oferuje klasy z programem przygotowującym do tego egzaminu. Ponieważ jednak jest to oferta dydaktyczna skierowana do szczególnie ambitnych uczniów, w szczególności tych planujących rozpoczęcie studiów w prestiżowych zagranicznych uczelniach, więc wśród laureatów olimpiad przedmiotowych, w tym z języka angielskiego, stosunkowo dużo osób może przystępować do tego egzaminu zamiast do standardowej matury.
+
+
+```{r graf_olimpiady, echo = F, results = 'asis', anchor="figure"}
+cat("![](graf_olimpiady.png)")
+
+caption('graf_olimpiady', "Zrzut ekranu: interaktywny graf laureatów i finalistów olimpiad przedmiotowych w latach 2010-2014")
+```
+
+### Warto zauważyć
+
+Na podstawie grafu dotyczącego olimpiad przedmiotowych można w pierwszej kolejności zauważyć, że między poszczególnymi konkursami istnieje gęsta sieć odpowiadająca stosunkowo dużej liczbie osób zakwalifikowanych do finału przynajmniej dwóch olimpiad. Podobnie jak w przypadku matur, przedmioty humanistyczne i społeczne tworzą wspólną, silnie powiązaną grupę, ale olimpiady ścisłe i przyrodnicze grupują się wspólnie. Najsilniej powiązaną parę stanowią matematyka i informatyka. W ciągu pięciu lat aż 78 maturzystów było dostało się do finału olimpiad z matematyki i informatyki, co stanowi aż 1444 razy więcej, niż przewidywał model losowy. Olimpiada matematyczna jest też bardzo silnie powiązana z fizyczną (37 multiolimpijczyków, 737 razy więcej, niż losowo), zaś fizyczna z informatyczną (14 multiolimpijczyków, 390 razy więcej, niż losowo) i z chemiczną (12 multiolimpijczyków, 252 razy więcej, niż losowo). Ta ostatnia jest z kolei silnie powiązana z olimpiadą biologiczną: (16 multiolimpijczyków, 179 razy więcej, niż losowo). 
+
+Ze strony przedmiotów humanistycznych i społecznych najsilniej powiązane olimpiady to historia i WOS (47 multiolimpijczyków, 420 razy częściej, niż losowo). Dużo jest też multiolimpijczyków łączących geografię i WOS (16, 177 razy więcej, niż losowo) oraz geografię i historię (18, 162 razy więcej, niż losowo). Stosunkowo dużo było też osób zakwalifikowanych do finałów olimpiad z języka polskiego i historii (34), ale ze względu na to, że z języka polskiego jest najwięcej finalistów i laureatów, stanowi to "tylko" 115 razy więcej, niż przewiduje model losowy. Olimpiada z języka angielskiego nie jest szczególnie silnie połączona z żadną z dwóch wymienionych grup olimpiad przedmiotowych. Na koniec warto zauważyć, że zdarzali się również maturzyści wybierający nietypowe połączenia, np. olimpiady z biologii i z WOSu, matematyki i historii lub z języka polskiego i informatyki.
+
+Podsumowując, pisanie olimpiady z jednego przedmiotu na ogół nie ogranicza i nie zawęża zainteresowań ucznia, o czym świadczy duża liczba multiolimpijczyków, znacznie wyższa, od przewidywanej. Wśród najzdolniejszych maturzystów widać podział zainteresowań na humanistyczno-społeczne oraz przyrodniczo-ścisłe, aczkolwiek pojedynczy olimpijczycy mogą wybierać bardziej nietypowe połączenia. 
+
+
 ## Mapa średnich wyników w województwach
 
 Kolejnym pytaniem, na które starali się odpowiedzieć autorzy tego projektu było to, czy istnieją jakieś geograficzne prawidłowości odnośnie wyników matur. Na przykład, czy istnieje różnica między wynikami uzyskanymi we wschodnich i zachodnich regionach kraju lub - postulowane w niektórych zjawiskach społecznych - różnice między obszarami dawnych zaborów (przypis?). 
@@ -277,6 +277,9 @@ caption('mapy_ang', "Zrzut ekranu: średnie wyniki matury podstawowej z angielsk
 
 Różnice w średnich wynikach matur pomiędzy województwami dla większości przedmiotów nie przekraczają 5-10 punktów procentowych. Nie ma wyraźnego podziału pomiędzy Polskę wschodnią i zachodnią, ponadto dla różnych przedmiotów rozkład wyników wyraźnie się różni. Natomiast różnych poziomów matur wydają się ze sobą korelować: w województwie, w którym wyniki z poziomu podstawowego są wysokie, zwykle również poziom rozszerzony jest powyżej średniej i podobnie, jeśli wyniki są słabe, to zwykle dotyczy to obu poziomów. Istnieją od tego wyjątki: np w 2014 roku w województwie dolnośląskim wyniki matur podstawowych z angielskiego i polskiego były wyraźnie wyższe, niż średnia krajowa, podczas gdy matura rozszerzona z tych samych przedmiotów poszła maturzystom z tego województwa gorzej, niż średnio w całej Polsce. Można zauważyć, że w niektórych województwach, np. zachodniopomorskim, małopolskim i śląskim, wyniki większości matur są powyżej średniej krajowej, a w innych, np. dolnośląskim, warmińsko-mazurskim i łódzkim – poniżej. Różnice między latami wydają się być mniejsze, niż pomiędzy przedmiotami, ale również od tego jest sporo wyjątków. Przykładowo w województwie kujawsko-pomorskim i świętokrzyskim wyniki matury z matematyki podstawowej znacznie fluktuowały w kolejnych latach w porównaniu z pozostałymi województwami.
 
+Ostrożnie należy podchodzić do analizy wyników z podstawowego WOS-u w roku 2014. NIewielka ilość lub brak zdających z tego przedmiotu w większości zachodnich i centralnych województw jest najprawdopodobniej wynikiem braków w bazie danych ZPD.
+
+
 # Sprawy techniczne
 
 ## Źródło danych
@@ -293,11 +296,12 @@ Większość danych użytych w tym projekcie pochodziła ze strony Zespołu Pomi
 
 * wyniki
 
-Dane te pochodzą z centralnej i okręgowych komisji egzaminacyjnych, ale w porównaniu z innymi bazami dostępnymi w internecie są bardzo szczegółowe. Zawierają one wyniki uzyskane przez poszczególnych zdających, zanonimizowane za pomocą przypisania im losowych etykiet. Można dzięki temu połączyć informacje o wynikach egzaminów, wybranych przedmiotach, przejściu do finału olimpiad przedmiotowych wraz z dodatkowymi informacjamih dotyczącymi maturzysty takimi jak płeć, wiek, zdiagnozowana dysleksja lub jej braku, typ ukończonej szkoły średniej (liceum ogólnokształcące, liceum profilowane lub technikum), czy szkoła ta była publiczna czy prywatna, rodzaj gminy (miejska, miejsko-wiejska lub wiejska) oraz wielkość miejscowości, w której znajduje się ta szkoła.
+Dane te pochodzą z Centralnej i Okręgowych Komisji Egzaminacyjnych oraz Instytut Badań Edukacyjnych. Zaletą bazy ZPD, w porównaniu z innymi bazami dostępnymi w internecie, jest duża szczegółowość. Zawiera ona wyniki uzyskane przez poszczególnych zdających, zanonimizowane za pomocą przypisania im losowych etykiet. Można dzięki temu połączyć informacje o wynikach egzaminów, wybranych przedmiotach, przejściu do finału olimpiad przedmiotowych wraz z dodatkowymi informacjamih dotyczącymi maturzysty takimi jak płeć, wiek, zdiagnozowana dysleksja lub jej braku, typ ukończonej szkoły średniej (liceum ogólnokształcące, liceum profilowane lub technikum), czy szkoła ta była publiczna czy prywatna, rodzaj gminy (miejska, miejsko-wiejska lub wiejska) oraz wielkość miejscowości, w której znajduje się ta szkoła.
 
-Dane dostępne na stronie ZPD dotyczą części pisemnych 20 egzaminów maturalnych: 10 najczęściej wybieranych przedmiotów (biologii, chemii, fizyki, geografii, historii, informatyki, języka angielskiego, języka polskiego, matematyki i WOS-u), na poziomie podstawowym i rozszerzonym. Brakuje tam jednak wyników rzadziej wybieranych przedmiotów, a w szczególności matur z innych języków niż polski i angielski.
+Dane dostępne na stronie ZPD dotyczą części pisemnych 20 egzaminów maturalnych: 10 najczęściej wybieranych przedmiotów (biologii, chemii, fizyki, geografii, historii, informatyki, języka angielskiego, języka polskiego, matematyki i wiedzy o społeczenstwie), na poziomie podstawowym i rozszerzonym. Brakuje tam jednak wyników rzadziej wybieranych przedmiotów, a w szczególności matur z innych języków niż polski i angielski.
 
-Głównym źródłem danych...
+Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy lub braki. Jednym z nich jest niedobór liczby maturzystów zdających podstawowy WOS w 2014 roku (11 tys. w porównaniu z prawie 25 tys. podawanymi w sprawozdaniu CKE). Poza tym zastrzeżenia może budzić liczba olimpijczyków, w porównaniu do liczby uczniów corocznie kwalifikowanych do finałów olimpiad przedmiotowych, które to informacje można znaleść na stronach internetowych poszczególnych konkursów. Jednak w tym wypadku powodem nieścisłości może być to, że informacje o olimpiadach w bazie ZDP dotyczą maturzystów z danego roku, którzy mogli uczestniczyć w różnych edycjach olimpiad. Możliwe jest, że w poszczególnych latach zmieniała się wśród maturzystów liczba osób uczestniczących w olimpiadach na różnych latach nauki w szkole średniej. W bazie ZPD nie wyróżniono też osób, które kilkukrotnie dostały się do finału tej samej olimpiady, co w rezultacie mogło nieco zaniżyć liczbę maturzystów-olimpijczyków w porównaniu z liczbą osób osób corocznie otrzymujących tytuł finalisty lub laureata. Wreszcie, część olimpijczyków mogła zdawać maturę międzynarodową (International Baccalaureate). Choć jedynie 37 szkół oferuje klasy z programem przygotowującym do tego egzaminu (dane z roku 2015: International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/), to jest to możliwość skierowana do szczególnie ambitnych uczniów, planujących studia w prestiżowych zagranicznych uczelniach. Być może więc wśród olimpijczyków całkiem spora grupa wybiera zdawanie matury międzynarodowej, zamiast standardowej. 
+
 (mniejsze: kontur Polski)
 
 ## Przetwarzanie i wizualizacja danych
@@ -318,11 +322,15 @@ W tym plany (tj. rzeczy, które rozgrzebaliśmy)
 
 * Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
 
+* Kozak W., Grabowska A., Smolik M. i inni (2014) Sprawozdanie ogólne z egzaminu maturalnego 2014. Centralna Komisja Egzaminacyjna, Warszawa. online http://www.cke.edu.pl/index.php/egzamin-maturalny-left/informacje-o-wynikach-z-lat-2005-2015/23-egzamin-maturalny/400-sprawozdanie-z-egaminu-maturalnego-2014
+
 * Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 r. w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. nr 83, poz. 562, ze zm.)
 
 * Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
 
 * Regulamin Olimpiady Języka Angielskiego, online: http://www.wsjo.pl/oja/?id=16
+
+* International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/
 
 * dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
 
