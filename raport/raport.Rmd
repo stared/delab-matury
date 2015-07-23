@@ -108,21 +108,21 @@ Porównywanie rozkładów wyników matur pomiędzy różnymi przedmiotami i grup
 
 
 
-```{r shiny_mat_podstawowa, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_mat_podstawowa, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistWszyscy("matematyka_podstawowa") + theme(text = element_text(size=9))
 print(wykres)
 
 caption('shiny_mat_podstawowa', "Histogram wyników matury z matematyki podstawowej")
 ```
 
-```{r shiny_fiz_podstawowa_plec, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_fiz_podstawowa_plec, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("fizyka_podstawowa", "płeć") + theme(text = element_text(size=9))
 print(wykres)
 
 caption('shiny_fiz_podstawowa_plec', "Histogram wyników matury z fizyki podstawowej z podziałem ze względu na płeć zdających")
 ```
 
-```{r shiny_mat_rozszerzona_plec, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_mat_rozszerzona_plec, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("matematyka_rozszerzona", "płeć") + theme(text = element_text(size=9))
 print(wykres)
 
@@ -144,7 +144,7 @@ To, czy więcej mężczyzn czy kobiet przystępuje do danej matury nie zawsze je
 
 Interpretacji porównania wyników dla poszczególnych płci należy dokonywać szczególnie ostrożnie: jest to temat delikatny i łatwo o nadinterpretacje dyktowane własnymi poglądami. Trzeba też pamiętać, że w przypadku nieobowiązkowych matur zdający nie są losową próbką z populacji i oprócz wyników trzeba uwzględniać również proporcje zdających. Zdawanie przedmiotów ścisłych: fizyki, matematyki i informatyki, pozostaje domeną mężczyzn. Równocześnie jednak kobiety, które zdecydowały się wybrać te egzaminy, nie uzyskują wyraźnie gorszych wyników, a nawet, w przypadku podstawowej fizyki – miały częściej dużo punktów. Można podejrzewać, że wśród maturzystów dalej funkcjonuje stereotyp, że są to „męskie” przedmioty. Natomiast stereotyp „kobiety-humanistki” raczej nie jest potwierdzany przez wyniki matur. Co prawda z języka polskiego kobiety radziły sobie lepiej i częściej wybierały egzamin rozszerzony, ale już z WOS-u, choć częściej zdawanego przez kobiety, mężczyźni uzyskiwali porównywalne (poziom podstawowy) albo lepsze wyniki (poziom rozszerzony). Z języka angielskiego i z historii mężczyźni radzili sobie lepiej, niż kobiety i wybierali te przedmioty równie często lub nawet częściej. Podobnie zawiła jest sytuacja z przedmiotami przyrodniczymi: biologia i chemia są częściej wybierane przez kobiety, choć uzyskują z nich lepsze oceny tylko na poziomie podstawowym. Natomiast geografię nieco częściej wybierali mężczyźni i uzyskiwali z niej częściej dobre wyniki. 
 
-```{r shiny_mat_podstawowa_dysleksja, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_mat_podstawowa_dysleksja, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("matematyka_podstawowa", "dysleksja") + theme(text = element_text(size=9))
 print(wykres)
 
@@ -154,7 +154,7 @@ caption('shiny_mat_podstawowa_dysleksja', "Histogram wyników matury z matematyk
 
 Porównując wyniki matur osób ze stwierdzoną dysleksją i pozostałych, dla większości przedmiotów nie widać różnic. Może być to spowodowane między innymi niewielką liczbą dyslektyków, przez co rozkład ich wyników jest bardziej „poszarpany”. Różnice widać dopiero w maturach pisanych przez największą liczbę zdających: obu poziomach egzaminów z języka angielskiego, języka polskiego i matematyki oraz nieco mniej wyraźnie – w egzaminach z rozszerzonej chemii i fizyki. W wymienionych egzaminach na poziomie rozszerzonym dyslektycy częściej radzili sobie gorzej, niż pozostali zdający. Wyniki trzech obowiązkowych egzaminów na poziomie podstawowym pokazują bardziej złożony obraz sytuacji (matematyka podstawowa: ryc. `r figr("shiny_mat_podstawowa_dysleksja", type="figure")`). Dyslektyków jest bowiem najwięcej wśród osób o średnich wynikach, mało ich natomiast wśród osób o najlepszych i najgorszych osiągnięciach, co jest najwyraźniej widoczne na przykładzie matury podstawowej z matematyki. Wyjaśnień tego zjawiska może być kilka. Raczej trudno się spodziewać, by sama dysleksja pomagała uzyskać nieco lepsze wyniki najsłabszym maturzystom. Możliwe jest, że w niektórych sytuacjach ułatwienia stosowane wobec maturzystów-dyslektyków (możliwość pisania na komputerze zamiast ręcznie, lub nieco zmodyfikowane kryteria stosowane przez egzaminatorów przy sprawdzaniu matur - Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r.) mogą stawiać dyslektyków w uprzywilejowanej pozycji w stosunku do pozostałych uczniów. Aczkolwiek jest to dość ryzykowne stwierdzenie, zważywszy, że dyslektycy częściej mają gorsze, niż lepsze wyniki w porównaniu do reszty uczniów, co usprawiedliwia szczególne traktowanie tej grupy. Jenak najbardziej prawdopodobnym wyjaśnieniem wydaje się możliwość różnic w częstości diagnozowania dysleksji między różnymi grupami uczniów. Bardzo prawdopodobne, że wśród dzieci zaniedbanych, z trudnych rodzin lub po prostu z małych miejscowości dysleksja może być rzadziej diagnozowana. W ten sposób zdający oznaczeni jako dyslektycy mogą stanowić bardzo nielosową grupę i nie zawierać osób z trudnych środowisk, które często mają też problemy z nauką. Co prawda w dostępnych danych nie ma informacji na temat sytuacji rodzinnej i ekonomicznej maturzystów, ale widać, że wśród osób ze zdiagnozowaną dysleksją jest mniejszy udział osób z gmin wiejskich i z małych miejscowości, niż wśród pozostałych maturzystów. W dużych miastach może być zarówno łatwiejszy dostęp do dziecięcego psychologa, jak również do bibliotek, instytucji kultury czy dodatkowych zajęć, poprawiających wyniki uczniów i maturzystów.
 
-```{r shiny_jan_podstawowa_wiek, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_jan_podstawowa_wiek, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("j_angielski_podstawowa", "wiek", kolory=c("green", "blue", "red", "black")) + theme(text = element_text(size=9))
 print(wykres)
 
@@ -164,7 +164,7 @@ caption('shiny_jan_podstawowa_wiek', "Histogram wyników matury z podstawowej j�
 
 Niemal ze wszystkich matur im młodsi maturzyści, tym lepiej sobie radzą. 18-latkowie, o rok młodsi od większości kolegów zwykle otrzymują najlepsze wyniki. Stanowiący większość zdających 19 latkowie radzą sobie nieco gorzej, ale i tak lepiej, niż ich o rok starsi koledzy, natomiast osoby mające 21 lat i więcej zwykle uzyskują najgorsze wyniki (ryc. `r figr("shiny_jan_podstawowa_wiek", type="figure")`). Warto przy tym zauważyć, że podział ze względu na wiek jest silnie związany z podziałem na absolwentów 3 letnich liceów i 4 letnich techników. Jednak nawet rozważając oddzielnie grupę osób kończących liceum i kończących technikum, widać że w każdej z nich osoby młodsze radzą sobie lepiej. Przy interpretacji tych wyników trzeba zachować ostrożność, szczególnie, że może kusić, by użyć tych wyników jako argumentu za obniżeniem wieku rozpoczęcia szkoły. Należy jednak pamiętać, że najmłodsi zdający to głównie osoby, które z powodu dużej dojrzałości psychicznej poszły do szkoły już w wieku 6 lat, albo takie, które ze względu na wybitne wyniki w nauce ominęły którąś klasę. Jest to więc zdecydowanie nielosowa grupa, a obejmująca często najzdolniejszych maturzystów. Na podstawie ich wyników trudno wyciągać wnioski, czy wcześniejsze przystąpienie do matury w jakiś sposób im pomogło, czy może idąc normalnym trybem uzyskaliby podobne lub nawet lepsze wyniki. Tym bardziej nie można na tej podstawie wnioskować, czy pozostałym zdającym wcześniejsze rozpoczęcie edukacji wyszłoby na dobre. Podobnie, jeśli chodzi o maturzystów starszych przynajmniej o rok od kolegów ze swojej szkoły, ich przynależność do danej grupy wiekowej jest raczej wskaźnikiem, niż przyczyną problemów będących źródłem ich gorszych wyników. Oprócz takich przyczyn jak przewlekła choroba lub późniejsze rozpoczęcie nauki szkolnej, wielu z nich musiało powtarzać rok właśnie przez słabe wyniki w nauce. Jest to więc ponownie bardzo nielosowa grupa.
 
-```{r shiny_chem_rozszerzona_typsz, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_chem_rozszerzona_typsz, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("chemia_rozszerzona", "typ szkoły") + theme(text = element_text(size=9))
 print(wykres)
 
@@ -174,7 +174,7 @@ caption('shiny_chem_rozszerzona_typsz', "Histogram wyników matury z chemii rozs
 
 Spośród osób zdających maturę w 2014 roku najwięcej było absolwentów liceów ogólnokształcących (194 tys.). O połowę mniej zdających ukończyło technikum (98 tys). Niecałe 5 tysięcy było absolwentami liceów profilowanych, a tylko kilkaset osób ukończyło licea i technika uzupełniające. Dla ułatwienia analiz maturzystów kończących 3 letnie liceum ogólnokształcące lub profilowane zestawiono razem w jedną grupę, którą można porównać z absolwentami techników. Stosunkowo nielicznych zdających, którzy ukończyli szkoły uzupełniające, pominięto w tym podziale. Okazuje się, że z wszystkich egzaminów absolwenci liceów w porównaniu z osobami kończącymi technika częściej uzyskali dobre wyniki (przykład: chemia rozszerzona, ryc. `r figr("shiny_chem_rozszerzona_typsz", type="figure")`). Przyczyną może być większe nastawienie na kształcenie zawodu, niż przygotowanie do matury w technikach. Całkiem prawdopodobne również, że technika cieszą się mniejszym prestiżem wśród wybierających szkołę średnią uczniów i ich rodziców, przez co trafiają do nich osoby gorzej radzące sobie z nauką. 
 
-```{r shiny_jan_podstawowa_publiczna, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_jan_podstawowa_publiczna, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("j_angielski_podstawowa", "szkoła publiczna?") + theme(text = element_text(size=9))
 print(wykres)
 
@@ -183,14 +183,14 @@ caption('shiny_jan_podstawowa_publiczna', "Histogram wyników matury podstawowej
 
 Większość maturzystów w 2014 roku ukończyła publiczną szkołę średnią (275 tysięcy w porównaniu z 22 tysiącami). Można by się spodziewać, że szkoły prywatne, dysponujące dodatkowymi funduszami z czesnego oraz przyjmujące dzieci bardziej zamożnych rodziców, mogą lepiej przygotowywać swoich uczniów do matury. Okazuje się jednak, że absolwenci szkół prywatnych uzyskali gorsze wyniki z niemal wszystkich matur na poziomie podstawowym, w tym również z egzaminów obowiązkowych (np. z języka angielskiego na poziomie podstawowym, ryc. `r figr("shiny_jan_podstawowa_publiczna", type="figure")`), oraz z historii, polskiego i WOS-u na poziomie rozszerzonym. Lepiej od absolwentów szkół publicznych radzili sobie jedynie z językiem angielskim i geografią na poziomie rozszerzonym. W przypadku większości matur rozszerzonych wśród absolwentów szkół publicznych występowało większe zróżnicowanie wyników: liczniejszą grupę stanowiły zarówno osoby o bardzo słabych, jak i o bardzo dobrych wynikach. Może to po części być spowodowane niewielką liczbą zdających, którzy ukończyli szkoły prywatne, a przez to większym „poszarpaniem” histogramów, ale też – o większym zróżnicowaniu tej grupy maturzystów. Trzeba ostrożnie podchodzić do oceniania działalności edukacyjnej obu typów szkół biorąc pod uwagę jedynie wyniki końcowe. Po pierwsze, wśród szkół prywatnych dużo było liceów i techników uzupełniających, kształcących dorosłych, którzy stanowili grupę słabo radzącą sobie z maturą. To jednak w pełni nie tłumaczy słabszych wyników absolwentów szkół prywatnych, bo nawet wśród 19-latków absolwenci szkół publicznych uzyskiwali wyniki podobne lub lepsze. Prawdopodobny scenariusz jest taki, że w wielu rejonach najlepszą renomą cieszy się któraś ze szkół publicznych. Zamożniejsi rodzice zapewne wolą, jeśli to możliwe, posłać swoje dziecko do tej renomowanej szkoły i wybierają prywatną alternatywę jako pewną opcję awaryjną, jeśli wyniki ucznia pozwalają mu na dostanie się co najwyżej do jednej z gorzej postrzeganych szkół publicznych.
 
-```{r shiny_bio_rozszerzona_gminy, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_bio_rozszerzona_gminy, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("biologia_rozszerzona", "rodzaj gminy", kolory=c("green", "blue", "red")) + theme(text = element_text(size=9))
 print(wykres)
 
 caption('shiny_bio_rozszerzona_gminy', "Histogram wyników matury z biologii rozszerzonej z podziałem na absolwentów szkół z różnych typów gmin")
 ```
 
-```{r shiny_bio_rozszerzona_miejscowosc, echo=FALSE, warning=FALSE, fig.width=5, fig.height=2.5, anchor="figure", results = 'asis'}
+```{r shiny_bio_rozszerzona_miejscowosc, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
 wykres <- ggHistPodzial("biologia_rozszerzona", "wielkość miejscowości", kolory=c("green", "blue", "red")) + theme(text = element_text(size=9))
 print(wykres)
 
@@ -300,7 +300,7 @@ Dane te pochodzą z Centralnej i Okręgowych Komisji Egzaminacyjnych oraz Instyt
 
 Dane dostępne na stronie ZPD dotyczą części pisemnych 20 egzaminów maturalnych: 10 najczęściej wybieranych przedmiotów (biologii, chemii, fizyki, geografii, historii, informatyki, języka angielskiego, języka polskiego, matematyki i wiedzy o społeczenstwie), na poziomie podstawowym i rozszerzonym. Brakuje tam jednak wyników rzadziej wybieranych przedmiotów, a w szczególności matur z innych języków niż polski i angielski.
 
-Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy lub braki. Jednym z nich jest niedobór liczby maturzystów zdających podstawowy WOS w 2014 roku (11 tys. w porównaniu z prawie 25 tys. podawanymi w sprawozdaniu CKE). Poza tym dane na temat osób poprawiających były na tyle często niekompletne, że w tym projekcie zajęliśmy się wyłącznie osobami podchodzącymi po raz pierwszy do pisania matury.
+Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy lub braki. Jednym z nich jest niedobór liczby maturzystów zdających podstawowy WOS w 2014 roku (11 tys. w porównaniu z prawie 25 tys. podawanymi w sprawozdaniu CKE `r CKE_2014, anchor="reference"`). Poza tym dane na temat osób poprawiających były na tyle często niekompletne, że w tym projekcie zajęliśmy się wyłącznie osobami podchodzącymi po raz pierwszy do pisania matury.
 
 Poza tym zastrzeżenia może budzić liczba olimpijczyków, w porównaniu do liczby uczniów corocznie kwalifikowanych do finałów olimpiad przedmiotowych, które to informacje można znaleść na stronach internetowych poszczególnych konkursów. Jednak w tym wypadku powodem nieścisłości może być to, że informacje o olimpiadach w bazie ZDP dotyczą maturzystów z danego roku, którzy mogli uczestniczyć w różnych edycjach olimpiad. Możliwe jest, że w poszczególnych latach zmieniała się wśród maturzystów liczba osób uczestniczących w olimpiadach na różnych latach nauki w szkole średniej. W bazie ZPD nie wyróżniono też osób, które kilkukrotnie dostały się do finału tej samej olimpiady, co w rezultacie mogło nieco zaniżyć liczbę maturzystów-olimpijczyków w porównaniu z liczbą osób osób corocznie otrzymujących tytuł finalisty lub laureata. Wreszcie, część olimpijczyków mogła zdawać maturę międzynarodową (International Baccalaureate). Choć jedynie 37 szkół oferuje klasy z programem przygotowującym do tego egzaminu (dane z roku 2015: International Baccalaureate Organization), to jest to możliwość skierowana do szczególnie ambitnych uczniów, planujących studia w prestiżowych zagranicznych uczelniach. Być może więc wśród olimpijczyków całkiem spora grupa wybiera zdawanie matury międzynarodowej, zamiast standardowej. 
 
@@ -320,23 +320,48 @@ W tym plany (tj. rzeczy, które rozgrzebaliśmy)
 
 # bibliografia
 
-* Bostock, M. (2015) D3js (wersja?) [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
+```{r d3js, anchor="reference"}
+```
+[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3js (wersja?) [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
 
-* Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
+```{r shiny, anchor="reference"}
+```
+[`r figr("shiny", type="reference")`] Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
 
-* Kozak W., Grabowska A., Smolik M. i inni (2014) Sprawozdanie ogólne z egzaminu maturalnego 2014. Centralna Komisja Egzaminacyjna, Warszawa. online http://www.cke.edu.pl/index.php/egzamin-maturalny-left/informacje-o-wynikach-z-lat-2005-2015/23-egzamin-maturalny/400-sprawozdanie-z-egaminu-maturalnego-2014
+```{r CKE_2014, anchor="reference"}
+```
+[`r figr("CKE_2014", type="reference")`] Kozak W., Grabowska A., Smolik M. i inni (2014) Sprawozdanie ogólne z egzaminu maturalnego 2014. Centralna Komisja Egzaminacyjna, Warszawa. online http://www.cke.edu.pl/index.php/egzamin-maturalny-left/informacje-o-wynikach-z-lat-2005-2015/23-egzamin-maturalny/400-sprawozdanie-z-egaminu-maturalnego-2014
 
-* Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 r. w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. nr 83, poz. 562, ze zm.)
+```{r CKE_komunikat_2013, anchor="reference"}
+```
+[`r figr("CKE_komunikat_2013", type="reference")`]
+Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sprawie sposobów dostosowania warunków i form przeprowadzania w roku szkolnym 2013/2014 egzaminu maturalnego do potrzeb absolwentów ze specjalnymi potrzebami edukacyjnymi, w tym niepełnosprawnych, niedostosowanych społecznie oraz zagrożonych niedostosowaniem społecznym. online: http://cke.edu.pl/images/files/komunikaty_Dyrektora/sierpien/Komunikat_Sprawdzian_i_egzamin_gimnazjalny_2014.pdf
 
-* Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
+```{r MEN_2007, anchor="reference"}
+```
+[`r figr("MEN_2007", type="reference")`] Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 r. w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. nr 83, poz. 562, ze zm.)
 
-* Regulamin Olimpiady Języka Angielskiego, online http://www.wsjo.pl/oja/?id=16
+```{r MEN_2013, anchor="reference"}
+```
+[`r figr("MEN_2013", type="reference")`] Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
 
-* International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/
+```{r OJA, anchor="reference"}
+```
+[`r figr("OJA", type="reference")`] Regulamin Olimpiady Języka Angielskiego, online http://www.wsjo.pl/oja/?id=16
 
-* dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
+```{r IB, anchor="reference"}
+```
+[`r figr("IB", type="reference")`] International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/
 
-* Global Administrative Areas (GADM), online http://www.gadm.org
+```{r ZPD, anchor="reference"}
+```
+[`r figr("ZPD", type="reference")`] dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
 
-* zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
+```{r GADM, anchor="reference"}
+```
+[`r figr("GADM", type="reference")`] Global Administrative Areas (GADM), online http://www.gadm.org
+
+```{r CODGiK, anchor="reference"}
+```
+[`r figr("CODGiK", type="reference")`] zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
 
