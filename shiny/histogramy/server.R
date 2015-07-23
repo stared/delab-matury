@@ -7,29 +7,22 @@ library(dplyr)
 # równa szerokość wykresów
 # wykres liczebności grup: dla podziału tylko z wybranej kategorii?
 # dane z wcześniejszych lat
+# posortowanie rocznikow?
 
 shinyServer(function(input, output, session) {
   # pokazuje progress przy obliczeniach
   withProgress(message = 'Wczytuję wyniki,',
                detail = 'Może chwilę potrwać...', value = 0, {
-                 #Sys.sleep(600)
                  dane <- read.csv("wyniki2014.csv")
-                 # posortowanie rocznikow
-#                  grupyWiekowe <- c(paste(rok - najliczniejszy - 1, "i mniej"),
-#                                    paste(rok - najliczniejszy),
-#                                    paste(rok - najliczniejszy + 1),
-#                                    paste(rok - najliczniejszy + 2, "i więcej"))
-#                  daneRocznik$wiek <- factor(daneRocznik$wiek, levels = grupyWiekowe)
                  
                  # liczebnosci poszczegolnych grup
-                 grupyWiekowe <-unique(dane$wiek[!is.na(dane$wiek)])
                  colnames(dane)[colnames(dane)=="rodzaj_gminy"] <- "rodzaj gminy"
                  colnames(dane)[colnames(dane)=="typ_szkoly"] <- "typ szkoły"
                  colnames(dane)[colnames(dane)=="publiczna"] <- "szkoła publiczna?"
                  colnames(dane)[colnames(dane)=="wielkosc_miejscowosci"] <- "wielkość miejscowości"
                  kategoria <- c("płeć", "płeć",
                                 "dysleksja", "dysleksja",
-                                rep("wiek", length(grupyWiekowe)),
+                                rep("wiek", 4),
                                 rep("typ szkoły", 2),
                                 rep("szkoła publiczna?", 2),
                                 rep("rodzaj gminy", 3),
@@ -43,22 +36,23 @@ shinyServer(function(input, output, session) {
                             "wiejska", "miejsko-wiejska", "miejska",
                             "poniżej 5 tys.", "5 tys. - 50 tys.", "ponad 50 tys."
                             )
+                 filtr_pusty <- "wybierz filtr!"
 
-                filtr_pusty <- "wybierz filtr!"
-                output$kategoriaSelektor <- renderUI({
-                  selectInput("podzial", "Podział", choices=as.list(c("--", unique(kategoria))), selected="--") 
-                })
-                output$filtrSelektor <- renderUI({
-                  selectInput("filtr", "Filtr", choices=as.list(c("--", unique(kategoria))), selected="--") 
-                })
-                output$wartoscSelektor <- renderUI({
-                  selectInput("wartosc", "Wartość filtra", choices=as.list(filtr_pusty), selected=filtr_pusty) 
-                })              
-               }) 
+                  output$kategoriaSelektor <- renderUI({
+                    selectInput("podzial", "Podział", choices=as.list(c("--", unique(kategoria))), selected="--") 
+                  })
+                  output$filtrSelektor <- renderUI({
+                    selectInput("filtr", "Filtr", choices=as.list(c("--", unique(kategoria))), selected="--") 
+                  })
+                  output$wartoscSelektor <- renderUI({
+                    selectInput("wartosc", "Wartość filtra", choices=as.list(filtr_pusty), selected=filtr_pusty) 
+                  })              
+                 }) 
   
 
   # histogram bez podziału na grupy
   ggHistWszyscy<-function(nazwa, filtr="--", wartosc=filtr_pusty) {
+    #cat(paste("hist wszyscy", nazwa, filtr, wartosc, "\n"), file = stderr())  
     tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
       dane_zmod <- dane
@@ -81,6 +75,7 @@ shinyServer(function(input, output, session) {
   
 #   # histogram z podziałem na grupy
   ggHistPodzial<-function(nazwa, podzial, filtr="--", wartosc=filtr_pusty, tytul_legendy=podzial, kolory=c("red", "blue")){
+    #cat(paste("hist podzial", nazwa, podzial, filtr, wartosc, "\n"), file = stderr())
     tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
       dane_zmod <- dane
@@ -108,6 +103,7 @@ shinyServer(function(input, output, session) {
   }   
 
   grupyWykres <- function(nazwa, filtr="--", wartosc=filtr_pusty){
+    #cat(paste("grupy", nazwa, filtr, wartosc, "\n"), file = stderr())
     gg_color_hue <- function(n) {
       hues = seq(15, 375, length=n+1)
       hcl(h=hues, l=65, c=100)[1:n]
@@ -139,8 +135,6 @@ shinyServer(function(input, output, session) {
     liczebnosc_grup$grupa_zmod = factor(liczebnosc_grup$grupa, levels=rev(grupa_zmod))
     liczebnosc_grup$kategoria_zmod = factor(liczebnosc_grup$kategoria, levels=unique(kategoria_zmod)) #c("płeć", "dysleksja", "poprawkowa", "wiek"))
     
-#     cat(str(liczebnosc_grup), file = stderr())
-#     cat("\n", file = stderr())
     grupHist <- ggplot(liczebnosc_grup, aes(x=grupa_zmod, y=liczba, fill=kategoria_zmod)) +
       geom_bar(position=position_dodge(width=0.8), alpha=0.7, stat='identity') +
       scale_fill_manual(values=kolory) +
@@ -153,92 +147,72 @@ shinyServer(function(input, output, session) {
   }
 
 observe({ 
-  if (is.null(input$filtr)){
-    filtr <- "--"
-  }
-  else{
+   if (!is.null(input$filtr)){
     filtr <- input$filtr
-  }
-  if (filtr=="--"){
-    updateSelectInput(session, "wartosc", "Wartość filtra", choices="wybierz filtr!")
-  }
-  else {
-    updateSelectInput(session, "wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]))
-  }
-  
-#   var.opts<-namel(colnames(obj))
-#   var.opts.original.slicers <- namel(colnames(TestData))           
-#   measures <- c('m1','m2','m3','m4','m5')
-#   
-#   var.opts.slicers <- var.opts[!(var.opts %in% c(measures,'x'))]
-#   var.opts.original.slicers <- var.opts.original.slicers[!(var.opts.original.slicers %in% c(measures,'x'))]
-#   var.opts.measures <- var.opts[var.opts %in% measures]
-#   
-#   updateSelectInput(session, "source_columns", choices = var.opts.original.slicers, selected=var.opts.slicers)
-#   updateSelectInput(session, "xaxis", choices = var.opts.slicers,selected="x")
+    #cat(paste("filtr =", filtr, "\n"), file = stderr())
+    if (filtr=="--"){
+      updateSelectInput(session, "wartosc", "Wartość filtra", choices="wybierz filtr!")
+    }
+    else {
+      updateSelectInput(session, "wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]))
+    }
+   }
   
 })
 
+observe({
+  #cat(paste("observe \n"), file = stderr())
   
-  output$ggHistMatury <- renderPlot({
-    #cat("start \n", file = stderr())
-    nazwa <- paste(input$przedmiot, input$poziom) %>%
-      gsub("\\.* ", "_", .)
-    if (is.null(input$wartosc)){
-      wartosc <- filtr_pusty
-    }
-    else{
-      wartosc <- input$wartosc
-    }
-    if (is.null(input$podzial)){
-      podzial <- "--"
-    }
-    else{
-      podzial <- input$podzial
-    }
-    if (is.null(input$filtr)){
-      filtr <- "--"
-    }
-    else{
-      filtr <- input$filtr
-    }
-#     
-#     if (filtr!="--"){
-#       output$wartoscSelektor <- renderUI({
-#         selectInput("wartosc", "Wartość filtra", choices=as.list(grupa[kategoria==input$filtr]), selected=wartosc)
-#       })
-#     }
-#     
-    
-    if (podzial == "--"){
-#       cat(nazwa, file = stderr())
-#       cat(filtr, file = stderr())
-#       cat(wartosc, file = stderr())
-#       cat("\n", file = stderr())
-      wykres <- ggHistWszyscy(nazwa, filtr, wartosc)
-    }
-    if (podzial == "wiek"){
-      wykres <- ggHistPodzial(nazwa, 'wiek', filtr, wartosc, kolory = c("green", "blue", "red", "black"))
-    }
-    if (podzial %in% c("rodzaj gminy", "wielkość miejscowości")){
-      wykres <- ggHistPodzial(nazwa, podzial, filtr, wartosc, kolory = c("green", "blue", "red"))
-    }
-#     if (podzial == "wielkość miejscowości", "typ szkoły"){
-#       wykres <- ggHistPodzial(nazwa, 'wielkość miejscowości', filtr, wartosc, kolory = c("green", "blue", "red"))
-#     } 
-    if (podzial %in% c( "płeć", "dysleksja", "szkoła publiczna?", "typ szkoły")) {
-      wykres <- ggHistPodzial(nazwa, input$podzial, filtr, wartosc)
-    }
-    
-    grupHist <- grupyWykres(nazwa, filtr, wartosc)
-    
-    multi <- arrangeGrob(wykres, grupHist)#, sub = textGrob("Piotr Migdał, Marta Czarnocka-Cieciura, https://github.com/stared/delab-matury",
-    #                                                    x = 0, hjust = -0.1, vjust=0.1,
-    #                                                    gp = gpar(fontsize = 9)))
-    print(multi)
-    #wykres
-    #grupHist
+  # zapobiega podwójnemu odświeżaniu wykresów na początku (gdy podzial, filtr i wartosc sa null i gdy otrzymuja wartosc)
+  if (!is.null(input$podzial)){
+    output$ggHistMatury <- renderPlot({
+      nazwa <- paste(input$przedmiot, input$poziom) %>%
+        gsub("\\.* ", "_", .)
+      if (is.null(input$wartosc)){
+        wartosc <- filtr_pusty
+      }
+      else{
+        wartosc <- input$wartosc
+      }
+      if (is.null(input$podzial)){
+        podzial <- "--"
+      }
+      else{
+        podzial <- input$podzial
+      }
+      if (is.null(isolate(input$filtr))){
+        filtr <- "--"
+      }
+      
+      else{
+        filtr <- isolate(input$filtr)
+      }  
+      
+      if (podzial == "--"){
+  #       cat("\n", file = stderr())
+        wykres <- ggHistWszyscy(nazwa, filtr, wartosc)
+      }
+  
+      if (podzial == "wiek"){
+        wykres <- ggHistPodzial(nazwa, 'wiek', filtr, wartosc, kolory = c("green", "blue", "red", "black"))
+      }
+  
+      if (podzial %in% c("rodzaj gminy", "wielkość miejscowości")){
+        wykres <- ggHistPodzial(nazwa, podzial, filtr, wartosc, kolory = c("green", "blue", "red"))
+      }
+  
+      if (podzial %in% c( "płeć", "dysleksja", "szkoła publiczna?", "typ szkoły")) {
+        wykres <- ggHistPodzial(nazwa, input$podzial, filtr, wartosc)
+      }
+      
+      grupHist <- grupyWykres(nazwa, filtr, wartosc)
+      
+      multi <- arrangeGrob(wykres, grupHist)
+      print(multi)
+  
+    })
+  }
 
-  })
+})
   
 })
