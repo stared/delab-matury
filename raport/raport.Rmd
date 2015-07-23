@@ -300,9 +300,11 @@ Dane te pochodzą z Centralnej i Okręgowych Komisji Egzaminacyjnych oraz Instyt
 
 Dane dostępne na stronie ZPD dotyczą części pisemnych 20 egzaminów maturalnych: 10 najczęściej wybieranych przedmiotów (biologii, chemii, fizyki, geografii, historii, informatyki, języka angielskiego, języka polskiego, matematyki i wiedzy o społeczenstwie), na poziomie podstawowym i rozszerzonym. Brakuje tam jednak wyników rzadziej wybieranych przedmiotów, a w szczególności matur z innych języków niż polski i angielski.
 
-Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy lub braki. Jednym z nich jest niedobór liczby maturzystów zdających podstawowy WOS w 2014 roku (11 tys. w porównaniu z prawie 25 tys. podawanymi w sprawozdaniu CKE). Poza tym zastrzeżenia może budzić liczba olimpijczyków, w porównaniu do liczby uczniów corocznie kwalifikowanych do finałów olimpiad przedmiotowych, które to informacje można znaleść na stronach internetowych poszczególnych konkursów. Jednak w tym wypadku powodem nieścisłości może być to, że informacje o olimpiadach w bazie ZDP dotyczą maturzystów z danego roku, którzy mogli uczestniczyć w różnych edycjach olimpiad. Możliwe jest, że w poszczególnych latach zmieniała się wśród maturzystów liczba osób uczestniczących w olimpiadach na różnych latach nauki w szkole średniej. W bazie ZPD nie wyróżniono też osób, które kilkukrotnie dostały się do finału tej samej olimpiady, co w rezultacie mogło nieco zaniżyć liczbę maturzystów-olimpijczyków w porównaniu z liczbą osób osób corocznie otrzymujących tytuł finalisty lub laureata. Wreszcie, część olimpijczyków mogła zdawać maturę międzynarodową (International Baccalaureate). Choć jedynie 37 szkół oferuje klasy z programem przygotowującym do tego egzaminu (dane z roku 2015: International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/), to jest to możliwość skierowana do szczególnie ambitnych uczniów, planujących studia w prestiżowych zagranicznych uczelniach. Być może więc wśród olimpijczyków całkiem spora grupa wybiera zdawanie matury międzynarodowej, zamiast standardowej. 
+Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy lub braki. Jednym z nich jest niedobór liczby maturzystów zdających podstawowy WOS w 2014 roku (11 tys. w porównaniu z prawie 25 tys. podawanymi w sprawozdaniu CKE). Poza tym dane na temat osób poprawiających były na tyle często niekompletne, że w tym projekcie zajęliśmy się wyłącznie osobami podchodzącymi po raz pierwszy do pisania matury.
 
-(mniejsze: kontur Polski)
+Poza tym zastrzeżenia może budzić liczba olimpijczyków, w porównaniu do liczby uczniów corocznie kwalifikowanych do finałów olimpiad przedmiotowych, które to informacje można znaleść na stronach internetowych poszczególnych konkursów. Jednak w tym wypadku powodem nieścisłości może być to, że informacje o olimpiadach w bazie ZDP dotyczą maturzystów z danego roku, którzy mogli uczestniczyć w różnych edycjach olimpiad. Możliwe jest, że w poszczególnych latach zmieniała się wśród maturzystów liczba osób uczestniczących w olimpiadach na różnych latach nauki w szkole średniej. W bazie ZPD nie wyróżniono też osób, które kilkukrotnie dostały się do finału tej samej olimpiady, co w rezultacie mogło nieco zaniżyć liczbę maturzystów-olimpijczyków w porównaniu z liczbą osób osób corocznie otrzymujących tytuł finalisty lub laureata. Wreszcie, część olimpijczyków mogła zdawać maturę międzynarodową (International Baccalaureate). Choć jedynie 37 szkół oferuje klasy z programem przygotowującym do tego egzaminu (dane z roku 2015: International Baccalaureate Organization), to jest to możliwość skierowana do szczególnie ambitnych uczniów, planujących studia w prestiżowych zagranicznych uczelniach. Być może więc wśród olimpijczyków całkiem spora grupa wybiera zdawanie matury międzynarodowej, zamiast standardowej. 
+
+Dodatkowo do stworzenia interaktywnej mapy użyto plików konturowych: przekształconego pliku `POL_adm1.shp` ze strony Global Administrative Areas (GADM) oraz zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju z Centralnego Ośrodka Dokumentacji Geodezyjnej i Kartograficznej - CODGiK.
 
 ## Przetwarzanie i wizualizacja danych
 
@@ -328,9 +330,13 @@ W tym plany (tj. rzeczy, które rozgrzebaliśmy)
 
 * Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
 
-* Regulamin Olimpiady Języka Angielskiego, online: http://www.wsjo.pl/oja/?id=16
+* Regulamin Olimpiady Języka Angielskiego, online http://www.wsjo.pl/oja/?id=16
 
 * International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/
 
 * dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
+
+* Global Administrative Areas (GADM), online http://www.gadm.org
+
+* zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
 
