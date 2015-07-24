@@ -66,7 +66,7 @@ shinyServer(function(input, output, session) {
     names(procent_wynik) <- c("procent_wynik")
     krok <- 100 * 1/max(sum_wynik,  na.rm=T)
     p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..density.. * 100)) +
-      geom_histogram(color="white", binwidth=krok) +
+      geom_histogram(color="white", binwidth=krok, origin = -0.5*krok) +
       xlab("% punktów") +
       ylab("% zdających") +
       ggtitle(tytul) 
@@ -94,7 +94,7 @@ shinyServer(function(input, output, session) {
     krok <- 100 * 1/max(sum_wynik,  na.rm=T)
     p <- ggplot(dane_wybrane, aes(x=procent_wynik, fill=podzial_dane, y=..density.. * 100)) +
       scale_fill_manual(values=kolory, name=podzial_dane) +
-      geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity") +
+      geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity", origin = -0.5*krok) +
       xlab("% punktów") +
       ylab("% zdających w ramach grupy") +
       guides(fill=guide_legend(title=tytul_legendy)) +
