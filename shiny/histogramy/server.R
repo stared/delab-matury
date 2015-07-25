@@ -51,7 +51,7 @@ shinyServer(function(input, output, session) {
   
 
   # histogram bez podziału na grupy
-  ggHistWszyscy<-function(nazwa, filtr="--", wartosc=filtr_pusty) {
+  ggHistWszyscy<-function(nazwa, filtr="--", wartosc=filtr_pusty, typ="frekwencja") {
     #cat(paste("hist wszyscy", nazwa, filtr, wartosc, "\n"), file = stderr())  
     tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
@@ -65,16 +65,26 @@ shinyServer(function(input, output, session) {
     procent_wynik <- data.frame(100 * sum_wynik/max(sum_wynik, na.rm=T))
     names(procent_wynik) <- c("procent_wynik")
     krok <- 100 * 1/max(sum_wynik,  na.rm=T)
-    p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..density.. * 100)) +
-      geom_histogram(color="white", binwidth=krok, origin = -0.5*krok) +
-      xlab("% punktów") +
-      ylab("% zdających") +
-      ggtitle(tytul) 
+    if (typ=="frekwencja"){
+      p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..density.. * 100)) +
+        geom_histogram(color="white", binwidth=krok, origin = -0.5*krok) +
+        xlab("% punktów") +
+        ylab("% zdających") +
+        ggtitle(tytul)
+    }
+    else{
+      p <- ggplot(procent_wynik, aes(x=procent_wynik, y = ..count..)) +
+        geom_histogram(color="white", binwidth=krok, origin = -0.5*krok) +
+        xlab("% punktów") +
+        ylab("liczba zdających") +
+        ggtitle(tytul)
+    }
     return(p)
   }
   
 #   # histogram z podziałem na grupy
-  ggHistPodzial<-function(nazwa, podzial, filtr="--", wartosc=filtr_pusty, tytul_legendy=podzial, kolory=c("red", "blue")){
+  ggHistPodzial<-function(nazwa, podzial, filtr="--", wartosc=filtr_pusty,
+                          tytul_legendy=podzial, kolory=c("red", "blue"), typ="frekwencja"){
     #cat(paste("hist podzial", nazwa, podzial, filtr, wartosc, "\n"), file = stderr())
     tytul <- gsub("^j_", "j. ", nazwa) %>% gsub("_", " ", .)
     if (filtr=="--" | !(wartosc %in% grupa[kategoria==filtr])){
@@ -92,13 +102,24 @@ shinyServer(function(input, output, session) {
     dane_wybrane <- dane_wybrane[complete.cases(dane_wybrane),]
     colnames(dane_wybrane) <- c("procent_wynik", "podzial_dane")
     krok <- 100 * 1/max(sum_wynik,  na.rm=T)
-    p <- ggplot(dane_wybrane, aes(x=procent_wynik, fill=podzial_dane, y=..density.. * 100)) +
-      scale_fill_manual(values=kolory, name=podzial_dane) +
-      geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity", origin = -0.5*krok) +
-      xlab("% punktów") +
-      ylab("% zdających w ramach grupy") +
-      guides(fill=guide_legend(title=tytul_legendy)) +
-      ggtitle(tytul)   
+    if (typ=="frekwencja"){
+      p <- ggplot(dane_wybrane, aes(x=procent_wynik, fill=podzial_dane, y=..density.. * 100)) +
+        scale_fill_manual(values=kolory, name=podzial_dane) +
+        geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity", origin = -0.5*krok) +
+        xlab("% punktów") +
+        ylab("% zdających w ramach grupy") +
+        guides(fill=guide_legend(title=tytul_legendy)) +
+        ggtitle(tytul)
+    }
+    else{
+      p <- ggplot(dane_wybrane, aes(x=procent_wynik, fill=podzial_dane, y=..count..)) +
+        scale_fill_manual(values=kolory, name=podzial_dane) +
+        geom_histogram(binwidth=krok, binwidth=.5, alpha=.3, position="identity", origin = -0.5*krok) +
+        xlab("% punktów") +
+        ylab("liczba zdających w ramach grupy") +
+        guides(fill=guide_legend(title=tytul_legendy)) +
+        ggtitle(tytul)    
+    }
     return(p)
   }   
 
@@ -160,49 +181,32 @@ observe({
   
 })
 
-observe({
-  #cat(paste("observe \n"), file = stderr())
-  
-  # zapobiega podwójnemu odświeżaniu wykresów na początku (gdy podzial, filtr i wartosc sa null i gdy otrzymuja wartosc)
-  if (!is.null(input$podzial)){
-    output$ggHistMatury <- renderPlot({
+
+  output$ggHistMatury <- renderPlot({
+    if (!is.null(input$podzial) & !is.null(isolate(input$filtr)) & !is.null(input$wartosc)){
       nazwa <- paste(input$przedmiot, input$poziom) %>%
         gsub("\\.* ", "_", .)
-      if (is.null(input$wartosc)){
-        wartosc <- filtr_pusty
-      }
-      else{
-        wartosc <- input$wartosc
-      }
-      if (is.null(input$podzial)){
-        podzial <- "--"
-      }
-      else{
-        podzial <- input$podzial
-      }
-      if (is.null(isolate(input$filtr))){
-        filtr <- "--"
-      }
-      
-      else{
-        filtr <- isolate(input$filtr)
-      }  
+
+      wartosc <- input$wartosc
+      podzial <- input$podzial
+      filtr <- isolate(input$filtr)
       
       if (podzial == "--"){
-  #       cat("\n", file = stderr())
-        wykres <- ggHistWszyscy(nazwa, filtr, wartosc)
+        wykres <- ggHistWszyscy(nazwa, filtr, wartosc, typ=input$typHist)
       }
   
       if (podzial == "wiek"){
-        wykres <- ggHistPodzial(nazwa, 'wiek', filtr, wartosc, kolory = c("green", "blue", "red", "black"))
+        wykres <- ggHistPodzial(nazwa, 'wiek', filtr, wartosc, 
+                                kolory = c("green", "blue", "red", "black"), typ=input$typHist)
       }
   
       if (podzial %in% c("rodzaj gminy", "wielkość miejscowości")){
-        wykres <- ggHistPodzial(nazwa, podzial, filtr, wartosc, kolory = c("green", "blue", "red"))
+        wykres <- ggHistPodzial(nazwa, podzial, filtr, wartosc,
+                                kolory = c("green", "blue", "red"), typ=input$typHist)
       }
   
       if (podzial %in% c( "płeć", "dysleksja", "szkoła publiczna?", "typ szkoły")) {
-        wykres <- ggHistPodzial(nazwa, input$podzial, filtr, wartosc)
+        wykres <- ggHistPodzial(nazwa, input$podzial, filtr, wartosc, typ=input$typHist)
       }
       
       grupHist <- grupyWykres(nazwa, filtr, wartosc)
@@ -210,9 +214,7 @@ observe({
       multi <- arrangeGrob(wykres, grupHist)
       print(multi)
   
-    })
-  }
+    }
+  })
 
-})
-  
 })
