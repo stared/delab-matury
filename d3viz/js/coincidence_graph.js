@@ -32,6 +32,7 @@ function CoincidenceGraph(selector) {
     var maxSize = options.maxSize || 75;
     var baseCharge = options.baseCharge || -70;
     var eoThresholdMin = options.eoThresholdMin || 1.25;
+    var muteCategory = options.muteCategory || false;
 
     this.categories = _.chain(graph.nodes)
       .countBy('category')
@@ -78,7 +79,7 @@ function CoincidenceGraph(selector) {
         .style("stroke-width", function (e) { return 2 * sizeScale(e.count); })
         .style("opacity", function (e) { return opacityScale(e.oe); })
         .on("mouseover", function (e) {
-          if (!!e.source.category && !!e.target.category) {
+          if (muteCategory && !!e.source.category && !!e.target.category) {
             // do przemyślenia
             var text = siNumberApprox(e.count).replace("k", " tys.") + " zdajacych zarazem:<br>" +
                        e.source.category + ": " + e.source.name + " i " + e.target.category + ": " + e.target.name + "<br><br>" +

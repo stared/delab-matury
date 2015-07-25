@@ -97,7 +97,7 @@ var toLoad = {
       });
 
       main.cGraph = new CoincidenceGraph("#d3graph");
-      main.cGraph.draw({nodes: nodes, links: links}, {maxSize: 50, baseCharge: -100});
+      main.cGraph.draw({nodes: nodes, links: links}, {maxSize: 50, baseCharge: -100, muteCategory: true});
 
     });
   },
