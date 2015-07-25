@@ -19,7 +19,7 @@ shinyUI(fluidPage(
     uiOutput("filtrSelektor"),
     uiOutput("wartoscSelektor"),
     
-    HTML("Marta Czarnocka-Cieciura i Piotr Migdał \n
+    HTML("Marta Czarnocka-Cieciura i Piotr Migdał <br>
      <a href=\"https://github.com/stared/delab-matury\">https://github.com/stared/delab-matury</a>")
   ),
 
