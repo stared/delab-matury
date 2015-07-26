@@ -4,7 +4,7 @@ library(ggplot2)
 
 # DANE DO POPRAWKI
 #
-wyniki <- read.csv("../dane/przetworzone/sumy_laureaty.csv")
+wyniki <- read.csv("../dane/przetworzone/sumy_laureaty_2014.csv")
 #
 
 kolumny <- grep("podstawowa|rozszerzona", colnames(wyniki), value = T)
