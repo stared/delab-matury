@@ -5,7 +5,6 @@ library(dplyr)
 
 # Todo:
 # równa szerokość wykresów
-# wykres liczebności grup: dla podziału tylko z wybranej kategorii?
 # dane z wcześniejszych lat
 # posortowanie rocznikow?
 
@@ -32,7 +31,7 @@ shinyServer(function(input, output, session) {
                             "brak dysleksji", "dysleksja",
                             "18 i mniej", "19", "20", "21 i więcej",
                             "liceum", "technikum",
-                            "publiczna", "prywatna",
+                            "publiczna", "niepubliczna",
                             "wiejska", "miejsko-wiejska", "miejska",
                             "poniżej 5 tys.", "5 tys. - 50 tys.", "ponad 50 tys."
                             )
