@@ -9,11 +9,12 @@ output:
 
 ```{r echo=FALSE}
 ## komentarze
-# wstęp: ogólnie co i po co, odniesienie do wniosku, skąd dane? - Piotr
+# wstęp: ogólnie co i po co, odniesienie do wniosku - Piotr
 # bibliografia, publikacje naukowo-naukawe
-# opis: mapa szkół - tego nie?
 # opis: względna trudność przedmiotów - Piotr
-# olimpiady - niedobór olimpijczyków a międzynarodowa matura? - w info o danych.
+# opis: korelacje
+# główne wyniki
+# podsumowanie
 ```
 
 ```{r include=FALSE}
