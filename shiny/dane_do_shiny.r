@@ -81,7 +81,7 @@ levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "LO" | levels(dane$typ_szkoly
 levels(dane$typ_szkoly)[levels(dane$typ_szkoly) == "T"] <- "technikum"
 
 dane$publiczna[dane$publiczna] <- "publiczna"
-dane$publiczna[dane$publiczna ==F] <- "prywatna"
+dane$publiczna[dane$publiczna ==F] <- "niepubliczna"
 
 wm <- dane$wielkosc_miejscowosci
 dane$wielkosc_miejscowosci[wm<5000] <- "poniżej 5 tys."
