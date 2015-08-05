@@ -40,9 +40,47 @@ Niniejszy raport przedstawia rezultaty realizacji mikrograntu DELab UW "Analiza 
 
 ## Najciekawsze spostrzeżenia
 
-* szkoły publiczne
+W 2014 roku:
 
-*
+* Wśród przedmiotów do wyboru na maturze widać trzy grupy wspólnie wybieranych: humanistyczno-społeczne, ścisłe i przyrodnicze.
+
+* Rozszerzony język angielski jest często łączony z przedmiotami rozszerzonymi z wszystkich trzech grup.
+
+* Zaburzenia w okolicy progu zdawalności (30%) były najbardziej wyraźne dla języka polskiego podstawowego, ale widoczne też w rozkładzie wyników matur z podstawowej matematyki i języka angielskiego.
+
+* Więcej kobiet, niż mężczyzn przystąpiło do pisania matury.
+
+* Chłopcy częściej uzyskiwali najlepsze wyniki z angielskiego, geografii i historii na obu poziomach oraz z biologii, chemii i WOS-u na poziomie rozszerzonym. 
+
+* Dziewczęta częściej miały najlepsze wyniki z języka polskiego na obu poziomach oraz z podstawowych przedmiotów przyrodniczych: biologii, chemii i fizyki.
+
+* Chłopcy mieli bardziej zróżnicowane wyniki z podstawowego WOS-u, i rozszerzonych przedmiotów ścisłych: fizyki i matematyki (większy odsetek najlepszych i najsłabszych wyników).
+
+* Częściej wybierane przez dziewczęta są przedmioty przyrodnicze: biologia i chemia oraz WOS na obu poziomach i rozszerzony język polski.
+
+* Częściej wybierane przez chłopców są przedmioty ścisłe (informatyka i fizyka na obu poziomach, rozszerzona matematyka) oraz historia na obu poziomach i podstawowa geografia.
+
+* Dyslektycy radzili sobie podobnie lub nieco gorzej, niż pozostali zdający, ale równocześnie było ich niewielu wśród osób o najsłabszych wynikach.
+
+* Im młodsi maturzyści, tym częściej uzyskiwali dobre wyniki.
+
+* Absolwenci liceów uzyskiwali lepsze wyniki, niż absolwenci techników.
+
+* Maturzyści kończący szkoły publiczne mieli częściej dobre wyniki, niż kończący niepubliczne.
+
+* Absolwenci szkół średnich w gminach wiejskich i miejsko-wiejskich mieli gorsze wyniki, niż ich koledzy uczący się w gminach miejskich.
+
+* Wielkość miejscowości, w której znajdowała się szkoła pozytywnie korelowała z wynikami matur.
+
+* Laureaci i finaliści wszystkich olimpiad przedmiotowych mieli wyższe od przeciętnych wyniki z obowiązkowych matur.
+
+* Wśród olimpijczyków dobre wyniki z matur z polskiego i z matematyki ujemnie ze sobą korelowały.
+
+* Wśród Laureatów olimpiad przedmiotowych jest znacznie więcej multiolimpijczyków, niż wynikałoby z modelu losowego.
+
+* Multiolimpijczycy tworzą dwie wyodrębniające się grupy: laureatów i finalistów olimpiad humanistyczno-społecznych oraz olimpiad ścisłych i przyrodniczych. Olimpiada z języka angielskiego łączy obie grupy.
+
+* Nie widać wyraźnych ogólnych trendów przestrzennych w zróżnicowaniu wyników matur między województwami. Można natomiast wyróżnić województwa, w których maturzyści na przestrzeni lat 2010-2014 uzyskiwali lepsze od średniej krajowej wyniki z większości matur (zachodniopomorskie, małopolskie i śląskie) i takie, w których uzyskiwali gorsze (dolnośląskie, warmińsko-mazurskie i łódzkie).
 
 # Wstęp
 
@@ -80,7 +118,9 @@ n_{XY} = \frac{n_X}{n}\frac{n_Y}{n} n
 $$
 Gdzie $n_X$ i $n_Y$ to odpowiednio liczba maturzystów zdających egzamin X i Y, natomiast $n$ to liczba wszystkich maturzystów w 2014 roku. Miarą współwystępowania przedmiotów jest to ile razy częściej (lub rzadziej) były one wybierane wspólnie w porównaniu z $n_{XY}$. Aby zwiększyć czytelność wizualizacji, na grafie przedstawiono tylko połączenia pomiędzy przedmiotami wybieranymi częściej niż losowo, przy czym im ciemniejsza krawędź, tym częściej przedmioty stanowiące jej wierzchołki były wspólnie wybierane.
 
-Wizualizacja ta jest interaktywna. Po najechaniu kursorem na wybrany wierzchołek można uzyskać o nim dodatkowe informacje: pełną nazwę egzaminu oraz liczbę zdających go maturzystów. Podobnie w przypadku krawędzi: ukazuje się informacja o obydwu połączonych przedmiotach, liczbie maturzystów wybierających równocześnie oba egzaminy oraz wspomniana wyżej miera, o ile częściej są one wybierane wspólnie w porównaniu z modelem losowym. Można również przesuwać kursorem wierzchołki, aby lepiej przyjrzeć się połączeniom w grafie.
+Omawiana wizualizacja jest interaktywna. Po najechaniu kursorem na wybrany wierzchołek można uzyskać o nim dodatkowe informacje: pełną nazwę egzaminu oraz liczbę zdających go maturzystów. Podobnie w przypadku krawędzi: ukazuje się informacja o obydwu połączonych przedmiotach, liczbie maturzystów wybierających równocześnie oba egzaminy oraz wspomniana wyżej miera, o ile częściej są one wybierane wspólnie w porównaniu z modelem losowym. Można również przesuwać kursorem wierzchołki, aby lepiej przyjrzeć się połączeniom w grafie.
+
+Wizualizacja została napisana w języku *JavaScript* przy użyciu biblioteki do wizualizacji danych *D3js* [`r figr("d3js", type="reference")`].
 
 ### Obserwacje
 
@@ -151,7 +191,7 @@ caption('shiny_mat_rozszerzona_plec', "Histogram wyników matury z matematyki ro
 ```
 
 
-Porównując wyniki matur pisanych przez kobiety i mężczyzn można w pierwszej kolejności zauważyć, że ogólnie więcej kobiet niż mężczyzn przystąpiło do tego egzaminu (co można sprawdzić porównując proporcję płci dla egzaminów obowiązkowych: matematyki i języka polskiego na poziomie podstawowym, ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`). Kobiety uzyskały lepsze wyniki od mężczyzn z 4 matur na poziomie podstawowym: biologii, chemii, fizyki (ryc. `r figr("shiny_fiz_podstawowa_plec", type="figure")`) i języka polskiego oraz z jednej na poziomie rozszerzonym (język polski). Natomiast mężczyźni mieli lepsze wyniki z 3 matur na poziomie podstawowym (geografii, historii i języka angielskiego) i aż z 6 na poziomie rozszerzonym (biologia, chemia, geografia, historia, język angielski i WOS). Spośród pozostałych egzaminów, w 3 można zaobserwować większy rozrzut wyników wśród mężczyzn (kobiety częściej wyniki w okolicy średniej, mężczyźni – więcej wyników bardzo słabych i bardzo dobrych). Dotyczy to matury podstawowej z WOSu oraz matur rozszerzonych z fizyki i matematyki (ryc. `r figr("shiny_mat_rozszerzona_plec", type="figure")`). Wyniki matury z matematyki podstawowej przedstawiają bardziej złożony wzorzec. Mężczyźni częściej otrzymywali najlepsze wyniki (powyżej 75%), ale też nieco częściej - wyniki w okolicy progu zdawalności. Z kolei więcej kobiet uzyskało wyniki dobre (40-75%) ale też było ich nieco więcej wśród osób z najsłabszymi wynikami, poniżej 15%. W przypadku obu matur z informatyki wydaje się, że wśród zdających obie płcie radziły sobie równie dobrze, ale porównania utrudnia mała liczba kobiet wybierających te egzaminy. 
+Porównując wyniki matur pisanych przez kobiety i mężczyzn można w pierwszej kolejności zauważyć, że ogólnie więcej kobiet niż mężczyzn przystąpiło do tego egzaminu (co można sprawdzić porównując proporcję płci dla egzaminów obowiązkowych: matematyki i języka polskiego na poziomie podstawowym, ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`). Kobiety uzyskały lepsze wyniki od mężczyzn z 4 matur na poziomie podstawowym: biologii, chemii, fizyki (ryc. `r figr("shiny_fiz_podstawowa_plec", type="figure")`) i języka polskiego oraz z jednej na poziomie rozszerzonym (język polski). Natomiast mężczyźni mieli lepsze wyniki z 3 matur na poziomie podstawowym (geografii, historii i języka angielskiego) i aż z 6 na poziomie rozszerzonym (biologia, chemia, geografia, historia, język angielski i WOS). Spośród pozostałych egzaminów, w 3 można zaobserwować większy rozrzut wyników wśród mężczyzn (kobiety częściej wyniki w okolicy średniej, mężczyźni – więcej wyników bardzo słabych i bardzo dobrych). Dotyczy to matury podstawowej z WOS-u oraz matur rozszerzonych z fizyki i matematyki (ryc. `r figr("shiny_mat_rozszerzona_plec", type="figure")`). Wyniki matury z matematyki podstawowej przedstawiają bardziej złożony wzorzec. Mężczyźni częściej otrzymywali najlepsze wyniki (powyżej 75%), ale też nieco częściej - wyniki w okolicy progu zdawalności. Z kolei więcej kobiet uzyskało wyniki dobre (40-75%) ale też było ich nieco więcej wśród osób z najsłabszymi wynikami, poniżej 15%. W przypadku obu matur z informatyki wydaje się, że wśród zdających obie płcie radziły sobie równie dobrze, ale porównania utrudnia mała liczba kobiet wybierających te egzaminy. 
 
 ```{r shiny_inf_rozszerzona_grupy, echo=FALSE, warning=FALSE, fig.width=7, fig.height=4, anchor="figure", results = 'asis'}
 wykres <- grupyWykres("informatyka_rozszerzona") + theme(text = element_text(size=9))
@@ -229,7 +269,7 @@ Dwie ostatnie zmienne, typ gminy i wielkość miejscowości, dotyczą lokalizacj
 
 Absolwenci szkół na terenie gmin wiejskich najczęściej uzyskiwali słabe wyniki niemal ze wszystkich matur. Maturzyści ze szkół położonych w gminach miejsko-wiejskich radzili sobie lepiej niż ich koledzy z gmin miejskich z matury podstawowej z biologii, chemii, fizyki, geografii i WOS-u. Jednak z większości egzaminów najwięcej punktów uzyskiwali uczniowie uczący się w gminach miejskich: dotyczyło to podstawowej informatyki, trzech obowiązkowych egzaminów na poziomie podstawowym oraz wszystkich matur na poziomie rozszerzonym (np. biologii, ryc. `r figr("shiny_bio_rozszerzona_gminy", type="figure")`). Co więcej, spośród przedmiotów do wyboru maturzyści, którzy uczyli się w gminach wiejskich i miejsko wiejskich częściej zdawali egzaminy na poziomie podstawowym, niż ich koledzy uczący się  w gminach miejskich. Uczniowie ze szkół w gminach wiejskich szczególnie rzadko zdawali informatykę na obu poziomach (rozszerzona informatyka: ryc. `r figr("shiny_inf_rozszerzona_grupy", type="figure")`, w porównaniu z wszystkimi zdającymi – dolny wykres na ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`), jak również rozszerzoną chemię, fizykę i angielski. 
 
-Podobne różnice widać przy porównywaniu wyników matur dla uczniów uczących się w miejscowościach różnej wielkości. Najlepsze wyniki z większości przedmiotów uzyskują uczniowie uczący się w miastach powyżej 50 tys. mieszkańców: z wszystkich egzaminów rozszerzonych (np. z rozszerzonej biologii ryc. `r figr("shiny_bio_rozszerzona_miejscowosc", type="figure")`), z trzech obowiązkowych oraz z podstawowej informatyki. Jednak z wielu nieobowiązkowych matur podstawowych (biologii, geografii, historii i WOSu) maturzyści, którzy uczyli się we wszystkich trzech grupach miejscowości uzyskali podobne wyniki, a z chemii i z fizyki absolwenci szkół z największych miast poradzili sobie gorzej, niż ich koledzy uczący się w mniejszych miejscowościach. 
+Podobne różnice widać przy porównywaniu wyników matur dla uczniów uczących się w miejscowościach różnej wielkości. Najlepsze wyniki z większości przedmiotów uzyskują uczniowie uczący się w miastach powyżej 50 tys. mieszkańców: z wszystkich egzaminów rozszerzonych (np. z rozszerzonej biologii ryc. `r figr("shiny_bio_rozszerzona_miejscowosc", type="figure")`), z trzech obowiązkowych oraz z podstawowej informatyki. Jednak z wielu nieobowiązkowych matur podstawowych (biologii, geografii, historii i WOS-u) maturzyści, którzy uczyli się we wszystkich trzech grupach miejscowości uzyskali podobne wyniki, a z chemii i z fizyki absolwenci szkół z największych miast poradzili sobie gorzej, niż ich koledzy uczący się w mniejszych miejscowościach. 
 
 Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczególności pamiętając o tym, że wielkość miejscowości i typ gminy dotyczył szkoły średniej, a nie miejsca zamieszkania maturzystów), wyniki te są dość niepokojące. Prawdopodobnie świadczą one o utrudnieniach w dostępie do edukacji, z jakimi spotykają się uczniowie z mniejszych miejscowości. I choć możliwe, że część uczniów zdających maturę w dużych miastach pochodziła terenów wiejskich lub małych miast, to jednak taki wyjazd mogą zwykle sfinansować jedynie rodzice zamożniejszych uczniów. Uzyskany rozkład wyników może więc świadczyć także o nierównościach ekonomicznych w dostępie do edukacji. Szczególnie może niepokoić mała liczba zdających i słabe wyniki z przedmiotów ścisłych i technicznych (informatyki, rozszerzonej fizyki czy chemii) oraz rozszerzonego języka angielskiego w mniejszych miejscowościach i na terenach wiejskich. Te przedmioty mogą być szczególnie przydatne w znalezieniu pracy w społeczeństwie opartym na technologii i otwartym na inne kraje. 
 
@@ -250,6 +290,8 @@ caption('olimpijczycy_i_inni_wykres', "Średnie wyniki z trzech wybranych przedm
 ```
 
 Aby odpowiedzieć na te pytania, policzono średnie wyniki trzech obowiązkowych matur wśród finalistów i laureatów poszczególnych olimpiad przedmiotowych w latach 2010-2014. Ponieważ jednak pomiędzy olimpijczykami zróżnicowanie wyników z matury podstawowej z języka angielskiego było niewielkie (w 2014 średnie laureatów i finalistów wszystkich olimpiad przekraczały z tego przedmiotuy 90%), więc do dalszych analiz wybrano wyniki nieco trudniejszego egzaminu z tego przedmiotu na poziomie rozszerzonym. Warto tu zaznaczyć, że choć ten egzamin nie był obowiązkowy, większość finalistów i laureatów olimpiad przedmiotowych i tak go wybrała. Tak policzone średnie przedstawiono na wykresie punktowym (rok 2014: ryc. `r figr("olimpijczycy_wykres", type="figure")`), na którym osie pozioma i pionowa reprezentują wyniki matur z języka polskiego i matematyki na poziomie podstawowym, natomiast kolor punktów reprezentuje średni wynik z języka angielskiego na poziomie rozszerzonym. Powierzchnia każdego punktu odpowiada liczbie laureatów i finalistów poszczególnych olimpiad. Na osobnym, analogicznym wykresie porównano średnie wyniki olimpijczyków z poszczególnych przedmiotów do średnich wyników wszystkich maturzystów (rok 2014: ryc. `r figr("olimpijczycy_i inni_wykres", type="figure")`). Ze względu na duże zróżnicowanie liczebności porównywanych grup, wielkość punktów tym razem odpowiadała logarytmowi liczby maturzystów. 
+
+Wykresy sporządzono w *R* przy użyciu biblioteki *ggplot2* [`r figr("ggplot2", type="reference")`].
 
 ### Obserwacje
 
@@ -275,8 +317,7 @@ $$
 
 Gdzie $m_X$ i $m_Y$ to liczba finalistów i laureatów odpowiednio z przedmiotu X i Y, natomiast $N$ to liczba wszystkich maturzystów w latach 2010-2014. Na grafie połączono wszystkie olimpiady, które łączy przynajmniej jeden multiolimpijczyk, co dla wszystkich kombinacji przedmiotów i tak stanowi liczbę większą od przewidywanej modelem losowym.
 
-Przy analizie grafu olimpiad należy podkreślić, że liczba olimpijczyków oznacza tu liczbę osób przystępujących do matury w latach 2010-2014, którzy w trakcie nauki w szkole średniej uzyskali tytuł laureata lub finalisty wybranego konkursu, a nie -- liczbę osób, które przeszły do finału tejże olimpiady w tym okresie. Oznacza to, że w tej grupie są wymieszane osoby przystępujące do różnych edycji tej samej olimpiady, co częściowo tłumaczy, dlaczego liczba olimpijczyków może się różnić w porównaniu z danymi ze stron poszczególnych olimpiad przedmiotowych: z roku na rok może nieco fluktuować liczba maturzystów, którzy zdawali olimpiadę w pierwszej, drugiej, trzeciej, a w przypadku techników - również czwartej klasie. Poza tym pewna część uczniów mogła dostać się do finału więcej niż jednej edycji tej samej olimpiady, co może skutkować mniejszą liczbą maturzystów-olimpijczyków, niż corocznie przyznawanych tytułów finalistów i laureatów. Szczególnie duża jest różnica w liczbie olimpijczyków z języka angielskiego: zgodnie z regulaminem tej olimpiady do finału powinno corocznie przechodzić minimum 55 uczniów (§3 pkt 4.2.5 Regulamin Olimpiady Języka Angielskiego [`r figr("OJA", type="reference")`]), podczas gdy według danych z bazy Zespołu Pomiaru Dydaktycznego [`r figr("ZPD", type="reference")`] w latach 2010-2014 corocznie średnio tylko 35 maturzystów mogło się pochwalić tym tytułem. Możliwe, że część olimpijczyków zamiast do standardowej matury, przystąpiło do zdawania matury międzynarodowej (International Baccalaureate). W skali kraju niewielu absolwentów zdaje ten egzamin: jedynie 37 szkół (dane z roku 2015: International Baccalaureate Organization [`r figr("IB", type="reference")`]) oferuje klasy z programem przygotowującym do tego egzaminu. Ponieważ jednak jest to oferta dydaktyczna skierowana do szczególnie ambitnych uczniów, w szczególności tych planujących rozpoczęcie studiów w prestiżowych zagranicznych uczelniach, więc wśród laureatów olimpiad przedmiotowych, w tym z języka angielskiego, stosunkowo dużo osób może przystępować do tego egzaminu zamiast do standardowej matury.
-
+Razem z grafem wspólnie wybieranych przedmiotów, wizualizacja ta została napisana w języku *JavaScript* z wykorzystaniem biblioteki *D3js* [`r figr("d3js", type="reference")`].
 
 ```{r graf_olimpiady, echo = F, results = 'asis', anchor="figure"}
 cat("![](graf_olimpiady.png)")
@@ -286,9 +327,11 @@ caption('graf_olimpiady', "Zrzut ekranu: interaktywny graf laureatów i finalist
 
 ### Obserwacje
 
+Przy analizie grafu olimpiad należy podkreślić, że liczba olimpijczyków oznacza tu liczbę osób przystępujących do matury w latach 2010-2014, którzy w trakcie nauki w szkole średniej uzyskali tytuł laureata lub finalisty wybranego konkursu, a nie -- liczbę osób, które przeszły do finału tejże olimpiady w tym okresie. Oznacza to, że w tej grupie są wymieszane osoby przystępujące do różnych edycji tej samej olimpiady, co częściowo tłumaczy, dlaczego liczba olimpijczyków może się różnić w porównaniu z danymi ze stron poszczególnych olimpiad przedmiotowych: z roku na rok może nieco fluktuować liczba maturzystów, którzy zdawali olimpiadę w pierwszej, drugiej, trzeciej, a w przypadku techników - również czwartej klasie. Poza tym pewna część uczniów mogła dostać się do finału więcej niż jednej edycji tej samej olimpiady, co może skutkować mniejszą liczbą maturzystów-olimpijczyków, niż corocznie przyznawanych tytułów finalistów i laureatów. Szczególnie duża jest różnica w liczbie olimpijczyków z języka angielskiego: zgodnie z regulaminem tej olimpiady do finału powinno corocznie przechodzić minimum 55 uczniów (§3 pkt 4.2.5 Regulamin Olimpiady Języka Angielskiego [`r figr("OJA", type="reference")`]), podczas gdy według danych z bazy Zespołu Pomiaru Dydaktycznego [`r figr("ZPD", type="reference")`] w latach 2010-2014 corocznie średnio tylko 35 maturzystów mogło się pochwalić tym tytułem. Możliwe, że część olimpijczyków zamiast do standardowej matury, przystąpiło do zdawania matury międzynarodowej (International Baccalaureate). W skali kraju niewielu absolwentów zdaje ten egzamin: jedynie 37 szkół (dane z roku 2015: International Baccalaureate Organization [`r figr("IB", type="reference")`]) oferuje klasy z programem przygotowującym do tego egzaminu. Ponieważ jednak jest to oferta dydaktyczna skierowana do szczególnie ambitnych uczniów, w szczególności tych planujących rozpoczęcie studiów w prestiżowych zagranicznych uczelniach, więc wśród laureatów olimpiad przedmiotowych, w tym z języka angielskiego, stosunkowo dużo osób może przystępować do tego egzaminu zamiast do standardowej matury.
+
 Na podstawie grafu dotyczącego olimpiad przedmiotowych można w pierwszej kolejności zauważyć, że między poszczególnymi konkursami istnieje gęsta sieć odpowiadająca stosunkowo dużej liczbie osób zakwalifikowanych do finału przynajmniej dwóch olimpiad. Podobnie jak w przypadku matur, przedmioty humanistyczne i społeczne tworzą wspólną, silnie powiązaną grupę, ale olimpiady ścisłe i przyrodnicze grupują się wspólnie. Najsilniej powiązaną parę stanowią matematyka i informatyka. W ciągu pięciu lat aż 78 maturzystów było dostało się do finału olimpiad z matematyki i informatyki, co stanowi aż 1444 razy więcej, niż przewidywał model losowy. Olimpiada matematyczna jest też bardzo silnie powiązana z fizyczną (37 multiolimpijczyków, 737 razy więcej, niż losowo), zaś fizyczna z informatyczną (14 multiolimpijczyków, 390 razy więcej, niż losowo) i z chemiczną (12 multiolimpijczyków, 252 razy więcej, niż losowo). Ta ostatnia jest z kolei silnie powiązana z olimpiadą biologiczną: (16 multiolimpijczyków, 179 razy więcej, niż losowo). 
 
-Ze strony przedmiotów humanistycznych i społecznych najsilniej powiązane olimpiady to historia i WOS (47 multiolimpijczyków, 420 razy częściej, niż losowo). Dużo jest też multiolimpijczyków łączących geografię i WOS (16, 177 razy więcej, niż losowo) oraz geografię i historię (18, 162 razy więcej, niż losowo). Stosunkowo dużo było też osób zakwalifikowanych do finałów olimpiad z języka polskiego i historii (34), ale ze względu na to, że z języka polskiego jest najwięcej finalistów i laureatów, stanowi to "tylko" 115 razy więcej, niż przewiduje model losowy. Olimpiada z języka angielskiego nie jest szczególnie silnie połączona z żadną z dwóch wymienionych grup olimpiad przedmiotowych. Na koniec warto zauważyć, że zdarzali się również maturzyści wybierający nietypowe połączenia, np. olimpiady z biologii i z WOSu, matematyki i historii lub z języka polskiego i informatyki.
+Ze strony przedmiotów humanistycznych i społecznych najsilniej powiązane olimpiady to historia i WOS (47 multiolimpijczyków, 420 razy częściej, niż losowo). Dużo jest też multiolimpijczyków łączących geografię i WOS (16, 177 razy więcej, niż losowo) oraz geografię i historię (18, 162 razy więcej, niż losowo). Stosunkowo dużo było też osób zakwalifikowanych do finałów olimpiad z języka polskiego i historii (34), ale ze względu na to, że z języka polskiego jest najwięcej finalistów i laureatów, stanowi to "tylko" 115 razy więcej, niż przewiduje model losowy. Olimpiada z języka angielskiego nie jest szczególnie silnie połączona z żadną z dwóch wymienionych grup olimpiad przedmiotowych. Na koniec warto zauważyć, że zdarzali się również maturzyści wybierający nietypowe połączenia, np. olimpiady z biologii i z WOS-u, matematyki i historii lub z języka polskiego i informatyki.
 
 Podsumowując, pisanie olimpiady z jednego przedmiotu na ogół nie ogranicza i nie zawęża zainteresowań ucznia, o czym świadczy duża liczba multiolimpijczyków, znacznie wyższa, od przewidywanej. Wśród najzdolniejszych maturzystów widać podział zainteresowań na humanistyczno-społeczne oraz przyrodniczo-ścisłe, aczkolwiek pojedynczy olimpijczycy mogą wybierać bardziej nietypowe połączenia. 
 
@@ -372,6 +415,10 @@ W tym plany (tj. rzeczy, które rozgrzebaliśmy)
 ```
 [`r figr("MEN_2013", type="reference")`] Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
 
+```{r d3js, anchor="reference"}
+```
+[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3js [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
+
 ```{r ggplot2, anchor="reference"}
 ```
 [`r figr("ggplot2", type="reference")`] Wickham H., Chang W. (2015) ggplot2 1.0.1 [biblioteka programistyczna do tworzenia wykresów w R], online http://ggplot2.org/, https://cran.r-project.org/web/packages/ggplot2/
@@ -404,10 +451,6 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 ```{r Slownik_rozwoju, anchor="reference"}
 ```
 [`r figr("Slownik_rozwoju", type="reference")`] Kozak M., Pyszkowski A., Szewczyk R. (red.), (2001), Słownik Rozwoju Regionalnego, PARR, Warszawa
-
-```{r d3js, anchor="reference"}
-```
-[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3js [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
 
 ```{r GADM, anchor="reference"}
 ```
