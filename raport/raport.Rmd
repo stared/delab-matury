@@ -175,7 +175,7 @@ caption('shiny_mat_podstawowa_dysleksja', "Histogram wyników matury z matematyk
 
 Porównując wyniki matur osób ze stwierdzoną dysleksją i pozostałych, dla większości przedmiotów nie widać różnic. Może być to spowodowane między innymi niewielką liczbą dyslektyków, przez co rozkład ich wyników jest bardziej „poszarpany”. Różnice widać dopiero w maturach pisanych przez największą liczbę zdających: obu poziomach egzaminów z języka angielskiego, języka polskiego i matematyki oraz nieco mniej wyraźnie – w egzaminach z rozszerzonej chemii i fizyki. W wymienionych egzaminach na poziomie rozszerzonym dyslektycy częściej radzili sobie gorzej, niż pozostali zdający. Wyniki trzech obowiązkowych egzaminów na poziomie podstawowym pokazują bardziej złożony obraz sytuacji (matematyka podstawowa: ryc. `r figr("shiny_mat_podstawowa_dysleksja", type="figure")`). Dyslektyków jest bowiem najwięcej wśród osób o średnich wynikach, mało ich natomiast wśród osób o najlepszych i najgorszych osiągnięciach, co jest najwyraźniej widoczne na przykładzie matury podstawowej z matematyki. 
 
-Wyjaśnień tego zjawiska może być kilka. Raczej trudno się spodziewać, by sama dysleksja pomagała uzyskać nieco lepsze wyniki najsłabszym maturzystom. Możliwe jest, że w niektórych sytuacjach ułatwienia stosowane wobec maturzystów-dyslektyków (możliwość pisania na komputerze zamiast ręcznie lub nieco zmodyfikowane kryteria stosowane przez egzaminatorów przy sprawdzaniu matur - Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r.) mogą stawiać dyslektyków w uprzywilejowanej pozycji w stosunku do pozostałych uczniów. Jest to jednak dość ryzykowne stwierdzenie, zważywszy, że dyslektycy częściej mają gorsze, niż lepsze wyniki w porównaniu do reszty uczniów, co usprawiedliwia szczególne traktowanie tej grupy. Jenak najbardziej prawdopodobnym wyjaśnieniem wydaje się możliwość różnic w częstości diagnozowania dysleksji między różnymi grupami uczniów. Bardzo prawdopodobne, że wśród dzieci zaniedbanych, z trudnych rodzin lub po prostu z małych miejscowości dysleksja może być rzadziej diagnozowana. W ten sposób zdający oznaczeni jako dyslektycy mogą stanowić bardzo nielosową grupę i nie zawierać osób z trudnych środowisk, które często mają też problemy z nauką. Co prawda w dostępnych danych nie ma informacji na temat sytuacji rodzinnej i ekonomicznej maturzystów, ale widać, że wśród osób ze zdiagnozowaną dysleksją jest mniejszy udział osób z gmin wiejskich i z małych miejscowości, niż wśród pozostałych maturzystów. W dużych miastach może być zarówno łatwiejszy dostęp do dziecięcego psychologa, jak również do bibliotek, instytucji kultury czy dodatkowych zajęć, wpływających korzystnie na wyniki uczniów i maturzystów.
+Wyjaśnień tego zjawiska może być kilka. Raczej trudno się spodziewać, by sama dysleksja pomagała uzyskać nieco lepsze wyniki najsłabszym maturzystom. Możliwe jest, że w niektórych sytuacjach ułatwienia stosowane wobec maturzystów-dyslektyków (możliwość pisania na komputerze zamiast ręcznie lub nieco zmodyfikowane kryteria stosowane przez egzaminatorów przy sprawdzaniu matur - Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. [`r figr("CKE_komunikat_2013", type="reference")`]) mogą stawiać dyslektyków w uprzywilejowanej pozycji w stosunku do pozostałych uczniów. Jest to jednak dość ryzykowne stwierdzenie, zważywszy, że dyslektycy częściej mają gorsze, niż lepsze wyniki w porównaniu do reszty uczniów, co usprawiedliwia szczególne traktowanie tej grupy. Jenak najbardziej prawdopodobnym wyjaśnieniem wydaje się możliwość różnic w częstości diagnozowania dysleksji między różnymi grupami uczniów. Bardzo prawdopodobne, że wśród dzieci zaniedbanych, z trudnych rodzin lub po prostu z małych miejscowości dysleksja może być rzadziej diagnozowana. W ten sposób zdający oznaczeni jako dyslektycy mogą stanowić bardzo nielosową grupę i nie zawierać osób z trudnych środowisk, które często mają też problemy z nauką. Co prawda w dostępnych danych nie ma informacji na temat sytuacji rodzinnej i ekonomicznej maturzystów, ale widać, że wśród osób ze zdiagnozowaną dysleksją jest mniejszy udział osób z gmin wiejskich i z małych miejscowości, niż wśród pozostałych maturzystów. W dużych miastach może być zarówno łatwiejszy dostęp do dziecięcego psychologa, jak również do bibliotek, instytucji kultury czy dodatkowych zajęć, wpływających korzystnie na wyniki uczniów i maturzystów.
 
 
 ```{r shiny_jan_podstawowa_wiek, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
@@ -344,7 +344,7 @@ Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy 
 
 Poza tym zastrzeżenia może budzić liczba olimpijczyków, w porównaniu do liczby uczniów corocznie kwalifikowanych do finałów olimpiad przedmiotowych, które to informacje można znaleść na stronach internetowych poszczególnych konkursów. Jednak w tym wypadku powodem nieścisłości może być to, że informacje o olimpiadach w bazie ZDP dotyczą maturzystów z danego roku, którzy mogli uczestniczyć w różnych edycjach olimpiad. Możliwe jest, że w poszczególnych latach zmieniała się wśród maturzystów liczba osób uczestniczących w olimpiadach na różnych latach nauki w szkole średniej. W bazie ZPD nie wyróżniono też osób, które kilkukrotnie dostały się do finału tej samej olimpiady, co w rezultacie mogło nieco zaniżyć liczbę maturzystów-olimpijczyków w porównaniu z liczbą osób osób corocznie otrzymujących tytuł finalisty lub laureata. Wreszcie, część olimpijczyków mogła zdawać maturę międzynarodową (International Baccalaureate). Choć jedynie 37 szkół oferuje klasy z programem przygotowującym do tego egzaminu (dane z roku 2015: International Baccalaureate Organization [`r figr("IB", type="reference")`]), to jest to możliwość skierowana do szczególnie ambitnych uczniów, planujących studia w prestiżowych zagranicznych uczelniach. Być może więc wśród olimpijczyków całkiem spora grupa wybiera zdawanie matury międzynarodowej, zamiast standardowej. 
 
-Dodatkowo do stworzenia interaktywnej mapy użyto plików konturowych: przekształconego pliku *POL_adm1.shp* ze strony Global Administrative Areas (GADM) oraz zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju z Centralnego Ośrodka Dokumentacji Geodezyjnej i Kartograficznej - CODGiK.
+Dodatkowo do stworzenia interaktywnej mapy użyto plików konturowych: przekształconego pliku *POL_adm1.shp* ze strony Global Administrative Areas (GADM) [`r figr("GADM", type="reference")`] oraz zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju z Centralnego Ośrodka Dokumentacji Geodezyjnej i Kartograficznej - CODGiK [`r figr("CODGiK", type="reference")`].
 
 ## Przetwarzanie i wizualizacja danych
 
@@ -360,35 +360,9 @@ W tym plany (tj. rzeczy, które rozgrzebaliśmy)
 
 # Bibliografia
 
-```{r d3js, anchor="reference"}
-```
-[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3js (wersja?) [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
-
-```{r shiny, anchor="reference"}
-```
-[`r figr("shiny", type="reference")`] Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
-
-```{r ggplot2, anchor="reference"}
-```
-[`r figr("ggplot2", type="reference")`] Wickham H., Chang W. (2015) ggplot2 1.0.1 [biblioteka programistyczna do tworzenia wykresów w R], online http://ggplot2.org/, https://cran.r-project.org/web/packages/ggplot2/
-
 ```{r CKE_2014, anchor="reference"}
 ```
 [`r figr("CKE_2014", type="reference")`] Kozak W., Grabowska A., Smolik M. i inni (2014) Sprawozdanie ogólne z egzaminu maturalnego 2014. Centralna Komisja Egzaminacyjna, Warszawa. online http://www.cke.edu.pl/index.php/egzamin-maturalny-left/informacje-o-wynikach-z-lat-2005-2015/23-egzamin-maturalny/400-sprawozdanie-z-egaminu-maturalnego-2014
-
-```{r Slownik_rozwoju, anchor="reference"}
-```
-[`r figr("Slownik_rozwoju", type="reference")`] Kozak M., Pyszkowski A., Szewczyk R. (red.), (2001), Słownik Rozwoju Regionalnego, PARR, Warszawa
-
-```{r Simpson, anchor="reference"}
-```
-[`r figr("Simpson", type="reference")`]Simpson, E. H. (1951). "The Interpretation of Interaction in Contingency Tables". Journal of the Royal Statistical Society, Series B 13: 238–241.
-
-
-```{r CKE_komunikat_2013, anchor="reference"}
-```
-[`r figr("CKE_komunikat_2013", type="reference")`]
-Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sprawie sposobów dostosowania warunków i form przeprowadzania w roku szkolnym 2013/2014 egzaminu maturalnego do potrzeb absolwentów ze specjalnymi potrzebami edukacyjnymi, w tym niepełnosprawnych, niedostosowanych społecznie oraz zagrożonych niedostosowaniem społecznym. online: http://cke.edu.pl/images/files/komunikaty_Dyrektora/sierpien/Komunikat_Sprawdzian_i_egzamin_gimnazjalny_2014.pdf
 
 ```{r MEN_2007, anchor="reference"}
 ```
@@ -398,17 +372,42 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 ```
 [`r figr("MEN_2013", type="reference")`] Rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku zmieniające rozporządzenie w sprawie warunków i sposobu oceniania, klasyfikowania i promowania uczniów i słuchaczy oraz przeprowadzania sprawdzianów i egzaminów w szkołach publicznych (Dz.U. z 2013 r., poz. 520)
 
+```{r ggplot2, anchor="reference"}
+```
+[`r figr("ggplot2", type="reference")`] Wickham H., Chang W. (2015) ggplot2 1.0.1 [biblioteka programistyczna do tworzenia wykresów w R], online http://ggplot2.org/, https://cran.r-project.org/web/packages/ggplot2/
+
+```{r shiny, anchor="reference"}
+```
+[`r figr("shiny", type="reference")`] Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
+
+```{r CKE_komunikat_2013, anchor="reference"}
+```
+[`r figr("CKE_komunikat_2013", type="reference")`]
+Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sprawie sposobów dostosowania warunków i form przeprowadzania w roku szkolnym 2013/2014 egzaminu maturalnego do potrzeb absolwentów ze specjalnymi potrzebami edukacyjnymi, w tym niepełnosprawnych, niedostosowanych społecznie oraz zagrożonych niedostosowaniem społecznym. online: http://cke.edu.pl/images/files/komunikaty_Dyrektora/sierpien/Komunikat_Sprawdzian_i_egzamin_gimnazjalny_2014.pdf
+
+```{r Simpson, anchor="reference"}
+```
+[`r figr("Simpson", type="reference")`]Simpson, E. H. (1951). "The Interpretation of Interaction in Contingency Tables". Journal of the Royal Statistical Society, Series B 13: 238–241.
+
 ```{r OJA, anchor="reference"}
 ```
 [`r figr("OJA", type="reference")`] Regulamin Olimpiady Języka Angielskiego, online http://www.wsjo.pl/oja/?id=16
+
+```{r ZPD, anchor="reference"}
+```
+[`r figr("ZPD", type="reference")`] dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
 
 ```{r IB, anchor="reference"}
 ```
 [`r figr("IB", type="reference")`] International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/
 
-```{r ZPD, anchor="reference"}
+```{r Slownik_rozwoju, anchor="reference"}
 ```
-[`r figr("ZPD", type="reference")`] dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
+[`r figr("Slownik_rozwoju", type="reference")`] Kozak M., Pyszkowski A., Szewczyk R. (red.), (2001), Słownik Rozwoju Regionalnego, PARR, Warszawa
+
+```{r d3js, anchor="reference"}
+```
+[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3js [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
 
 ```{r GADM, anchor="reference"}
 ```
@@ -416,5 +415,4 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 
 ```{r CODGiK, anchor="reference"}
 ```
-[`r figr("CODGiK", type="reference")`] zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
-
+[`r figr("CODGiK", type="reference")`] Zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
