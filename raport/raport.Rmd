@@ -42,9 +42,7 @@ Niniejszy raport przedstawia rezultaty realizacji mikrograntu DELab UW "Analiza 
 
 W 2014 roku:
 
-* Wśród przedmiotów do wyboru na maturze widać trzy grupy wspólnie wybieranych: humanistyczno-społeczne, ścisłe i przyrodnicze.
-
-* Rozszerzony język angielski jest często łączony z przedmiotami rozszerzonymi z wszystkich trzech grup.
+* Wśród przedmiotów do wyboru na maturze widać trzy grupy wspólnie wybieranych: humanistyczno-społeczne, ścisłe i przyrodnicze. Rozszerzony język angielski był często łączony z przedmiotami rozszerzonymi z wszystkich trzech grup.
 
 * Zaburzenia w okolicy progu zdawalności (30%) były najbardziej wyraźne dla języka polskiego podstawowego, ale widoczne też w rozkładzie wyników matur z podstawowej matematyki i języka angielskiego.
 
@@ -56,13 +54,13 @@ W 2014 roku:
 
 * Chłopcy mieli bardziej zróżnicowane wyniki z podstawowego WOS-u, i rozszerzonych przedmiotów ścisłych: fizyki i matematyki (większy odsetek najlepszych i najsłabszych wyników).
 
-* Częściej wybierane przez dziewczęta są przedmioty przyrodnicze: biologia i chemia oraz WOS na obu poziomach i rozszerzony język polski.
+* Częściej wybierane przez dziewczęta były przedmioty przyrodnicze: biologia i chemia oraz WOS na obu poziomach i rozszerzony język polski.
 
-* Częściej wybierane przez chłopców są przedmioty ścisłe (informatyka i fizyka na obu poziomach, rozszerzona matematyka) oraz historia na obu poziomach i podstawowa geografia.
+* Częściej wybierane przez chłopców były przedmioty ścisłe (informatyka i fizyka na obu poziomach, rozszerzona matematyka) oraz historia na obu poziomach i podstawowa geografia.
 
 * Dyslektycy radzili sobie podobnie lub nieco gorzej, niż pozostali zdający, ale równocześnie było ich niewielu wśród osób o najsłabszych wynikach.
 
-* Im młodsi maturzyści, tym częściej uzyskiwali dobre wyniki.
+* Wiek maturzysty negatywnie korelował z wynikami matur.
 
 * Absolwenci liceów uzyskiwali lepsze wyniki, niż absolwenci techników.
 
@@ -139,7 +137,7 @@ Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-s
 
 Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Z większości przedmiotów (oprócz trzech obowiązkowych) maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są na ogół silniej powiązane, niż podstawowe. Zwłaszcza rozszerzony język angielski był szczególnie chętnie wybierany przez zdających inne przedmioty na poziomie rozszerzonym. Z kolei przedmioty podstawowe sa słabo powiązane i stanowią raczej dalsze odgałęzienia wszystkich trzech gałęzi grafu. Być może wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację po zdaniu matury. Tacy maturzyści mogli więc wybrać tylko jeden przedmiot z listy do wyboru i nie musieli przy tym kierować się wymaganiami uczelni wyższych.
 
-## Histogramy wyników matur
+## Rozkłady wyników wśród maturzystów
 
 online: https://matury.shinyapps.io/histogramy
 
@@ -271,7 +269,30 @@ Absolwenci szkół na terenie gmin wiejskich najczęściej uzyskiwali słabe wyn
 
 Podobne różnice widać przy porównywaniu wyników matur dla uczniów uczących się w miejscowościach różnej wielkości. Najlepsze wyniki z większości przedmiotów uzyskują uczniowie uczący się w miastach powyżej 50 tys. mieszkańców: z wszystkich egzaminów rozszerzonych (np. z rozszerzonej biologii ryc. `r figr("shiny_bio_rozszerzona_miejscowosc", type="figure")`), z trzech obowiązkowych oraz z podstawowej informatyki. Jednak z wielu nieobowiązkowych matur podstawowych (biologii, geografii, historii i WOS-u) maturzyści, którzy uczyli się we wszystkich trzech grupach miejscowości uzyskali podobne wyniki, a z chemii i z fizyki absolwenci szkół z największych miast poradzili sobie gorzej, niż ich koledzy uczący się w mniejszych miejscowościach. 
 
-Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczególności pamiętając o tym, że wielkość miejscowości i typ gminy dotyczył szkoły średniej, a nie miejsca zamieszkania maturzystów), wyniki te są dość niepokojące. Prawdopodobnie świadczą one o utrudnieniach w dostępie do edukacji, z jakimi spotykają się uczniowie z mniejszych miejscowości. I choć możliwe, że część uczniów zdających maturę w dużych miastach pochodziła terenów wiejskich lub małych miast, to jednak taki wyjazd mogą zwykle sfinansować jedynie rodzice zamożniejszych uczniów. Uzyskany rozkład wyników może więc świadczyć także o nierównościach ekonomicznych w dostępie do edukacji. Szczególnie może niepokoić mała liczba zdających i słabe wyniki z przedmiotów ścisłych i technicznych (informatyki, rozszerzonej fizyki czy chemii) oraz rozszerzonego języka angielskiego w mniejszych miejscowościach i na terenach wiejskich. Te przedmioty mogą być szczególnie przydatne w znalezieniu pracy w społeczeństwie opartym na technologii i otwartym na inne kraje. 
+Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczególności pamiętając o tym, że wielkość miejscowości i typ gminy dotyczył szkoły średniej, a nie miejsca zamieszkania maturzystów), wyniki te są dość niepokojące. Prawdopodobnie świadczą one o utrudnieniach w dostępie do edukacji, z jakimi spotykają się uczniowie z mniejszych miejscowości. I choć możliwe, że część uczniów zdających maturę w dużych miastach pochodziła terenów wiejskich lub małych miast, to jednak taki wyjazd mogą zwykle sfinansować jedynie rodzice zamożniejszych uczniów. Uzyskany rozkład wyników może więc świadczyć także o nierównościach ekonomicznych w dostępie do edukacji. Szczególnie może niepokoić mała liczba zdających i słabe wyniki z przedmiotów ścisłych i technicznych (informatyki, rozszerzonej fizyki czy chemii) oraz rozszerzonego języka angielskiego w mniejszych miejscowościach i na terenach wiejskich. Te przedmioty mogą być szczególnie przydatne w znalezieniu pracy w społeczeństwie opartym na technologii i otwartym na inne kraje.
+
+## Korelacje wyników matur z innymi czynnikami
+
+Badanie kształtu rozkładu wyników matur wśród różnych grup maturzystów nie jest jedynym sposobem na zbadanie, jakie czynniki mogły wpływać na uzyskana liczbę punktów. Innym, bardziej standardowym podejściem jest analiza współczynników korelacji.
+
+W porównaniu z poprzednio opisaną metodą jest to sposób bardziej syntetyczny, pozwalający zwięźlej przedstawić obserwowane zależności. Umożliwia też uwzględnienie równocześnie wszystkich badanych czynników, a dzięki temu na wyłowienie wpływu, jaki każdy z nich ma na uzyskane przez maturzystów, niezależnie od pozostałych, powiązanych czynników. Przykładowo, wiek maturzystów jest silnie związany z rodzajem kończonej szkoły: 19-latkowie to glównie absolwenci 3 letnich liceów, natomiast 20-latkowie to w dużej mierze osoby kończące 4-letnie technika. Zastosowanie modelu uwzględniającego zarówno wiek, jak i rodzaj szkoły umożliwia rozdzielenie wpływu tych dwóch czynników na uzyskane wyniki. 
+
+Kolejną zaletą analizowania korelacji jest zwięzłość uzyskanej informacji. Umożliwia ona łatwiejsze zestawienie uzyskanych zależności dla różnych czynników, egzaminów i lat, w których zostały przeprowadzone. Kosztem tej zwięzłości jest jednak utrata części informacji na temat zmienności między poszczególnymi maturzystami i uproszczenie obserwowanych zależności. Przy użyciu korelacji nie można na przykład wykryć sytuacji, gdy jedna z grup maturzystów ma większe zr óżnicowanie wyników, niż druga. Kolejnym uproszczeniem jest zastosowanie lininowego modelu zależności między badanymi czynnikami a wynikiem matur. Rzeczywiste zależności, zwłaszcza dla zmiennych ilościowych, takich jak na przykład wielkość miejscowości, mogą być bardziej złożone.
+
+Ze względu na wspomniane różnice w obu podejściach zdecydowano się w raporcie omówić zarówno zestawienia histogramów jak i regresje w modelu liniowym.
+
+Na koniec warto wspomnieć o jeszcze jednej kwestii technicznej: do sporządzenia regresji konieczne było unormowanie rozkładów wyników matur. Dzięki temu łatwiej można było porównywać wpływ badanych czynników na wyniki z różnych przedmiotów. Również pomiędzy latami zestawy pytań mogły nieco różnić się trudnością, więc unormowanie pomogło odróżnić wieloletnie trendy od losowych fluktuacji. [tu opis techniczny normowania - Piotr]
+
+Analizę korelacji wykonano w języku Python korzystając z bibliotek [...]
+
+```{r korelacje, echo = F, results = 'asis', anchor="figure"}
+cat("![](korelacje.png)")
+
+caption('korelacje', "Współczynniki korelacji różnych czynników z unormowanymi wynikami trzech obowiązkowych matur w latach 2010-2014. Czarne linie oznaczają odchylenia standardowe (pomiędzy latami?)")
+```
+
+# Obserwacje
+
 
 ## Wyniki uzyskane przez finalistów i laureatów olimpiad
 
