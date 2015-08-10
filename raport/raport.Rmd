@@ -275,15 +275,15 @@ Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczegó
 
 Badanie kształtu rozkładu wyników matur wśród różnych grup maturzystów nie jest jedynym sposobem na zbadanie, jakie czynniki mogły wpływać na uzyskana liczbę punktów. Innym, bardziej standardowym podejściem jest analiza współczynników korelacji.
 
-W porównaniu z poprzednio opisaną metodą jest to sposób bardziej syntetyczny, pozwalający zwięźlej przedstawić obserwowane zależności. Umożliwia też uwzględnienie równocześnie wszystkich badanych czynników, a dzięki temu na wyłowienie wpływu, jaki każdy z nich ma na uzyskane przez maturzystów, niezależnie od pozostałych, powiązanych czynników. Przykładowo, wiek maturzystów jest silnie związany z rodzajem kończonej szkoły: 19-latkowie to glównie absolwenci 3 letnich liceów, natomiast 20-latkowie to w dużej mierze osoby kończące 4-letnie technika. Zastosowanie modelu uwzględniającego zarówno wiek, jak i rodzaj szkoły umożliwia rozdzielenie wpływu tych dwóch czynników na uzyskane wyniki. 
+W porównaniu z poprzednio opisaną metodą jest to sposób bardziej syntetyczny, pozwalający zwięźlej przedstawić obserwowane zależności. Umożliwia też uwzględnienie równocześnie wszystkich badanych czynników, a dzięki temu na wyłowienie wpływu, jaki każdy z nich ma na uzyskane przez maturzystów, niezależnie od pozostałych, powiązanych czynników. Przykładowo, wiek maturzystów jest silnie związany z rodzajem kończonej szkoły: 19-latkowie to głównie absolwenci 3 letnich liceów, natomiast 20-latkowie to w dużej mierze osoby kończące 4-letnie technika. Zastosowanie modelu uwzględniającego zarówno wiek, jak i rodzaj szkoły umożliwia rozdzielenie wpływu tych dwóch czynników na uzyskane wyniki. 
 
-Kolejną zaletą analizowania korelacji jest zwięzłość uzyskanej informacji. Umożliwia ona łatwiejsze zestawienie uzyskanych zależności dla różnych czynników, egzaminów i lat, w których zostały przeprowadzone. Kosztem tej zwięzłości jest jednak utrata części informacji na temat zmienności między poszczególnymi maturzystami i uproszczenie obserwowanych zależności. Przy użyciu korelacji nie można na przykład wykryć sytuacji, gdy jedna z grup maturzystów ma większe zr óżnicowanie wyników, niż druga. Kolejnym uproszczeniem jest zastosowanie lininowego modelu zależności między badanymi czynnikami a wynikiem matur. Rzeczywiste zależności, zwłaszcza dla zmiennych ilościowych, takich jak na przykład wielkość miejscowości, mogą być bardziej złożone.
+Kolejną zaletą analizowania korelacji jest zwięzłość uzyskanej informacji. Umożliwia ona łatwiejsze zestawienie uzyskanych zależności dla różnych czynników, egzaminów i lat, w których zostały przeprowadzone. Kosztem tej zwięzłości jest jednak utrata części informacji na temat zmienności między poszczególnymi maturzystami i uproszczenie obserwowanych zależności. Przy użyciu korelacji nie można na przykład wykryć sytuacji, gdy jedna z grup maturzystów ma większe zróżnicowanie wyników, niż druga. Kolejnym uproszczeniem jest zastosowanie liniowego modelu zależności między badanymi czynnikami a wynikiem matur. Rzeczywiste zależności, zwłaszcza dla zmiennych ilościowych, takich jak na przykład wielkość miejscowości, mogą być bardziej złożone.
 
 Ze względu na wspomniane różnice w obu podejściach zdecydowano się w raporcie omówić zarówno zestawienia histogramów jak i regresje w modelu liniowym.
 
 Na koniec warto wspomnieć o jeszcze jednej kwestii technicznej: do sporządzenia regresji konieczne było unormowanie rozkładów wyników matur. Dzięki temu łatwiej można było porównywać wpływ badanych czynników na wyniki z różnych przedmiotów. Również pomiędzy latami zestawy pytań mogły nieco różnić się trudnością, więc unormowanie pomogło odróżnić wieloletnie trendy od losowych fluktuacji. [tu opis techniczny normowania - Piotr]
 
-Analizę korelacji wykonano w języku Python korzystając z bibliotek [...]
+Analizę korelacji wykonano w języku *Python* korzystając z bibliotek [...]
 
 ```{r korelacje, echo = F, results = 'asis', anchor="figure"}
 cat("![](korelacje.png)")
@@ -293,6 +293,19 @@ caption('korelacje', "Współczynniki korelacji różnych czynników z unormowan
 
 # Obserwacje
 
+Analiza korelacji (ryc. `r figr("korelacje", type="figure")`) w większości potwierdza wnioski uzyskane na podstawie histogramów. Dlatego tutaj podano jedynie poczynione na podstawie korelacji obserwacje, bez powtarzania ich interpretacji, które czytelnik może znaleźć w poprzednim rozdziale.
+
+Po pierwsze, uzyskane wyniki silnie zależały od typu ukończonej szkoły. Najlepiej radzili poradzili sobie z obowiązkowymi maturami absolwenci liceów ogólnokształcących (których było najwięcej wśród maturzystów i dlatego zostali wykorzystani w analizie jako grupa odniesienia). Nieco gorsze wyniki uzyskały osoby kończące technika. W odróżnieniu od histogramów, w analizie korelacji można było przeanalizować wyniki absolwentów mniej popularnych typów szkół: liceów profilowanych oraz techników i liceów uzupełniających. Maturzyści kończący szkoły uzupełniające radzili sobie podobnie, jak absolwenci techników, przy czym ze względu na małą liczebność, zmienność pomiędzy latami była znacznie większa. Co ciekawe, w przypadku tych trzech typów szkół największe różnice w wynikach w porównaniu z absolwentami liceów ogólnokształcących były z języka angielskiego, zaś najmniejsze - z matematyki. Najgorzej ze wszystkich grup radzili sobie maturzyści, którzy ukończyli licea profilowane. 
+
+Niezależnie od tego absolwenci szkół dla dorosłych, szkół specjalnych i szkół niepublicznych uzyskali nieco gorsze wyniki od ich kolegów z pozostałych typów szkół.
+
+Drugim czynnikiem silnie korelującym z wynikami był wiek maturzystów: im młodsi, tym uzyskiwali lepsze wyniki. Jako grupę odniesienia wykorzystano tu 19-latków, stanowiących najliczniejszą grupę wiekową. Co ciekawe, największe różnice, w przypadku osób mających ponad 20 lat, dotyczyły matematyki [jak to pogodzić z tym, że wśród absolwentów techników i szkół uzupełniających właśnie matematyka szła najlepiej?].
+
+Płeć zdających również korelowała z wynikami matur. Przy tym mężczyźni radzili sobie lepiej z maturą z matematyki i języka angielskiego, natomiast kobiety - z językiem polskim.
+
+Kolejnym rozważanym czynnikiem był typ gminy, w której znajdowała się kończona przez maturzystów szkoła średnia. Jako czynnik odniesienia wybrano tu najliczniej reprezentowane gminy miejskie, przy czym osobno rozważono wyróżnione w bazie danych dzielnice Warszawy na prawach gminy. Jak się okazuje, maturzyści z gmin wiejsko-miejskich i miejskich radzili sobie podobnie. Równiez maturzyści z Warszawy nie wyróżniali się szczególnie na tle innych miast, za wyjątkiem nieco słabszych wyników z języka polskiego. Natomiast osoby, które ukończyły szkoły w gminach wiejskich miały nieco gorsze wyniki, niż ich koledzy z miast.
+
+Z rodzajem gminy powiązana jest również wielkość miejscowości. Jednak nawet po uwzględnieniu tego powiązania widać, że absolwenci szkół średnich położonych w większych miejscowościach częściej uzyskiwali dobre wyniki matur. 
 
 ## Wyniki uzyskane przez finalistów i laureatów olimpiad
 
