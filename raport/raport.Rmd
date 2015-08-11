@@ -36,11 +36,23 @@ cat(paste0("\nRyc. ", figr(label), ": ",
 
 # Abstrakt
 
-Niniejszy raport przedstawia rezultaty realizacji mikrograntu DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", opracowane okresie kwiecień-lipiec 2015. Prezentujemy tu główne wyniki oraz opisujemy stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównaia wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur. 
+Niniejszy raport przedstawia rezultaty realizacji mikrograntu DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", opracowane okresie kwiecień-lipiec 2015. Analizowaliśmy dane maturalne z lat 2010-2014 pochodzące z zbioru Zespołu Pomiaru Dydaktycznego Instytutu Badań Edukacyjnych. Prezentujemy tu główne wyniki oraz opisujemy stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównaia wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur. 
 
-## Najciekawsze spostrzeżenia
+# Wstęp
 
-W 2014 roku:
+Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceum oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem do przekrojowej analizy edukacji przedakademickiej w Polsce, której wyniki można porównać z innymi miarami zdolności i wiedzy [`r figr("sciezki_2014", type="reference")`].
+
+Korzystając z danych maturalnych można nie tylko prześledzić bezpośrednie wyniki, ale też wyciągnąć wnioski dotyczące efektywnych możliwości edukacyjnych danej szkoły czy regionu. Co więcej, pozwalają one porównać egzaminy maturalne z różnych przedmiotów między sobą, a także z innymi wynikami edukacyjnymi.
+
+Projekt przewidywał przeanalizowanie danych z matur [`r figr("ZPD", type="reference")`], składających się ze zanonimizowanych wyników z każdego zadania i dla każdego przedmiotu, z lat 2010-2014, połączonych z dodatkowymi danymi o szkołach. Pozwoliło to zbadać, jakie czynniki, związane z maturzystami, ukończonymi przez nich szkołami średnimi wpływają na wyniki matur. Umożliwiło również analizę zróżnicowania geograficznego uzyskanych wyników a także zbadanie wyboru przedmiotów dokonanego przez maturzystów: jakie egzaminy były ze sobą łączone. 
+
+W ramach projektu przeanalizowano również dane dotyczące finalistów i laureatów olimpiad przedmiotowych. Zbadano, jak radzili sobie z obowiązkowymi przedmiotami maturalnymi oraz czy i które z tych konkursów były najczęściej łączone.
+
+Mniej uwagi poświęcono natomiast kwestii zdawalności poszczególnych matur. Po pierwsze, jest to zagadnienie szeroko omawiane w innych opracowaniach, na przykład raportach Centralnej Komisji egzaminacyjnej [`r figr("CKE_2014", type="reference")`]. Oprócz tego liczba uzyskanych punktów dostarcza więcej informacji zwrotnej na temat umiejętności i przygotowania maturzysty, niż zero-jedynkowe stwierdzenie, czy zdał lub nie.
+
+Głównym celem projektu było przedstawienie danych maturalnych w postaci interaktnywch wizualizacji, które pozwoliły na eksplorację i wyciąganie wniosków z danych. Umożliwiają również atrakcyjne przedstawienie wyników, przystępne także dla osób nie związanych z analizą danych.
+
+## Wybrane spostrzeżenia
 
 * Wśród przedmiotów do wyboru na maturze widać trzy grupy wspólnie wybieranych: humanistyczno-społeczne, ścisłe i przyrodnicze. Rozszerzony język angielski był często łączony z przedmiotami rozszerzonymi z wszystkich trzech grup.
 
@@ -79,20 +91,6 @@ W 2014 roku:
 * Multiolimpijczycy tworzą dwie wyodrębniające się grupy: laureatów i finalistów olimpiad humanistyczno-społecznych oraz olimpiad ścisłych i przyrodniczych. Olimpiada z języka angielskiego łączy obie grupy.
 
 * Nie widać wyraźnych ogólnych trendów przestrzennych w zróżnicowaniu wyników matur między województwami. Można natomiast wyróżnić województwa, w których maturzyści na przestrzeni lat 2010-2014 uzyskiwali lepsze od średniej krajowej wyniki z większości matur (zachodniopomorskie, małopolskie i śląskie) i takie, w których uzyskiwali gorsze (dolnośląskie, warmińsko-mazurskie i łódzkie).
-
-# Wstęp
-
-Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceum oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem do przekrojowej analizy edukacji przedakademickiej w Polsce, której wyniki można porównać z innymi miarami zdolności i wiedzy [`r figr("sciezki_2014", type="reference")`].
-
-Korzystając z danych maturalnych można nie tylko prześledzić bezpośrednie wyniki, ale też wyciągnąć wnioski dotyczące efektywnych możliwości edukacyjnych danej szkoły czy regionu. Co więcej, pozwalają one porównać egzaminy maturalne z różnych przedmiotów między sobą, a także z innymi wynikami edukacyjnymi.
-
-Projekt przewidywał przeanalizowanie danych z matur [`r figr("ZPD", type="reference")`], składających się ze zanonimizowanych wyników z każdego zadania i dla każdego przedmiotu, z lat 2010-2014, połączonych z dodatkowymi danymi o szkołach. Pozwoliło to zbadać, jakie czynniki, związane z maturzystami, ukończonymi przez nich szkołami średnimi wpływają na wyniki matur. Umożliwiło również analizę zróżnicowania geograficznego uzyskanych wyników a także zbadanie wyboru przedmiotów dokonanego przez maturzystów: jakie egzaminy były ze sobą łączone. 
-
-W ramach projektu przeanalizowano również dane dotyczące finalistów i laureatów olimpiad przedmiotowych. Zbadano, jak radzili sobie z obowiązkowymi przedmiotami maturalnymi oraz czy i które z tych konkursów były najczęściej łączone.
-
-Mniej uwagi poświęcono natomiast kwestii zdawalności poszczególnych matur. Po pierwsze, jest to zagadnienie szeroko omawiane w innych opracowaniach, na przykład raportach Centralnej Komisji egzaminacyjnej [`r figr("CKE_2014", type="reference")`]. Oprócz tego liczba uzyskanych punktów dostarcza więcej informacji zwrotnej na temat umiejętności i przygotowania maturzysty, niż zero-jedynkowe stwierdzenie, czy zdał lub nie.
-
-Głównym celem projektu było przedstawienie danych maturalnych w postaci interaktnywch wizualizacji, które pozwoliły na eksplorację i wyciąganie wniosków z danych. Umożliwiają również atrakcyjne przedstawienie wyników, przystępne także dla osób nie związanych z analizą danych.
 
 # Wyniki
 
@@ -459,7 +457,7 @@ Bardzo dziękujemy Mateuszowi Żółtakowi z Instytutu Badań Edukacyjnych za ce
 
 ```{r CKE_2014, anchor="reference"}
 ```
-[`r figr("CKE_2014", type="reference")`] Kozak W., Grabowska A., Smolik M. i inni (2014) Sprawozdanie ogólne z egzaminu maturalnego 2014. Centralna Komisja Egzaminacyjna, Warszawa. online http://www.cke.edu.pl/index.php/egzamin-maturalny-left/informacje-o-wynikach-z-lat-2005-2015/23-egzamin-maturalny/400-sprawozdanie-z-egaminu-maturalnego-2014
+[`r figr("CKE_2014", type="reference")`] Kozak W., Grabowska A., Smolik M. i inni (2014) Sprawozdanie ogólne z egzaminu maturalnego 2014. Centralna Komisja Egzaminacyjna, Warszawa. http://www.cke.edu.pl/index.php/egzamin-maturalny-left/informacje-o-wynikach-z-lat-2005-2015/23-egzamin-maturalny/400-sprawozdanie-z-egaminu-maturalnego-2014
 
 ```{r MEN_2007, anchor="reference"}
 ```
@@ -471,20 +469,20 @@ Bardzo dziękujemy Mateuszowi Żółtakowi z Instytutu Badań Edukacyjnych za ce
 
 ```{r d3js, anchor="reference"}
 ```
-[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3js [biblioteka programistyczna do wizualizacji danych w JavaScript], online http://d3js.org/
+[`r figr("d3js", type="reference")`] Bostock, M. (2015) D3.js, http://d3js.org/
 
 ```{r ggplot2, anchor="reference"}
 ```
-[`r figr("ggplot2", type="reference")`] Wickham H., Chang W. (2015) ggplot2 1.0.1 [biblioteka programistyczna do tworzenia wykresów w R], online http://ggplot2.org/, https://cran.r-project.org/web/packages/ggplot2/
+[`r figr("ggplot2", type="reference")`] Wickham H., Chang W. (2015) ggplot2 1.0.1 [biblioteka programistyczna do tworzenia wykresów w R], http://ggplot2.org/, https://cran.r-project.org/web/packages/ggplot2/
 
 ```{r shiny, anchor="reference"}
 ```
-[`r figr("shiny", type="reference")`] Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], online http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
+[`r figr("shiny", type="reference")`] Chang W., Cheng J., Allaire J. J., i inni (2015) Shiny 0.12.0 [biblioteka programistyczna do tworzenia interaktywnych wizualizacji w R], http://shiny.rstudio.com/, https://cran.r-project.org/web/packages/shiny/
 
 ```{r CKE_komunikat_2013, anchor="reference"}
 ```
 [`r figr("CKE_komunikat_2013", type="reference")`]
-Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sprawie sposobów dostosowania warunków i form przeprowadzania w roku szkolnym 2013/2014 egzaminu maturalnego do potrzeb absolwentów ze specjalnymi potrzebami edukacyjnymi, w tym niepełnosprawnych, niedostosowanych społecznie oraz zagrożonych niedostosowaniem społecznym. online: http://cke.edu.pl/images/files/komunikaty_Dyrektora/sierpien/Komunikat_Sprawdzian_i_egzamin_gimnazjalny_2014.pdf
+Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sprawie sposobów dostosowania warunków i form przeprowadzania w roku szkolnym 2013/2014 egzaminu maturalnego do potrzeb absolwentów ze specjalnymi potrzebami edukacyjnymi, w tym niepełnosprawnych, niedostosowanych społecznie oraz zagrożonych niedostosowaniem społecznym. http://cke.edu.pl/images/files/komunikaty_Dyrektora/sierpien/Komunikat_Sprawdzian_i_egzamin_gimnazjalny_2014.pdf
 
 ```{r Simpson, anchor="reference"}
 ```
@@ -492,15 +490,15 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 
 ```{r OJA, anchor="reference"}
 ```
-[`r figr("OJA", type="reference")`] Regulamin Olimpiady Języka Angielskiego, online http://www.wsjo.pl/oja/?id=16
+[`r figr("OJA", type="reference")`] Regulamin Olimpiady Języka Angielskiego, http://www.wsjo.pl/oja/?id=16
 
 ```{r ZPD, anchor="reference"}
 ```
-[`r figr("ZPD", type="reference")`] Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
+[`r figr("ZPD", type="reference")`] Zespół Pomiaru Dydaktycznego, http://zpd.ibe.edu.pl
 
 ```{r IB, anchor="reference"}
 ```
-[`r figr("IB", type="reference")`] International Baccalaureate Organization, online http://www.ibo.org/en/country/PL/
+[`r figr("IB", type="reference")`] International Baccalaureate Organization, http://www.ibo.org/en/country/PL/
 
 ```{r Slownik_rozwoju, anchor="reference"}
 ```
@@ -508,15 +506,15 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 
 ```{r GADM, anchor="reference"}
 ```
-[`r figr("GADM", type="reference")`] Global Administrative Areas (GADM), online http://www.gadm.org
+[`r figr("GADM", type="reference")`] Global Administrative Areas (GADM), http://www.gadm.org
 
 ```{r CODGiK, anchor="reference"}
 ```
-[`r figr("CODGiK", type="reference")`] Zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
+[`r figr("CODGiK", type="reference")`] Zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, http://www.codgik.gov.pl/
 
 ```{r IBE_EWD, anchor="reference"}
 ```
-[`r figr("IBE_EWD", type="reference")`]Żółtak T., Statystyczne modelowanie wskaźników edukacyjnej wartości dodanej - podsumowanie polskich doświadczeń (2013), Analizy IBE/02/2013, http://www.ibe.edu.pl/images/publikacje/ibe-raport-modelowanie-wskaznikow-ewd.pdf
+[`r figr("IBE_EWD", type="reference")`] Żółtak T. (2013) Statystyczne modelowanie wskaźników edukacyjnej wartości dodanej - podsumowanie polskich doświadczeń, Analizy IBE/02/2013, http://www.ibe.edu.pl/images/publikacje/ibe-raport-modelowanie-wskaznikow-ewd.pdf
 
 ```{r Statsmodels, anchor="reference"}
 ```
@@ -524,6 +522,4 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 
 ```{r sciezki_2013, anchor="reference"}
 ```
-[`r figr("sciezki_2013", type="reference")`] Karwowski M. (red.), Ścieżki rozwoju młodzieży - szkoły ponadgimnazjalne, Wydawnictwo IFIS PAN, Warszawa 2013, http://www.ifispan.waw.pl/pliki/sciezki_rozwoju_archiv_pop.pdf
-
-
+[`r figr("sciezki_2013", type="reference")`] Karwowski M. (red.) (2013) Ścieżki rozwoju młodzieży - szkoły ponadgimnazjalne, Wydawnictwo IFIS PAN, Warszawa, http://www.ifispan.waw.pl/pliki/sciezki_rozwoju_archiv_pop.pdf
