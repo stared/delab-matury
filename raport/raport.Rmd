@@ -82,11 +82,11 @@ W 2014 roku:
 
 # Wstęp
 
-Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceum oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem do przekrojowej analizy edukacji przedakademickiej w Polsce.
+Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceum oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem do przekrojowej analizy edukacji przedakademickiej w Polsce, której wyniki można porównać z innymi miarami zdolności i wiedzy [`r figr("sciezki_2014", type="reference")`].
 
 Korzystając z danych maturalnych można nie tylko prześledzić bezpośrednie wyniki, ale też wyciągnąć wnioski dotyczące efektywnych możliwości edukacyjnych danej szkoły czy regionu. Co więcej, pozwalają one porównać egzaminy maturalne z różnych przedmiotów między sobą, a także z innymi wynikami edukacyjnymi.
 
-Projekt przewidywał przeanalizowanie danych z matur, składających się ze zanonimizowanych wyników z każdego zadania i dla każdego przedmiotu, z lat 2010-2014, połączonych z dodatkowymi danymi o szkołach. Pozwoliło to zbadać, jakie czynniki, związane z maturzystami, ukończonymi przez nich szkołami średnimi wpływają na wyniki matur. Umożliwiło również analizę zróżnicowania geograficznego uzyskanych wyników a także zbadanie wyboru przedmiotów dokonanego przez maturzystów: jakie egzaminy były ze sobą łączone.
+Projekt przewidywał przeanalizowanie danych z matur [`r figr("ZPD", type="reference")`], składających się ze zanonimizowanych wyników z każdego zadania i dla każdego przedmiotu, z lat 2010-2014, połączonych z dodatkowymi danymi o szkołach. Pozwoliło to zbadać, jakie czynniki, związane z maturzystami, ukończonymi przez nich szkołami średnimi wpływają na wyniki matur. Umożliwiło również analizę zróżnicowania geograficznego uzyskanych wyników a także zbadanie wyboru przedmiotów dokonanego przez maturzystów: jakie egzaminy były ze sobą łączone. 
 
 W ramach projektu przeanalizowano również dane dotyczące finalistów i laureatów olimpiad przedmiotowych. Zbadano, jak radzili sobie z obowiązkowymi przedmiotami maturalnymi oraz czy i które z tych konkursów były najczęściej łączone.
 
@@ -281,14 +281,16 @@ Kolejną zaletą analizowania korelacji jest zwięzłość uzyskanej informacji.
 
 Ze względu na wspomniane różnice w obu podejściach zdecydowano się w raporcie omówić zarówno zestawienia histogramów jak i regresje w modelu liniowym.
 
-Na koniec warto wspomnieć o jeszcze jednej kwestii technicznej: do sporządzenia regresji konieczne było unormowanie rozkładów wyników matur. Dzięki temu łatwiej można było porównywać wpływ badanych czynników na wyniki z różnych przedmiotów. Również pomiędzy latami zestawy pytań mogły nieco różnić się trudnością, więc unormowanie pomogło odróżnić wieloletnie trendy od losowych fluktuacji. [tu opis techniczny normowania - Piotr]
+W celu przeprowadzenia regresji rozkłady zostały znormalizowane, zgodnie z doświadczeniem Instututu Badań Edukacyjnych [`r figr("IBE_WED", type="reference")`]. Normalizacja polegała na takim przeskalowaniu rozkładów, by odpowiadały kształtem rozkład normalny. Służyło to kilku celom. Po pierwsze, metody liniowe działają najlepiej dla wielowymiarowych rozkładów normalnych; w przypadku innych rozkładów przeskalowanie wyników jest pomocne. Po drugie, wyniki matur różnią się pomiędzy latami - nie tylko średnia i odchyleniem standardowym, ale i całym kształtem rozkładu. Drastyczne zmiany z roku na rok wynikają raczej z innej specyfiki pytań (np. więcej łatwych lub trudnych) niż tak szybkiej zmiany jakości kształcenia czy motywacji uczniów. W celu umożliwienia porównania wyników z kilku lat kluczowe jest doprowadzić je do tej samej formy.
 
-Analizę korelacji wykonano w języku *Python* korzystając z bibliotek [...]
+Przy tej liczbie danych niepewności statystyczne współcznników regresji liniowej są znikome. Nie oznacza to jednak, że uzyskane wyniki nie są obciążone błędami systematycznymi - związanymi np. z takim a nie innym skalowaniem wyników, lub też innymi czynnikami, na które nie mamy konktroli. W tym celu zmierzono współczynniki w zależności od roku - i przedstawiono ich średnie oraz odchylenia standardowe. Tym można zobaczyć, które korelacje są zawsze podobne, a które charakteryzują się zmiennością.
+
+Analiże korelacji wykonano w języku Python przy pomocy biblioteki Statsmodels [`r figr("Statsmodels", type="reference")`].
 
 ```{r korelacje, echo = F, results = 'asis', anchor="figure"}
 cat("![](korelacje.png)")
 
-caption('korelacje', "Współczynniki korelacji różnych czynników z unormowanymi wynikami trzech obowiązkowych matur w latach 2010-2014. Czarne linie oznaczają odchylenia standardowe (pomiędzy latami?)")
+caption('korelacje', "Współczynniki korelacji różnych czynników z unormowanymi wynikami trzech obowiązkowych matur w latach 2010-2014. Czarne linie oznaczają odchylenia standardowe pomiędzy współczynnikami regresji w różnych latach.")
 ```
 
 # Obserwacje
@@ -299,7 +301,7 @@ Po pierwsze, uzyskane wyniki silnie zależały od typu ukończonej szkoły. Najl
 
 Niezależnie od tego absolwenci szkół dla dorosłych, szkół specjalnych i szkół niepublicznych uzyskali nieco gorsze wyniki od ich kolegów z pozostałych typów szkół.
 
-Drugim czynnikiem silnie korelującym z wynikami był wiek maturzystów: im młodsi, tym uzyskiwali lepsze wyniki. Jako grupę odniesienia wykorzystano tu 19-latków, stanowiących najliczniejszą grupę wiekową. Co ciekawe, największe różnice, w przypadku osób mających ponad 20 lat, dotyczyły matematyki [jak to pogodzić z tym, że wśród absolwentów techników i szkół uzupełniających właśnie matematyka szła najlepiej?].
+Drugim czynnikiem silnie korelującym z wynikami był wiek maturzystów: im młodsi, tym uzyskiwali lepsze wyniki. Jako grupę odniesienia wykorzystano tu 19-latków, stanowiących najliczniejszą grupę wiekową. Co ciekawe, największe różnice, w przypadku osób mających ponad 20 lat, dotyczyły matematyki.
 
 Płeć zdających również korelowała z wynikami matur. Przy tym mężczyźni radzili sobie lepiej z maturą z matematyki i języka angielskiego, natomiast kobiety - z językiem polskim.
 
@@ -401,7 +403,7 @@ Ostrożnie należy podchodzić do analizy wyników z podstawowego WOS-u w roku 2
 
 ## Źródło danych
 
-Większość danych użytych w tym projekcie pochodziła ze strony Zespołu Pomiaru Dydaktycznego (http://zpd.ibe.edu.pl). Dokładniej, wykorzystano następujące zbiory danych:
+Większość danych użytych w tym projekcie pochodziła ze strony Zespołu Pomiaru Dydaktycznego  `r figr("ZPD", type="reference")`. Dokładniej, wykorzystano następujące tabularyczne zbiory danych:
 
 * szkoly
 
@@ -417,23 +419,41 @@ Dane te pochodzą z Centralnej i Okręgowych Komisji Egzaminacyjnych oraz Instyt
 
 Dane dostępne na stronie ZPD dotyczą części pisemnych 20 egzaminów maturalnych: 10 najczęściej wybieranych przedmiotów (biologii, chemii, fizyki, geografii, historii, informatyki, języka angielskiego, języka polskiego, matematyki i wiedzy o społeczenstwie), na poziomie podstawowym i rozszerzonym. Brakuje tam jednak wyników rzadziej wybieranych przedmiotów, a w szczególności matur z innych języków niż polski i angielski.
 
+## Błędy i braki w danych
+
 Jak w wielu bazach danych, również w bazie ZPD pojawiają się czasem błędy lub braki. Jednym z nich jest niedobór liczby maturzystów zdających podstawowy WOS w 2014 roku (11 tys. w porównaniu z prawie 25 tys. podawanymi w sprawozdaniu CKE `r figr("CKE_2014", type="reference")`. Poza tym dane na temat osób poprawiających były na tyle często niekompletne, że w tym projekcie zajęliśmy się wyłącznie osobami podchodzącymi po raz pierwszy do pisania matury.
 
 Poza tym zastrzeżenia może budzić liczba olimpijczyków, w porównaniu do liczby uczniów corocznie kwalifikowanych do finałów olimpiad przedmiotowych, które to informacje można znaleść na stronach internetowych poszczególnych konkursów. Jednak w tym wypadku powodem nieścisłości może być to, że informacje o olimpiadach w bazie ZDP dotyczą maturzystów z danego roku, którzy mogli uczestniczyć w różnych edycjach olimpiad. Możliwe jest, że w poszczególnych latach zmieniała się wśród maturzystów liczba osób uczestniczących w olimpiadach na różnych latach nauki w szkole średniej. W bazie ZPD nie wyróżniono też osób, które kilkukrotnie dostały się do finału tej samej olimpiady, co w rezultacie mogło nieco zaniżyć liczbę maturzystów-olimpijczyków w porównaniu z liczbą osób osób corocznie otrzymujących tytuł finalisty lub laureata. Wreszcie, część olimpijczyków mogła zdawać maturę międzynarodową (International Baccalaureate). Choć jedynie 37 szkół oferuje klasy z programem przygotowującym do tego egzaminu (dane z roku 2015: International Baccalaureate Organization [`r figr("IB", type="reference")`]), to jest to możliwość skierowana do szczególnie ambitnych uczniów, planujących studia w prestiżowych zagranicznych uczelniach. Być może więc wśród olimpijczyków całkiem spora grupa wybiera zdawanie matury międzynarodowej, zamiast standardowej. 
 
 Dodatkowo do stworzenia interaktywnej mapy użyto plików konturowych: przekształconego pliku *POL_adm1.shp* ze strony Global Administrative Areas (GADM) [`r figr("GADM", type="reference")`] oraz zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju z Centralnego Ośrodka Dokumentacji Geodezyjnej i Kartograficznej - CODGiK [`r figr("CODGiK", type="reference")`].
 
-## Przetwarzanie i wizualizacja danych
-
-R (i jakie biblioteki), Python (i jakie biblioteki), D3js.
-
-Github
-
-## Główne problemy
 
 # Podsumowanie
 
-W tym plany (tj. rzeczy, które rozgrzebaliśmy)
+W ramach mikrograntu przeprowadziliśmy szereg analiz danych maturalnych z lat 2010-2014. W szczególności analizowaliśmy:
+
+* wyniki matur (w postaci surowego histogramu) w zależności od różnych czynników demograficznych,
+* wyniki z matur laureatów olimpiad,
+* korelacje między wynikami z matur,
+* model regresyjny zależności średnich znormalizowanych wyników z matur od czynników demograficznych,
+* współzdawanie matur,
+* zakwalifikowanie się do finałów wielu olimpiad przedmiotowych jednocześnie.
+
+Stworzyliśmy szereg interaktywnych wizualizacji danych, które pozwalają nie tylko zobaczyć znalezione trendy, ale szukać nowych. Wizualizacje są dostępne z poziomu przeglądarki internetowej i nie wymagają instalacji ani logowania. Tym samym pozwol
+
+* eksplorator histogramów matur, z podziałem na różne czynniki,
+* graf współzdawania matur,
+* graf bycia laureatem kilku przedmiotów,
+* mapa zdawalności i wyników matur w zależności od wojedzództwa.
+
+Nasza wstępna analiza danych stanowi otwarcie drogi do dalszych projektów związanych z analizą danych maturalnych oraz wizualizacją wyników. W szczególności:
+
+* interaktywnej mapy szkół ponadgimnazjalnych,
+* bardziej zaawansowanych modeli zależności wyników od czynników demograficznych,
+* zależności wyników od innych czynników demograficznych (np. produkt krajowy brutto na mieszkańca dla danego powiatu).
+
+Bardzo dziękujemy Mateuszowi Żółtakowi z Instytutu Badań Edukacyjnych za cenne wskazówki co do specyfiki danych, wcześniej uzyskanych wyników oraz doświadczeń z pracy z tymi danymi.
+
 
 # Bibliografia
 
@@ -476,7 +496,7 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 
 ```{r ZPD, anchor="reference"}
 ```
-[`r figr("ZPD", type="reference")`] dane: Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
+[`r figr("ZPD", type="reference")`] Zespół Pomiaru Dydaktycznego, online http://zpd.ibe.edu.pl
 
 ```{r IB, anchor="reference"}
 ```
@@ -493,3 +513,17 @@ Komunikat Dyrektora Centralnej Komisji Egzaminacyjnej z 30 sierpnia 2013 r. w sp
 ```{r CODGiK, anchor="reference"}
 ```
 [`r figr("CODGiK", type="reference")`] Zbiory danych państwowego rejestru granic i powierzchni jednostek podziałów terytorialnych kraju. Centralny Ośrodek Dokumentacji Geodezyjnej i Kartograficznej - CODGiK, online http://www.codgik.gov.pl/
+
+```{r IBE_EWD, anchor="reference"}
+```
+[`r figr("IBE_EWD", type="reference")`]Żółtak T., Statystyczne modelowanie wskaźników edukacyjnej wartości dodanej - podsumowanie polskich doświadczeń (2013), Analizy IBE/02/2013, http://www.ibe.edu.pl/images/publikacje/ibe-raport-modelowanie-wskaznikow-ewd.pdf
+
+```{r Statsmodels, anchor="reference"}
+```
+[`r figr("Statsmodels", type="reference")`] Statsmodels 0.6.1, http://statsmodels.sourceforge.net/
+
+```{r sciezki_2013, anchor="reference"}
+```
+[`r figr("sciezki_2013", type="reference")`] Karwowski M. (red.), Ścieżki rozwoju młodzieży - szkoły ponadgimnazjalne, Wydawnictwo IFIS PAN, Warszawa 2013, http://www.ifispan.waw.pl/pliki/sciezki_rozwoju_archiv_pop.pdf
+
+
