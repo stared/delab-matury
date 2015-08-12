@@ -273,11 +273,11 @@ Mimo ostrożności, jaką należy zachować interpretując te wyniki (w szczegó
 
 ## Korelacje wyników matur z innymi czynnikami
 
-Badanie kształtu rozkładu wyników matur wśród różnych grup maturzystów nie jest jedynym sposobem na zbadanie, jakie czynniki mogły wpływać na uzyskana liczbę punktów. Innym, bardziej standardowym podejściem jest analiza współczynników korelacji.
+Badanie kształtu rozkładu wyników matur wśród różnych grup maturzystów nie jest jedynym sposobem na zbadanie, jakie czynniki mogły wpływać na uzyskana liczbę punktów. Innym, bardziej standardowym podejściem jest analiza współczynników regresji.
 
 W porównaniu z poprzednio opisaną metodą jest to sposób bardziej syntetyczny, pozwalający zwięźlej przedstawić obserwowane zależności. Umożliwia też uwzględnienie równocześnie wszystkich badanych czynników, a dzięki temu na wyłowienie wpływu, jaki każdy z nich ma na uzyskane przez maturzystów, niezależnie od pozostałych, powiązanych czynników. Przykładowo, wiek maturzystów jest silnie związany z rodzajem kończonej szkoły: 19-latkowie to głównie absolwenci 3 letnich liceów, natomiast 20-latkowie to w dużej mierze osoby kończące 4-letnie technika. Zastosowanie modelu uwzględniającego zarówno wiek, jak i rodzaj szkoły umożliwia rozdzielenie wpływu tych dwóch czynników na uzyskane wyniki. 
 
-Kolejną zaletą analizowania korelacji jest zwięzłość uzyskanej informacji. Umożliwia ona łatwiejsze zestawienie uzyskanych zależności dla różnych czynników, egzaminów i lat, w których zostały przeprowadzone. Kosztem tej zwięzłości jest jednak utrata części informacji na temat zmienności między poszczególnymi maturzystami i uproszczenie obserwowanych zależności. Przy użyciu korelacji nie można na przykład wykryć sytuacji, gdy jedna z grup maturzystów ma większe zróżnicowanie wyników, niż druga. Kolejnym uproszczeniem jest zastosowanie liniowego modelu zależności między badanymi czynnikami a wynikiem matur. Rzeczywiste zależności, zwłaszcza dla zmiennych ilościowych, takich jak na przykład wielkość miejscowości, mogą być bardziej złożone.
+Kolejną zaletą analizowania współczynników korelacji jest zwięzłość uzyskanej informacji. Umożliwia ona łatwiejsze zestawienie uzyskanych zależności dla różnych czynników, egzaminów i lat, w których zostały przeprowadzone. Kosztem tej zwięzłości jest jednak utrata części informacji na temat zmienności między poszczególnymi maturzystami i uproszczenie obserwowanych zależności. Kolejnym uproszczeniem jest zastosowanie liniowego modelu zależności między badanymi czynnikami a wynikiem matur. Rzeczywiste zależności, zwłaszcza dla zmiennych ilościowych mogą być bardziej złożone.
 
 Ze względu na wspomniane różnice w obu podejściach zdecydowano się w raporcie omówić zarówno zestawienia histogramów jak i regresje w modelu liniowym.
 
@@ -288,7 +288,7 @@ Przy tej liczbie danych niepewności statystyczne współcznników regresji lini
 Analiże korelacji wykonano w języku *Python* przy pomocy biblioteki *Statsmodels* [`r figr("Statsmodels", type="reference")`].
 
 ```{r korelacje, echo = F, results = 'asis', anchor="figure"}
-cat("![](korelacje.png)")
+cat("![](wspolczynniki_regresji.png)")
 
 caption('korelacje', "Współczynniki korelacji różnych czynników z unormowanymi wynikami trzech obowiązkowych matur w latach 2010-2014. Czarne linie oznaczają odchylenia standardowe pomiędzy współczynnikami regresji w różnych latach.")
 ```
