@@ -1,4 +1,4 @@
-# delab-matury
+# Analiza i wizualizacja danych maturalnych, DELab UW
 
 [Piotr Migdał](http://migdal.wikidot.com/), Marta Czarnocka-Cieciura
 
