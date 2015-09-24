@@ -36,55 +36,55 @@ cat(paste0("\nRyc. ", figr(label), ": ",
 
 # Abstrakt
 
-Niniejszy raport przedstawia rezultaty realizacji mikrograntu DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", opracowane okresie kwiecień-lipiec 2015. Analizowaliśmy dane maturalne z lat 2010-2014 pochodzące z zbioru Zespołu Pomiaru Dydaktycznego Instytutu Badań Edukacyjnych. Prezentujemy tu główne wyniki oraz opisujemy stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównaia wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur. 
+Niniejszy raport przedstawia wyniki uzyskane w mikrograncie DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", realizowanym w okresie kwiecień-lipiec 2015. Przeanalizowano dane maturalne z lat 2010-2014 pochodzące ze zbioru Zespołu Pomiaru Dydaktycznego Instytutu Badań Edukacyjnych. W niniejszym raporcie zaprezentowano główne wyniki oraz opisano stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównaia wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur. 
 
 # Wstęp
 
-Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceum oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem do przekrojowej analizy edukacji przedakademickiej w Polsce, której wyniki można porównać z innymi miarami zdolności i wiedzy [`r figr("sciezki_2013", type="reference")`].
+Egzamin maturalny jest testem uprawniającym do aplikacji na studia wyższe. Przystępują do niego niemal wszyscy absolwenci liceów oraz wielu absolwentów innych szkół ponadgimnazjalnych z całego kraju. Tym samym dane związane z maturami są istotnym źródłem dla przekrojowej analizy edukacji przedakademickiej w Polsce, której wyniki można porównać z innymi miarami zdolności i wiedzy [`r figr("sciezki_2013", type="reference")`].
 
 Korzystając z danych maturalnych można nie tylko prześledzić bezpośrednie wyniki, ale też wyciągnąć wnioski dotyczące efektywnych możliwości edukacyjnych danej szkoły czy regionu. Co więcej, pozwalają one porównać egzaminy maturalne z różnych przedmiotów między sobą, a także z innymi wynikami edukacyjnymi.
 
-Projekt przewidywał przeanalizowanie danych z matur, składających się ze zanonimizowanych wyników z każdego zadania i dla 10 najczęściej zdawanych przedmiotów, z lat 2010-2014, połączonych z dodatkowymi danymi o szkołach [`r figr("ZPD", type="reference")`]. Pozwoliło to zbadać, jakie czynniki, związane z maturzystami i ukończonymi przez nich szkołami średnimi wpływają na wyniki matur. Umożliwiło również analizę zróżnicowania geograficznego uzyskanych wyników a także zbadanie wyboru przedmiotów dokonanego przez maturzystów.
+Projekt przewidywał przeanalizowanie danych z matur z lat 2010-2014, składających się ze zanonimizowanych wyników z każdego zadania dla 10 najczęściej zdawanych przedmiotów, połączonych z dodatkowymi informacjami o maturzystach i ukończonych przez nich szkołach [`r figr("ZPD", type="reference")`]. Pozwoliło to zbadać, jakie czynniki wpływają na wyniki matur. Umożliwiło też analizę zróżnicowania geograficznego uzyskanych wyników, a także zbadanie wyboru przedmiotów dokonanego przez maturzystów.
 
 W ramach projektu przeanalizowano również dane dotyczące finalistów i laureatów olimpiad przedmiotowych. Zbadano, jak radzili sobie z obowiązkowymi przedmiotami maturalnymi oraz czy i które z tych konkursów były najczęściej łączone.
 
 Mniej uwagi poświęcono natomiast kwestii zdawalności poszczególnych matur. Po pierwsze, jest to zagadnienie szeroko omawiane w innych opracowaniach, na przykład raportach Centralnej Komisji egzaminacyjnej [`r figr("CKE_2014", type="reference")`]. Oprócz tego liczba uzyskanych punktów dostarcza więcej informacji zwrotnej na temat umiejętności i przygotowania maturzysty niż zero-jedynkowe stwierdzenie, czy zdał lub nie.
 
-Głównym celem projektu było przedstawienie danych maturalnych w postaci interaktnywch wizualizacji, które pozwoliły na eksplorację i wyciąganie wniosków z danych. Umożliwiają również atrakcyjne przedstawienie wyników, przystępne także dla osób mniej obeznanych z technikami analizy danych.
+Głównym celem projektu było przedstawienie danych maturalnych w postaci interaktnywch wizualizacji, które pozwalają na eksplorację danych i wyciąganie z nich wniosków. Umożliwiają również atrakcyjne przedstawienie wyników, przystępne także dla osób mniej obeznanych z technikami analizy danych.
 
 ## Wybrane spostrzeżenia
 
 * Więcej kobiet niż mężczyzn przystąpiło do pisania matury.
 
-* Częściej wybierane przez dziewczęta były przedmioty przyrodnicze: biologia i chemia oraz WOS na obu poziomach i rozszerzony język polski.
+* Kobiety częściej niż mężczyźni wybierały przedmioty przyrodnicze: biologię i chemię, a także WOS na obu poziomach i rozszerzony język polski.
 
-* Częściej wybierane przez chłopców były przedmioty ścisłe (informatyka i fizyka na obu poziomach, rozszerzona matematyka) oraz historia na obu poziomach i podstawowa geografia.
+* Mężczyźni częściej niż kobiety wybierali przedmioty ścisłe (informatykę i fizykę na obu poziomach, rozszerzoną matematykę), a także historię na obu poziomach i podstawową geografię.
 
 * Wśród przedmiotów do wyboru na maturze widać trzy grupy wspólnie wybieranych: humanistyczno-społeczne, ścisłe i przyrodnicze. Rozszerzony język angielski był często łączony z przedmiotami rozszerzonymi z wszystkich trzech grup.
 
-* Chłopcy częściej uzyskiwali najlepsze wyniki z angielskiego, geografii i historii na obu poziomach oraz z biologii, chemii i WOS-u na poziomie rozszerzonym. 
+* Mężczyźni częściej niż kobiety uzyskiwali bardzo dobre wyniki z angielskiego, geografii i historii na obu poziomach oraz z biologii, chemii i WOS-u na poziomie rozszerzonym. 
 
-* Dziewczęta częściej miały najlepsze wyniki z języka polskiego na obu poziomach oraz z podstawowych przedmiotów przyrodniczych: biologii, chemii i fizyki.
+* Kobiety częściej niż mężczyźni uzyskiwały bardzo dobre wyniki z języka polskiego na obu poziomach oraz z podstawowych przedmiotów przyrodniczych: biologii, chemii i fizyki.
 
-* Chłopcy mieli bardziej zróżnicowane wyniki z podstawowego WOS-u, i rozszerzonych przedmiotów ścisłych: fizyki i matematyki (większy odsetek najlepszych i najsłabszych wyników).
+* Mężczyźni w porównaniu z kobietami mieli bardziej zróżnicowane wyniki z podstawowego WOS-u i rozszerzonych przedmiotów ścisłych: fizyki i matematyki (większy odsetek najlepszych i najsłabszych wyników).
 
-* Dyslektycy radzili sobie podobnie lub nieco gorzej niż pozostali zdający, ale równocześnie było ich niewielu wśród osób o najsłabszych wynikach.
+* Dyslektycy radzili sobie podobnie lub nieco gorzej niż pozostali zdający, ale równocześnie nieco mniejszy ich odsetek miał najsłabsze wyniki.
 
 * Wiek maturzysty silnie negatywnie korelował z wynikami matur. W szczególności osoby o rok młodsze niż większość maturzystów uzyskały wyniki znacznie powyżej średniej.
 
 * Maturzyści kończący szkoły publiczne mieli częściej dobre wyniki niż kończący niepubliczne.
 
-* Absolwenci liceów ogólnokształcących uzyskiwali lepsze wyniki niż absolwenci innych szkół.
+* Absolwenci liceów ogólnokształcących częściej uzyskiwali dobre wyniki niż absolwenci pozostałych szkół.
 
-* Absolwenci szkół średnich w gminach wiejskich i miejsko-wiejskich mieli gorsze wyniki niż absolwenci szkół w gminach miejskich.
+* Absolwenci szkół średnich w gminach wiejskich i miejsko-wiejskich częściej uzyskiwali słabe wyniki niż absolwenci szkół w gminach miejskich.
 
 * Wielkość miejscowości, w której znajdowała się szkoła pozytywnie korelowała z wynikami matur.
 
-* Laureaci i finaliści wszystkich olimpiad przedmiotowych mieli wyższe od przeciętnych wyniki z obowiązkowych matur.
+* Laureaci i finaliści wszystkich olimpiad przedmiotowych mieli średnio wyższe od przeciętnych wyniki z obowiązkowych matur.
 
 * Nie widać wyraźnych ogólnych trendów przestrzennych w zróżnicowaniu wyników matur między województwami. 
 
-* Zaburzenia w okolicy progu zdawalności (30%) były najbardziej wyraźne dla języka polskiego podstawowego, ale widoczne też w rozkładzie wyników matur z podstawowej matematyki i języka angielskiego.
+* Zaburzenia w okolicy progu zdawalności (30%) były najbardziej wyraźne dla języka polskiego podstawowego, ale były widoczne też w rozkładzie wyników matur z podstawowej matematyki i języka angielskiego.
 
 # Wyniki
 
@@ -92,7 +92,7 @@ Głównym celem projektu było przedstawienie danych maturalnych w postaci inter
 
 Online: http://stared.github.io/delab-matury/koincydencje/, opcja „matury2014”.
 
-Jednym z celów niejszego projektu było zbadanie, jakie przedmioty są wybierane i łączone przez maturzystów. Decyzję taką musiał podjąć każdy zdający, ponieważ oprócz obowiązkowych matur z języka polskiego, matematyki i języka obcego na poziomie podstawowym, każdy maturzysta musiał wybrać od jednego do 4 lub 6 innych egzaminów (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku [`r figr("MEN_2007", type="reference")`] i §1 pkt 23 rozporządzenia Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 r [`r figr("MEN_2013", type="reference")`]).
+Jednym z celów niejszego projektu było zbadanie, jakie przedmioty są wybierane i łączone przez maturzystów. Decyzję taką musiał podjąć każdy zdający, ponieważ oprócz obowiązkowych matur z języka polskiego, matematyki i języka obcego na poziomie podstawowym, każdy maturzysta musiał wybrać od jednego do 4 lub 6 innych egzaminów (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku [`r figr("MEN_2007", type="reference")`] i §1 pkt 23, rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku [`r figr("MEN_2013", type="reference")`]).
 
 ```{r graf_matury, echo = F, results = 'asis', anchor="figure"}
 cat("![](graf_matury.png)")
@@ -106,7 +106,7 @@ Gdyby maturzyści wybierali niezależnie każdy z egzaminów, wówczas należał
 $$
 n_{XY} = \frac{n_X}{n}\frac{n_Y}{n} n
 $$
-Gdzie $n_X$ i $n_Y$ to odpowiednio liczba maturzystów zdających egzamin X i Y, natomiast $n$ to liczba wszystkich maturzystów w 2014 roku. Miarą współwystępowania przedmiotów jest to ile razy częściej (lub rzadziej) były one wybierane wspólnie w porównaniu z $n_{XY}$. Aby zwiększyć czytelność wizualizacji, na grafie przedstawiono tylko połączenia pomiędzy przedmiotami wybieranymi częściej niż losowo, przy czym im ciemniejsza krawędź, tym częściej przedmioty stanowiące jej wierzchołki były wspólnie wybierane.
+Gdzie $n_X$ i $n_Y$ to odpowiednio liczba maturzystów zdających egzamin X i Y, natomiast $n$ to liczba wszystkich maturzystów w 2014 roku. Miarą współwystępowania przedmiotów jest to, ile razy częściej (lub rzadziej) były one wybierane wspólnie w porównaniu z $n_{XY}$. Aby zwiększyć czytelność wizualizacji, na grafie przedstawiono tylko połączenia pomiędzy przedmiotami wybieranymi częściej niż losowo, przy czym im ciemniejsza krawędź, tym częściej przedmioty stanowiące jej wierzchołki były wspólnie wybierane.
 
 Omawiana wizualizacja jest interaktywna. Po najechaniu kursorem na wybrany wierzchołek można uzyskać o nim dodatkowe informacje: pełną nazwę egzaminu oraz liczbę zdających go maturzystów. Podobnie w przypadku krawędzi: ukazuje się informacja o obydwu połączonych przedmiotach, liczbie maturzystów wybierających równocześnie oba egzaminy oraz wspomniana wyżej miera, o ile częściej są one wybierane wspólnie w porównaniu z modelem losowym. Można również przesuwać kursorem wierzchołki, aby lepiej przyjrzeć się połączeniom w grafie.
 
@@ -114,9 +114,9 @@ Wizualizacja została napisana w języku *JavaScript* przy użyciu biblioteki do
 
 ### Obserwacje
 
-Najczęściej wybieranymi przedmiotami są, jak łatwo się domyślić, matury obowiązkowe: język polski i matematyka na poziomie podstawowym oraz język angielski – najbardziej popularny obowiązkowy język obcy (88% zdających w 2014 roku). Ponieważ niemal wszyscy maturzyści pisali te trzy egzaminy, więc częstość ich współwystępowania z dowolnym innym przedmiotem jest praktycznie równa teoretycznej losowej wartości. Z tego powodu krawędzie łączące te matury z innymi przedmiotami nie zostały przedstawione na grafie. Jednak sama wielkość wierzchołków odpowiadających trzem obowiązkowym maturom stanowi dobre porównanie, pozwalające ocenić, jak wielu maturzystów zdawało pozostałe przedmioty.
+Najczęściej wybieranymi przedmiotami są, jak łatwo się domyślić, matury obowiązkowe: język polski i matematyka na poziomie podstawowym oraz język angielski – najbardziej popularny obowiązkowy język obcy (88% zdających w 2014 roku, [`r figr("CKE_2014", type="reference")`]). Ponieważ niemal wszyscy maturzyści pisali te trzy egzaminy, więc częstość ich współwystępowania z dowolnym innym przedmiotem jest praktycznie równa teoretycznej losowej wartości. Z tego powodu krawędzie łączące te matury z innymi przedmiotami nie zostały przedstawione na grafie. Jednak sama wielkość wierzchołków odpowiadających trzem obowiązkowym maturom stanowi dobre porównanie, pozwalające ocenić, jak wielu maturzystów zdawało pozostałe przedmioty.
 
-Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów.
+Graf połączeń między przedmiotami do wyboru wyraźnie rozdziela się na trzy grupy silnie powiązanych przedmiotów.
 
 * Przedmioty ścisłe i techniczne. Centrum tej grupy zajmuje rozszerzona matematyka, z którą wspólnie zdawane są  oba poziomy egzaminów z fizyki i informatyki. 
 
@@ -126,11 +126,13 @@ Graf połączeń między nieobowiązkowymi maturami wyraźnie rozdziela się na 
 
 Wspólny „pień” łączący gałęzie ścisło-techniczną i humanistyczno-społeczną stanowią egzaminy rozszerzone z języka angielskiego i (w mniejszym stopniu) z geografii. Przedmioty przyrodnicze stanowią najbardziej izolowaną grupę.
 
-Podział ten może bardziej odpowiadać profilom klas w szkołach średnich albo wymogom stawianym kandydatom przez uczelnie wyższe niż tylko powiązaniom między zainteresowaniami maturzystów. Niestety, tych dwóch hipotez nie udało się zweryfikować ze względu na brak dostępnych informacji o profilu ukończonej klasy i ewentualnych kierunkach studiów wybieranych przez każdego z maturzystów. 
+Podział ten może bardziej odpowiadać profilom klas w szkołach średnich albo wymogom stawianym kandydatom przez uczelnie wyższe, niż tylko powiązaniom pomiędzy zainteresowaniami maturzystów. Niestety, tych dwóch hipotez nie udało się zweryfikować ze względu na brak dostępnych informacji o profilu ukończonej klasy i ewentualnych kierunkach studiów wybieranych przez każdego z maturzystów. 
 
-Maturzyści wybierający przedmioty z pierwszej z wymienionych grup to prawdopodobnie osoby, które ukończyły klasy matematyczno-fizyczne i wybierające studia na politechnice lub kierunki ścisłe na uniwersytetach. Druga to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu, z których zapewne większość uczęszczała do klas o profilu humanistycznym. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze, będący absolwentami z klas biologiczno-chemicznych. Zapewne stosunkowo mało profili klas w szkołach średnich i kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
+Maturzyści wybierający przedmioty z pierwszej z wymienionych grup to prawdopodobnie osoby, które ukończyły klasy matematyczno-fizyczne i starały się dostać na studia na politechnice lub kierunki ścisłe na uniwersytetach. Druga grupa to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu, z których zapewne większość uczęszczała do klas o profilu humanistycznym. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze, będący absolwentami z klas biologiczno-chemicznych. Zapewne stosunkowo mało profili klas w szkołach średnich i kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
 
-Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Z większości przedmiotów (oprócz trzech obowiązkowych) maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej, więc oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są na ogół silniej powiązane niż podstawowe. Zwłaszcza rozszerzony język angielski był szczególnie chętnie wybierany przez zdających inne przedmioty na poziomie rozszerzonym. Z kolei przedmioty podstawowe sa słabo powiązane i stanowią raczej dalsze odgałęzienia wszystkich trzech gałęzi grafu. Być może wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację po zdaniu matury. Tacy maturzyści mogli więc wybrać tylko jeden przedmiot z listy do wyboru i nie musieli przy tym kierować się wymaganiami uczelni wyższych.
+Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Z większości przedmiotów (oprócz trzech obowiązkowych) maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej. Z tego powodu oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są na ogół silniej powiązane niż podstawowe. Zwłaszcza rozszerzony język angielski był szczególnie chętnie wybierany przez zdających inne przedmioty na poziomie rozszerzonym. Z kolei przedmioty podstawowe sa słabo powiązane i stanowią raczej dalsze odgałęzienia wszystkich trzech gałęzi grafu. 
+
+Być może wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację po zdaniu matury. Tacy maturzyści mogli więc wybrać tylko jeden przedmiot z listy do wyboru i nie musieli przy tym kierować się wymaganiami uczelni wyższych.
 
 ## Rozkłady wyników wśród maturzystów
 
