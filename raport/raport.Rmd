@@ -274,12 +274,12 @@ W porównaniu z poprzednio opisaną metodą jest to sposób bardziej syntetyczny
 ```{r korelacje_matur, echo = F, results = 'asis', anchor="figure"}
 cat("![](listy_korelacji_przedmiotow.png)")
 
-caption('korelacje_matur', "Współczynniki korelacji unormowanymi wyników matur z podstawowymi maturami z j. polskiego, matematyki i j. angielskiego.")
+caption('korelacje_matur', "Współczynniki korelacji unormowanych wyników matur na poziomie podstawowym z języka polskiego, matematyki i języka angielskiego z unormowanymi wynikami z pozostałych przedmiotów.")
 ```
 
 Kolejną zaletą analizowania współczynników korelacji i regresji jest zwięzłość uzyskanej informacji. Umożliwia ona łatwiejsze zestawienie uzyskanych zależności dla różnych czynników, egzaminów i lat, w których zostały przeprowadzone. Kosztem tej zwięzłości jest jednak utrata części informacji na temat zmienności między poszczególnymi maturzystami i uproszczenie obserwowanych zależności. Kolejnym uproszczeniem jest zastosowanie liniowego modelu zależności między badanymi czynnikami a wynikiem matur. Rzeczywiste zależności, zwłaszcza dla zmiennych ilościowych mogą być bardziej złożone.
 
-Ze względu na wspomniane różnice w obu podejściach zdecydowano się w raporcie omówić zarówno zestawienia histogramów jak i regresje w modelu liniowym.
+Ze względu na wspomniane różnice w obu podejściach zdecydowano się w raporcie omówić zarówno zestawienia histogramów jak i regresje w modelu liniowym. 
 
 Zarówno do liczenia korelacji pomiędzy maturami, jak i w celu przeprowadzenia regresji rozkłady zostały znormalizowane, zgodnie z doświadczeniem Instututu Badań Edukacyjnych [`r figr("IBE_EWD", type="reference")`]. Normalizacja polegała na takim przeskalowaniu wyników, by ich rozkład odpowiadał kształtem rozkładowi normalnemu. Służyło to kilku celom. Po pierwsze, metody liniowe działają najlepiej dla wielowymiarowych rozkładów normalnych; w przypadku innych rozkładów przeskalowanie wyników jest pomocne. Po drugie, wyniki matur różnią się pomiędzy latami – nie tylko średnia i odchyleniem standardowym, ale i całym kształtem rozkładu. Drastyczne zmiany z roku na rok wynikają raczej z innej specyfiki pytań (np. więcej łatwych lub trudnych) niż tak szybkiej zmiany jakości kształcenia czy motywacji uczniów. W celu porównania wyników z kilku lat kluczowe jest najpierw doprowadzić je do tej samej formy.
 
