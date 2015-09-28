@@ -9,12 +9,6 @@ output:
 
 ```{r echo=FALSE}
 ## komentarze
-# wstęp: ogólnie co i po co, odniesienie do wniosku - Piotr
-# bibliografia, publikacje naukowo-naukawe
-# opis: względna trudność przedmiotów - Piotr
-# opis: korelacje
-# główne wyniki
-# podsumowanie
 ```
 
 ```{r include=FALSE}
@@ -36,7 +30,7 @@ cat(paste0("\nRyc. ", figr(label), ": ",
 
 # Abstrakt
 
-Niniejszy raport przedstawia wyniki uzyskane w mikrograncie DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", realizowanym w okresie kwiecień-lipiec 2015. Przeanalizowano dane maturalne z lat 2010-2014 pochodzące ze zbioru Zespołu Pomiaru Dydaktycznego Instytutu Badań Edukacyjnych. W niniejszym raporcie zaprezentowano główne wyniki oraz opisano stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównaia wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur. 
+Niniejszy raport przedstawia wyniki uzyskane w mikrograncie DELab UW "Analiza i interaktywna wizualizacja danych maturalnych", realizowanym w okresie kwiecień-lipiec 2015. Przeanalizowano dane maturalne z lat 2010-2014 pochodzące ze zbioru Zespołu Pomiaru Dydaktycznego Instytutu Badań Edukacyjnych. W niniejszym raporcie zaprezentowano główne wyniki oraz opisano stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównania wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur. 
 
 # Wstęp
 
@@ -50,7 +44,7 @@ W ramach projektu przeanalizowano również dane dotyczące finalistów i laurea
 
 Mniej uwagi poświęcono natomiast kwestii zdawalności poszczególnych matur. Po pierwsze, jest to zagadnienie szeroko omawiane w innych opracowaniach, na przykład raportach Centralnej Komisji egzaminacyjnej [`r figr("CKE_2014", type="reference")`]. Oprócz tego liczba uzyskanych punktów dostarcza więcej informacji zwrotnej na temat umiejętności i przygotowania maturzysty niż zero-jedynkowe stwierdzenie, czy zdał lub nie.
 
-Głównym celem projektu było przedstawienie danych maturalnych w postaci interaktnywch wizualizacji, które pozwalają na eksplorację danych i wyciąganie z nich wniosków. Umożliwiają również atrakcyjne przedstawienie wyników, przystępne także dla osób mniej obeznanych z technikami analizy danych.
+Głównym celem projektu było przedstawienie danych maturalnych w postaci interaktywnych wizualizacji, które pozwalają na eksplorację danych i wyciąganie z nich wniosków. Umożliwiają również atrakcyjne przedstawienie wyników, przystępne także dla osób mniej obeznanych z technikami analizy danych.
 
 ## Wybrane spostrzeżenia
 
@@ -92,7 +86,7 @@ Głównym celem projektu było przedstawienie danych maturalnych w postaci inter
 
 Online: http://stared.github.io/delab-matury/koincydencje/, opcja „matury2014”.
 
-Jednym z celów niejszego projektu było zbadanie, jakie przedmioty są wybierane i łączone przez maturzystów. Decyzję taką musiał podjąć każdy zdający, ponieważ oprócz obowiązkowych matur z języka polskiego, matematyki i języka obcego na poziomie podstawowym, każdy maturzysta musiał wybrać od jednego do 4 lub 6 innych egzaminów (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku [`r figr("MEN_2007", type="reference")`] i §1 pkt 23, rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku [`r figr("MEN_2013", type="reference")`]).
+Jednym z celów niniejszego projektu było zbadanie, jakie przedmioty są wybierane i łączone przez maturzystów. Decyzję taką musiał podjąć każdy zdający, ponieważ oprócz obowiązkowych matur z języka polskiego, matematyki i języka obcego na poziomie podstawowym, każdy maturzysta musiał wybrać od jednego do 4 lub 6 innych egzaminów (§54, Rozporządzenie Ministra Edukacji Narodowej z dnia 30 kwietnia 2007 roku [`r figr("MEN_2007", type="reference")`] i §1 pkt 23, rozporządzenie Ministra Edukacji Narodowej z dnia 25 kwietnia 2013 roku [`r figr("MEN_2013", type="reference")`]).
 
 ```{r graf_matury, echo = F, results = 'asis', anchor="figure"}
 cat("![](graf_matury.png)")
@@ -100,7 +94,7 @@ cat("![](graf_matury.png)")
 caption('graf_matury', "Zrzut ekranu: interaktywny graf wspólnie wybieranych egzaminów w 2014 roku.")
 ```
 
-Do przeanalizowania tego tematu wykorzystano graf, czyli formę wizualizacji przedstawiającą dane za pomocą wierzchołków i łączacych je krawędzi (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących wierzchołki grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, pomarańczowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada pierwiastkowi z liczby maturzystów, którzy wybrali obydwa te przedmioty. 
+Do przeanalizowania tego tematu wykorzystano graf, czyli formę wizualizacji przedstawiającą dane za pomocą wierzchołków i łączących je krawędzi (ryc. `r figr("graf_matury", type="figure")`). Powierzchnia kół stanowiących wierzchołki grafu odpowiada liczbie maturzystów zdających dany egzamin w 2014 roku. Kolor wierzchołka symbolizuje poziom egzaminu: niebieski odpowiada maturom podstawowym, pomarańczowy – rozszerzonym. Grubość połączeń między dwoma węzłami odpowiada pierwiastkowi z liczby maturzystów, którzy wybrali obydwa te przedmioty. 
 
 Gdyby maturzyści wybierali niezależnie każdy z egzaminów, wówczas należałoby się spodziewać, że liczba osób zdających równocześnie maturę X i Y ($n_{XY}$) powinna wynosić
 $$
@@ -108,7 +102,7 @@ n_{XY} = \frac{n_X}{n}\frac{n_Y}{n} n
 $$
 Gdzie $n_X$ i $n_Y$ to odpowiednio liczba maturzystów zdających egzamin X i Y, natomiast $n$ to liczba wszystkich maturzystów w 2014 roku. Miarą współwystępowania przedmiotów jest to, ile razy częściej (lub rzadziej) były one wybierane wspólnie w porównaniu z $n_{XY}$. Aby zwiększyć czytelność wizualizacji, na grafie przedstawiono tylko połączenia pomiędzy przedmiotami wybieranymi częściej niż losowo, przy czym im ciemniejsza krawędź, tym częściej przedmioty stanowiące jej wierzchołki były wspólnie wybierane.
 
-Omawiana wizualizacja jest interaktywna. Po najechaniu kursorem na wybrany wierzchołek można uzyskać o nim dodatkowe informacje: pełną nazwę egzaminu oraz liczbę zdających go maturzystów. Podobnie w przypadku krawędzi: ukazuje się informacja o obydwu połączonych przedmiotach, liczbie maturzystów wybierających równocześnie oba egzaminy oraz wspomniana wyżej miera, o ile częściej są one wybierane wspólnie w porównaniu z modelem losowym. Można również przesuwać kursorem wierzchołki, aby lepiej przyjrzeć się połączeniom w grafie.
+Omawiana wizualizacja jest interaktywna. Po najechaniu kursorem na wybrany wierzchołek można uzyskać o nim dodatkowe informacje: pełną nazwę egzaminu oraz liczbę zdających go maturzystów. Podobnie w przypadku krawędzi: ukazuje się informacja o obydwu połączonych przedmiotach, liczbie maturzystów wybierających równocześnie oba egzaminy oraz wspomniana wyżej miara, o ile częściej są one wybierane wspólnie w porównaniu z modelem losowym. Można również przesuwać kursorem wierzchołki, aby lepiej przyjrzeć się połączeniom w grafie.
 
 Wizualizacja została napisana w języku *JavaScript* przy użyciu biblioteki do wizualizacji danych *D3.js* [`r figr("d3js", type="reference")`].
 
@@ -130,9 +124,9 @@ Podział ten może bardziej odpowiadać profilom klas w szkołach średnich albo
 
 Maturzyści wybierający przedmioty z pierwszej z wymienionych grup to prawdopodobnie osoby, które ukończyły klasy matematyczno-fizyczne i starały się dostać na studia na politechnice lub kierunki ścisłe na uniwersytetach. Druga grupa to osoby zainteresowane kierunkami humanistycznymi oraz kształceniem z zakresu zarządzania i biznesu, z których zapewne większość uczęszczała do klas o profilu humanistycznym. Wreszcie trzecia grupa to prawdopodobnie kandydaci na kierunki medyczne, przyrodnicze lub rolnicze, będący absolwentami z klas biologiczno-chemicznych. Zapewne stosunkowo mało profili klas w szkołach średnich i kierunków studiów oferuje możliwość łączenia tych trzech dziedzin wiedzy.
 
-Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Z większości przedmiotów (oprócz trzech obowiązkowych) maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej. Z tego powodu oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są na ogół silniej powiązane niż podstawowe. Zwłaszcza rozszerzony język angielski był szczególnie chętnie wybierany przez zdających inne przedmioty na poziomie rozszerzonym. Z kolei przedmioty podstawowe sa słabo powiązane i stanowią raczej dalsze odgałęzienia wszystkich trzech gałęzi grafu. 
+Warto też spojrzeć na częstość wspólnego wybierania matur na poziomie podstawowym i rozszerzonym. Z większości przedmiotów (oprócz trzech obowiązkowych) maturzyści musieli wybrać zdawanie albo matury rozszerzonej, albo podstawowej. Z tego powodu oba poziomy tego samego przedmiotu nie są ze sobą połączone na grafie. Warto jednak zwrócić uwagę, że przedmioty rozszerzone są na ogół silniej powiązane niż podstawowe. Zwłaszcza rozszerzony język angielski był szczególnie chętnie wybierany przez zdających inne przedmioty na poziomie rozszerzonym. Z kolei przedmioty podstawowe są słabo powiązane i stanowią raczej dalsze odgałęzienia wszystkich trzech gałęzi grafu. 
 
-Być może wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację po zdaniu matury. Tacy maturzyści mogli więc wybrać tylko jeden przedmiot z listy do wyboru i nie musieli przy tym kierować się wymaganiami uczelni wyższych.
+Być może wśród osób wybierających egzaminy na poziomie podstawowym więcej było osób zdecydowanych zakończyć swoją edukację po zdaniu matury. Tacy maturzyści mogli więc wybrać tylko jeden przedmiot z listy do wyboru i nie musieli przy tym kierować się wymaganiami uczelni wyższych.
 
 ## Rozkłady wyników wśród maturzystów
 
@@ -150,9 +144,27 @@ Na potrzeby tego projektu stworzono interaktywną wizualizację, pozwalającą n
 
 Po lewej stronie histogramu znajduje się menu, z którego użytkownik może wybrać różne opcje. Są to przede wszystkim przedmiot i poziom egzaminu (podstawowy lub rozszerzony), z którego wyniki mają zostać zaprezentowane na histogramie. 
 
-Kolejna opcja, *podział*, umożliwia porównanie wyników matury pomiędzy różnymi grupami maturzystów wyróżnionymi na podstawie informacji o każdym ze zdających: płci, wieku, zdiagnozowanej dysleksji lub jej braku. Oprócz tego można też pogrupować zdających na podstawie informacji o ukończonej szkole średniej: jej typie (liceum ogólnokształcące, liceum profilowane lub technikum), informacji, czy była publiczna czy prywatna oraz rodzaju gminy (miejska, miejsko-wiejska lub wiejska) i wielkość miejscowości, w której znajduje się ta szkoła. Powyższe zmienne wybrano ze względu na ich dostępność dla każdego maturzysty w bazie danych Zespołu Pomiaru Dydaktycznego [`r figr("ZPD", type="reference")`] razem z wynikami matur. Po wybraniu jednej z tych kategorii histogram wyników matury zostaje rozbity na kilka kolorowych histogramów, z których każdy przedstawia wyniki innej grupy maturzystów, np. po wybraniu wieku jako zmiennej *podział* można zobaczyć 4 nałożone na siebie histogramy: dla osób w wieku 18 i mniej lat, 19 lat, 20 lat oraz 21 i więcej lat. Domyślną opcją jest przedstawianie na osi pionowej frekwencji w poszczególnych grupach, czyli przeskalowanie wysokośi histogramów osobno dla każdej z nich. Takie rozwiązanie ułatwia porównanie wyników między grupami. Jednak równocześnie gubi ono informację o liczebności poszczególnych grup, która może mieć kluczowe znaczenie, jeśli chodzi o wpływ wyników uzyskanych przez daną grupę na rozkład wyników w całej populacji. Można to uwzględnić w histogramach wybierając opcję *Typ histogramu* = „liczebność”. Równocześnie liczebności wszystkich grup, na które dzielą maturzystów wymienione wyżej kategorie, zostały przedstawione na dodatkowym wykresie słupkowym.
+Kolejna opcja, *podział*, umożliwia porównanie wyników matury pomiędzy różnymi grupami maturzystów wyróżnionymi na podstawie informacji o każdym ze zdających: płci, wieku, zdiagnozowanej dysleksji lub jej braku. Oprócz tego można też pogrupować zdających na podstawie informacji o ukończonej szkole średniej: jej typie (liceum ogólnokształcące, liceum profilowane lub technikum), informacji, czy była publiczna czy prywatna oraz rodzaju gminy (miejska, miejsko-wiejska lub wiejska) i wielkość miejscowości, w której znajduje się ta szkoła. Powyższe zmienne wybrano ze względu na ich dostępność dla każdego maturzysty w bazie danych Zespołu Pomiaru Dydaktycznego [`r figr("ZPD", type="reference")`] razem z wynikami matur. Po wybraniu jednej z tych kategorii histogram wyników matury zostaje rozbity na kilka kolorowych histogramów, z których każdy przedstawia wyniki innej grupy maturzystów, np. po wybraniu wieku jako zmiennej *podział* można zobaczyć 4 nałożone na siebie histogramy: dla osób w wieku 18 i mniej lat, 19 lat, 20 lat oraz 21 i więcej lat. 
 
-Omówiona wcześniej opcja *podział* nie umożliwia zbadania interakcji zachodzących pomiędzy poszczególnymi kategoriami. Na przykład dwudziestoletni maturzyści mogą być zarówno absolwentami 4 letniego technikum, uczącymi się w normalnym trybie, jak również osobami kończącymi 3 letnie liceum, które miały roczna przerwę na którymś etapie szkolnej nauki. Aby móc badać takie interakcje np. między kategoriami „wiek” i „typ szkoły” na lewym pasku menu można wybrać dodatkową zmienną nazwaną *filtr*. Umożliwia ona wskazanie kategorii, z której chcemy wybrać interesującą nas grupę uczniów z paska *wartość filtra*. Przykładowo ustawienie zmiennej *filtr* = „wiek” i *wartość filtra* = 20 pozwala na przedstawienie na histogramie wyników matur pisanych wyłącznie przez dwudziestolatków. Wybranie równocześnie zmiennej *podział* = „typ szkoły” umożliwia porównanie rozkładu wyników tej grupy wiekowej między absolwentami liceów i techników.
+Domyślną opcją jest przedstawianie na osi pionowej frekwencji w poszczególnych grupach, czyli przeskalowanie wysokośi histogramów osobno dla każdej z nich. Takie rozwiązanie ułatwia graficzne porównanie wyników między grupami. Załóżmy, że poniżej pewnej liczby punktów słupki reprezentujące częstości pierwszej grupy maturzystów są wyraźnie wyższe, niż drugiej, natomiast powyżej tej liczby punktów tendencje się odwracają i słupki drugiej grupy „wystają” ponad słupki pierwszej. Taki wzorzec można zobaczyć np. porównując wyniki mężczyzn i kobiet z fizyki podstawowej, ryc. `r figr("shiny_fiz_podstawowa_plec", type="figure")`). Oznacza to, że wśród kobiet większy odsetek osób piszących uzyskała dobre wyniki, niż wśród mężczyzn. W tym sensie można stwierdzić, że kobiety lepiej poradziły sobie z tym egzaminem, niż mężczyźni. Interpretując tak uzyskane wyniki należy przy tym pamiętać, że zdanie to dotyczy jedynie kobiet i mężczyzn, którzy zdecydowali się zdawać ten konkretny egzamin. Podobnie, jeśli dla pierwszej grupy maturzystów słupki są wyraźnie wyższe (w porównaniu z drugą grupą) zarówno dla bardzo wysokich, jak i dla bardzo niskich wyników, natomiast dla drugiej grupy - są wyższe w porównaniu z pierwszą grupą dla pośrednich wyników, wówczas oznacza to, że pierwsza grupa ma bardzie zróżnicowane wyniki (np. mężczyźni z matematyki rozszerzonej, ryc. `r figr("shiny_mat_rozszerzona_plec", type="figure")`). Określenie „lepsze”, „gorsze” oraz bardziej i mniej „zmienne” będą poniżej, przy opisie obserwacji poczynionych na podstawie wizualizacji histogramów, oznaczały właśnie takie porównywanie rozkładów częstości wyników dla dwóch grup maturzystów.
+
+```{r shiny_fiz_podstawowa_plec, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
+wykres <- ggHistPodzial("fizyka_podstawowa", "płeć") + theme(text = element_text(size=9))
+print(wykres)
+
+caption('shiny_fiz_podstawowa_plec', "Histogram wyników matury z fizyki podstawowej w 2014 roku z podziałem ze względu na płeć zdających.")
+```
+
+```{r shiny_mat_rozszerzona_plec, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
+wykres <- ggHistPodzial("matematyka_rozszerzona", "płeć") + theme(text = element_text(size=9))
+print(wykres)
+
+caption('shiny_mat_rozszerzona_plec', "Histogram wyników matury z matematyki rozszerzonej w 2014 roku z podziałem ze względu na płeć zdających.")
+```
+
+Jednak przedstawianie jedynie częstości wewnątrz wyróżnionych grup gubi informację o liczebności tychże grup, która może mieć kluczowe znaczenie, jeśli chodzi o wpływ wyników uzyskanych przez grupę na rozkład wyników w całej populacji. Można to uwzględnić w histogramach wybierając opcję *Typ histogramu* = „liczebność”. Równocześnie liczebności wszystkich grup, na które dzielą maturzystów wymienione wyżej kategorie, zostały przedstawione na dodatkowym wykresie słupkowym.
+
+Omówiona wcześniej opcja *podział* nie umożliwia zbadania interakcji zachodzących pomiędzy poszczególnymi kategoriami. Na przykład dwudziestoletni maturzyści mogą być zarówno absolwentami 4 letniego technikum, uczącymi się w normalnym trybie, jak również osobami kończącymi 3 letnie liceum, które miały roczna przerwę na którymś etapie nauki. Aby móc badać takie interakcje np. między kategoriami „wiek” i „typ szkoły” na lewym pasku menu można wybrać dodatkową zmienną nazwaną *filtr*. Umożliwia ona wskazanie kategorii, z której chcemy wybrać interesującą nas grupę uczniów z paska *wartość filtra*. Przykładowo ustawienie zmiennej *filtr* = „wiek” i *wartość filtra* = 20 pozwala na przedstawienie na histogramie wyników matur pisanych wyłącznie przez dwudziestolatków. Wybranie równocześnie zmiennej *podział* = „typ szkoły” umożliwia porównanie rozkładu wyników tej grupy wiekowej między absolwentami liceów i techników.
 
 Do tej wizualizacji użyto danych dotyczących maturzystów zdających maturę po raz pierwszy, ponieważ liczba osób piszących ten egzamin kolejny raz jest stosunkowo niewielka i często brakuje o nich części informacji. Do tworzenia omówionych histogramów potrzeba bardzo szczegółowych danych – ich zbiór jest na tyle duży, że wyraźnie spowalnia wizualizację. Aby ograniczyć czas wczytywania, użyto wyłącznie najświeższych danych, pochodzących z 2014 roku.
 
@@ -171,22 +183,8 @@ print(wykres)
 caption('shiny_mat_podstawowa', "Histogram wyników matury z matematyki podstawowej w 2014 roku.")
 ```
 
-```{r shiny_fiz_podstawowa_plec, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
-wykres <- ggHistPodzial("fizyka_podstawowa", "płeć") + theme(text = element_text(size=9))
-print(wykres)
 
-caption('shiny_fiz_podstawowa_plec', "Histogram wyników matury z fizyki podstawowej w 2014 roku z podziałem ze względu na płeć zdających.")
-```
-
-```{r shiny_mat_rozszerzona_plec, echo=FALSE, warning=FALSE, fig.width=6, fig.height=3, anchor="figure", results = 'asis'}
-wykres <- ggHistPodzial("matematyka_rozszerzona", "płeć") + theme(text = element_text(size=9))
-print(wykres)
-
-caption('shiny_mat_rozszerzona_plec', "Histogram wyników matury z matematyki rozszerzonej w 2014 roku z podziałem ze względu na płeć zdających.")
-```
-
-
-Porównując wyniki matur pisanych przez kobiety i mężczyzn można w pierwszej kolejności zauważyć, że ogólnie więcej kobiet niż mężczyzn przystąpiło do pisania tego egzaminu (co można sprawdzić porównując proporcję płci dla egzaminów obowiązkowych: matematyki i języka polskiego na poziomie podstawowym, ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`). Kobiety uzyskały lepsze wyniki od mężczyzn z 4 matur na poziomie podstawowym: biologii, chemii, fizyki (ryc. `r figr("shiny_fiz_podstawowa_plec", type="figure")`) i języka polskiego oraz z jednej na poziomie rozszerzonym (język polski). Natomiast mężczyźni mieli lepsze wyniki z 3 matur na poziomie podstawowym (geografii, historii i języka angielskiego) i aż z 6 na poziomie rozszerzonym (biologia, chemia, geografia, historia, język angielski i WOS). Spośród pozostałych egzaminów, w 3 można zaobserwować większy rozrzut wyników wśród mężczyzn (kobiety miały częściej wyniki w okolicy średniej, mężczyźni – więcej wyników bardzo słabych i bardzo dobrych). Dotyczy to matury podstawowej z WOS-u oraz matur rozszerzonych z fizyki i matematyki (ryc. `r figr("shiny_mat_rozszerzona_plec", type="figure")`). Wyniki matury z matematyki podstawowej przedstawiają bardziej złożony wzorzec. Mężczyźni częściej otrzymywali najlepsze wyniki (powyżej 75%), ale też nieco częściej – wyniki w okolicy progu zdawalności. Z kolei więcej kobiet uzyskało wyniki dobre (40-75%) ale też było ich nieco więcej wśród osób z najsłabszymi wynikami, poniżej 15%. W przypadku obu matur z informatyki wydaje się, że wśród zdających obie płcie radziły sobie równie dobrze, ale porównania utrudnia mała liczba kobiet wybierających te egzaminy. 
+Porównując wyniki matur pisanych przez kobiety i mężczyzn można w pierwszej kolejności zauważyć, że ogólnie więcej kobiet niż mężczyzn przystąpiło do pisania tego egzaminu (co można sprawdzić porównując proporcję płci dla egzaminów obowiązkowych: matematyki i języka polskiego na poziomie podstawowym, ryc. `r figr("shiny_screenshot_jpl_podstawowa", type="figure")`). Kobiety uzyskały lepsze wyniki od mężczyzn z 4 matur na poziomie podstawowym: biologii, chemii, fizyki (ryc. `r figr("shiny_fiz_podstawowa_plec", type="figure")`) i języka polskiego oraz z jednej na poziomie rozszerzonym - z języka polskiego. Natomiast mężczyźni mieli lepsze wyniki z 3 matur na poziomie podstawowym (geografii, historii i języka angielskiego) i aż z 6 na poziomie rozszerzonym (biologia, chemia, geografia, historia, język angielski i WOS). Spośród pozostałych egzaminów, w 3 można zaobserwować większy rozrzut wyników wśród mężczyzn (kobiety miały częściej wyniki w okolicy średniej, mężczyźni – więcej wyników bardzo słabych i bardzo dobrych). Dotyczy to matury podstawowej z WOS-u oraz matur rozszerzonych z fizyki i matematyki (ryc. `r figr("shiny_mat_rozszerzona_plec", type="figure")`). Wyniki matury z matematyki podstawowej przedstawiają bardziej złożony wzorzec. Mężczyźni częściej otrzymywali najlepsze wyniki (powyżej 75%), ale też nieco częściej – wyniki w okolicy progu zdawalności. Z kolei więcej kobiet uzyskało wyniki dobre (40-75%) ale też było ich nieco więcej wśród osób z najsłabszymi wynikami, poniżej 15%. W przypadku obu matur z informatyki wydaje się, że wśród zdających obie płcie radziły sobie równie dobrze, ale porównania utrudnia mała liczba kobiet wybierających te egzaminy. 
 
 ```{r shiny_inf_rozszerzona_grupy, echo=FALSE, warning=FALSE, fig.width=7, fig.height=4, anchor="figure", results = 'asis'}
 wykres <- grupyWykres("informatyka_rozszerzona") + theme(text = element_text(size=9))
