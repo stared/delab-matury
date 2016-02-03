@@ -4,6 +4,8 @@
 
 Analiza danych maturalnych z lat 2010-2014, związana z projektem [Analiza i wizualizacja danych maturalnych](http://www.delab.uw.edu.pl/strefa-badania/program-spoleczny-jsf/matura), przeprowadzonego w ramach [DELab Uniwersytetu Warszawskiego](http://www.delab.uw.edu.pl/). 
 
+[Raport z projektu](https://github.com/stared/delab-matury/raw/master/raport/raport.pdf)
+
 Główne interaktywne wizualizcje są przedstawione tu:
 
 * http://stared.github.io/delab-matury/koincydencje
