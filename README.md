@@ -4,7 +4,9 @@
 
 Analiza danych maturalnych z lat 2010-2014, związana z projektem [Analiza i wizualizacja danych maturalnych](http://www.delab.uw.edu.pl/strefa-badania/program-spoleczny-jsf/matura), przeprowadzonego w ramach [DELab Uniwersytetu Warszawskiego](http://www.delab.uw.edu.pl/). 
 
-[Raport z projektu](https://github.com/stared/delab-matury/raw/master/raport/raport.pdf)
+* [Raport z projektu: Analiza i interaktywna wizualizacja danych maturalnych (pdf)](https://github.com/stared/delab-matury/raw/master/raport/raport.pdf)
+
+> Niniejszy raport przedstawia wyniki uzyskane w mikrograncie DELab UW “Analiza i interaktywna wizualizacja danych maturalnych”, realizowanym w okresie kwiecień-lipiec 2015. Przeanalizowano dane maturalne z lat 2010-2014 pochodzące ze zbioru Zespołu Pomiaru Dydaktycznego Instytutu Badań Edukacyjnych. W niniejszym raporcie zaprezentowano główne wyniki oraz opisano stworzone wizualizacje: wspólnego wybierania matur, rozkładów wyników w zależności od czynników demograficznych i własności szkół średnich, porównania wyników między województwami oraz uczestnictwa w olimpiadach przedmiotowych i ich związek z wynikami matur.
 
 Główne interaktywne wizualizcje są przedstawione tu:
 
