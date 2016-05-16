@@ -4,6 +4,7 @@
 # Jeśli pobrane wyniki już tam są, nie pobiera ponownie.
 # skrypt powinien być uruchamiany z folderu, w którym jest repozytorium, a nie sam skrypt.
 
+# devtools::install_github('zozlak/ZPD')
 library(ZPD)
 
 bazowaSciezka <- "dane/wyniki/"
@@ -48,5 +49,14 @@ download_wyniki <- function(typ_matury, rok){
   }
 }
 
+# sciaga jedno; powinno być krótkie
+download_wyniki("informatyka rozszerzona", 2015)
+
+# tu niestety obecnie urywa polaczenie
+download_wyniki("j. polski podstawowa", 2015)
+
 # sciaga wszystkie matury (nie wiem, co zrobi, jeśli w którymś roku nie było danego typu matury)
 x <- mapply(download_wyniki, powtCzesc, powtLata)
+
+# ostatni rok bez duzych
+x <- mapply(download_wyniki, czesc[-c(1, 2, 19)], 2015)
