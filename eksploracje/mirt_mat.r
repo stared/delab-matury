@@ -32,6 +32,7 @@ hist(simulation_th %>% rowSums, 51)
 
 wyn1 <- mat_podst %>% rowSums %>% data.frame(suma = ., rodzaj = "rzeczywiste")
 wyn2 <- simulation_th %>% rowSums %>% data.frame(suma = ., rodzaj = "symulacja")
+# wyn3 <- simulation %>% rowSums %>% data.frame(suma = ., rodzaj = "naiwna sym")
 wyns <- rbind(wyn1, wyn2)
 
 ggplot(wyns, aes(x = suma, y = ..density.. * 100)) +
@@ -50,4 +51,3 @@ ggplot(wyns, aes(x = suma, y = ..density.. * 100, fill = rodzaj)) +
   ylab("% zdających") +
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
   ggtitle('model IRT')
-
