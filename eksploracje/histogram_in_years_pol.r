@@ -11,13 +11,9 @@ histogramSumyDf <- function (przedmiot, rok) {
     summarise(liczba = n(), przedmiot = przedmiot, rok = rok)
 }
 
-# pewnie da sie prosciej w R
-sumyPolLata <- rbind(
-  histogramSumyDf("j._polski_podstawowa", 2010),
-  histogramSumyDf("j._polski_podstawowa", 2011),
-  histogramSumyDf("j._polski_podstawowa", 2012),
-  histogramSumyDf("j._polski_podstawowa", 2013),
-  histogramSumyDf("j._polski_podstawowa", 2014))
+sumyPolLata <- 2010:2014 %>%
+  lapply(function(year) { histogramSumyDf("j._polski_podstawowa", year) }) %>%
+  rbind_all
 
 sumyPolLata %>%
   group_by(rok) %>%
@@ -27,13 +23,12 @@ sumyPolLata %>%
     liczba_zdajacych = sum(liczba)
   )
 
-ggplot(sumyPolLata %>% filter(suma < 30), aes(x = suma, y = liczba)) +
+officalMax <- 70  # officially, everything 70-74 counts as 70
+
+ggplot(sumyPolLata, aes(x = 100 * suma / officalMax, y = liczba / 1000)) +
   geom_bar(stat = "identity", color = "white", position = "identity") +
   facet_grid(rok ~ .) +
   xlab("total score [%]") +
-  ylab("number of students") +
+  ylab("number of students [thousands]") +
   scale_x_continuous(breaks = seq(0, 100, by = 10)) +
-  ggtitle("matura exam: Polish, basic level")
-
-
-21 / 74
+  ggtitle("matura exam in Poland: Polish language, basic level")
